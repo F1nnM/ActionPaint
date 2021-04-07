@@ -4,11 +4,11 @@ Repository for a highschoool-project
 # Useful links
 
 ## Icons
-[How to use](https://material-ui.com/api/svg-icon/)
+[How to use](https://material-ui.com/api/svg-icon/)  
 [List of all icons](https://material-ui.com/components/material-icons/)
 
 ## Bootstrap
-[React components](https://react-bootstrap.github.io/components/alerts/)
+[React components](https://react-bootstrap.github.io/components/alerts/)  
 [React components for layout](https://react-bootstrap.github.io/layout/grid/)
 
 [Special classes](https://getbootstrap.com/docs/4.1/utilities/spacing/)
