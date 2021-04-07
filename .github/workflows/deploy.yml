@@ -2,7 +2,9 @@ name: Build and publish to mfinn.de
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   ftp_deploy:
