@@ -1,7 +1,8 @@
 import { Col, Container, Row } from "react-bootstrap";
 import ExampleSection from "./components/ExampleSection";
+import Playground from "./components/Playground";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
@@ -9,18 +10,16 @@ function App() {
       {/* Navbar component goes here */}
 
       <Row>
-        <Col>
-          {/* Titlescreen goes here */}
-        </Col>
+        <Col>{/* Titlescreen goes here */}</Col>
       </Row>
 
       {/* Each section: */}
       <Row>
         <Col>
           <ExampleSection />
+          <Playground />
         </Col>
       </Row>
-
     </Container>
   );
 }
