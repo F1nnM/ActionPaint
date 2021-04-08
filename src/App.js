@@ -1,6 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap";
 import ExampleSection from "./components/ExampleSection";
 import Playground from "./components/Playground";
+import PlaygroundComponent from "./components/PlaygroundComponent";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -17,7 +18,9 @@ function App() {
       <Row>
         <Col>
           <ExampleSection />
-          <Playground />
+          <Playground name="Lorem">
+            <PlaygroundComponent />
+          </Playground>
         </Col>
       </Row>
     </Container>
