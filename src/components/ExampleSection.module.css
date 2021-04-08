@@ -5,3 +5,7 @@
 .playgroundLabel{
     color: blue;
 }
+
+.aboutUsClass{
+    list-style-type: none;
+}
