@@ -1,6 +1,6 @@
 # ActionPaint
 
-Repository for a highschool-project
+Repository for a highschool project
 
 # Useful links
 
