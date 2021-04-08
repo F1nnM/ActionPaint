@@ -3,12 +3,15 @@ import ExampleSection from "./components/ExampleSection";
 import Playground from "./components/Playground";
 import AboutUs from "./components/AboutUs";
 import PlaygroundComponent from "./components/PlaygroundComponent";
+import Footer from "./components/Footer";
+
+import styles from "./App.module.css"
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
-    <Container fluid className="App">
+    <Container fluid className={styles.app + " px-0"}>
       {/* Navbar component goes here */}
 
       <Row>
@@ -25,6 +28,7 @@ function App() {
           <AboutUs />
         </Col>
       </Row>
+      <Footer/>
     </Container>
   );
 }
