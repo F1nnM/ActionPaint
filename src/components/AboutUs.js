@@ -1,49 +1,50 @@
 import SectionFrame from "./SectionFrame";
-
+import team from "../data/team";
 import styles from "./ExampleSection.module.css";
+import Card from "react-bootstrap/Card";
+import CardDeck from "react-bootstrap/CardDeck";
 
 function Playground({ name, children }) {
-  var team = [
-    {
-      name: "Fabian",
-      age: 20,
-    },
-    {
-      name: "Finn",
-      age: 20,
-    },
-    {
-      name: "Bernd",
-      age: 20,
-    },
-  ];
-
   return (
     <SectionFrame title="About Us">
-      <p>So...what to write here? Well, we're a cool team.</p>
-      <p>Lorem ipsum</p>
+      <Card className="bg-dark text-white">
+        <Card.Img
+          src={process.env.PUBLIC_URL + "team_images/team.jpg"}
+          alt="Our team"
+        />
+        <Card.ImgOverlay>
+          <Card.Title>Meet our team</Card.Title>
+          <Card.Text>{team.info || "No info stored yet"}</Card.Text>
+        </Card.ImgOverlay>
+      </Card>
+      <p></p>
+      <CardDeck>
+        {team.members.map((member) => (
+          <Card>
+            <Card.Img
+              variant="top"
+              src={
+                process.env.PUBLIC_URL +
+                "team_images/" +
+                member.name.toLowerCase() +
+                ".jpg"
+                /* could not load image via import because in public folder */
+              }
+            />
+            <Card.Body>
+              <Card.Title>{member.name}</Card.Title>
+              <Card.Text>
+                {member.info || "This member hasn't uploaded infos so far"}
+              </Card.Text>
+            </Card.Body>
+            {/* <Card.Footer>
+            <small className="text-muted">Last updated 3 mins ago</small>
+          </Card.Footer> */}
+          </Card>
+        ))}
+      </CardDeck>
       <ul className={styles.aboutUsClass}>
-        <li>
-          {team.map((member) => (
-            <div>
-              <p>{member.name}</p>
-              <p>{member.age}</p>
-              <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "team_images/" +
-                  member.name.toLowerCase() +
-                  ".jpg"
-                  /* could not load image via import because in public folder */
-                }
-                alt={"Picture of " + member.name}
-              />
-              <p>
-                {(process.env.PUBLIC_URL + member.name + ".jpg").toLowerCase()}
-              </p>
-            </div>
-          ))}
-        </li>
+        <li></li>
       </ul>
     </SectionFrame>
   );
