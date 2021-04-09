@@ -1,0 +1,46 @@
+.fullHeight {
+    height: 100vh;
+}
+
+.backgroundImage::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: '';
+    background: url("../img/TitleScreen.jpg") no-repeat center center;
+    background-size: cover;
+    filter: blur(5px) brightness(140%);
+    margin: -10px;
+    margin-bottom: 0;
+    z-index: -1;
+}
+
+.title {
+    font-size: 500%;
+}
+
+.subtitle {
+    font-size: 200%;
+}
+
+@keyframes scrollNoticeBounce {
+    0% {transform: translateY(0px);}
+    50% {transform: translateY(-20px);}
+    100% {transform: translateY(0px);}
+}
+
+.scrollNotice{
+    animation-name: scrollNoticeBounce;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    color: white;
+}
+
+.shadowBack {
+    box-shadow: 0px 0px 10px 10px #000000aa;
+    background-color: #000000aa;
+}
+

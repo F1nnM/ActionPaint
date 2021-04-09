@@ -9,6 +9,7 @@ import FAQ from "./components/FAQ";
 import styles from "./App.module.css"
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import TitleScreen from "./components/TitleScreen";
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
       {/* Navbar component goes here */}
 
       <Row>
-        <Col>{/* Titlescreen goes here */}</Col>
+        <Col>
+          <TitleScreen/>
+        </Col>
       </Row>
 
       {/* Each section: */}
