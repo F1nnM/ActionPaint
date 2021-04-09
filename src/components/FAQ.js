@@ -4,7 +4,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import { Accordion, Card, Button} from 'react-bootstrap';
 import styles from './FAQ.module.css';
 
-function FAQ({ name, children }) {
+function FAQ() {
   return (
     <SectionFrame title="FAQ">
       <Accordion defaultActiveKey="0"> 
