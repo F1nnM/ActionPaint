@@ -1,7 +1,6 @@
 import styles from './TitleScreen.module.css'
 
-import background from '../img/TitleScreen.jpg'
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 function TitleScreen() {
   return (
