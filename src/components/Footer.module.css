@@ -5,8 +5,6 @@
     margin-top: 16px;
 }
 .footerLeadIn svg {
-    /* https://codepen.io/sosuke/pen/Pjoqqp */
-    filter: invert(40%) sepia(72%) saturate(2302%) hue-rotate(346deg) brightness(101%) contrast(101%);
     height: auto;
     margin-left: -16px;
     margin-right: -16px;

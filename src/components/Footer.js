@@ -20,8 +20,7 @@ function Footer() {
             <svg viewBox="0 0 200 16">
               <g>
                 <path
-                  id="rect833"
-                  style={{ "fill": "#000000" }}
+                  style={{ "fill": "var(--primaryColor)" }}
                   d="M 0,4.7433767 C 71.509152,33.446133 112.41464,-13.201926 199.93429,3.8725987 L 199.99999,16 H 0.0421015 Z" />
               </g>
             </svg>
