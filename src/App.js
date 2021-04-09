@@ -4,6 +4,7 @@ import Playground from "./components/Playground";
 import AboutUs from "./components/AboutUs";
 import PlaygroundComponent from "./components/PlaygroundComponent";
 import Footer from "./components/Footer";
+import FAQ from "./components/FAQ";
 
 import styles from "./App.module.css"
 
@@ -26,6 +27,7 @@ function App() {
             <PlaygroundComponent />
           </Playground>
           <AboutUs />
+          <FAQ />
         </Col>
       </Row>
       <Footer/>

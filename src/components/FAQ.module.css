@@ -1,0 +1,17 @@
+.orange{
+    color: #ff5722;
+}
+
+.blue{
+    color: #0277bd;
+}
+
+.orangeborder{
+   border: 1px solid #ff5722;
+   margin-top:2px;
+}
+
+.blueborder{
+    border: 1px solid #0277bd;
+    margin-top:2px;
+}
