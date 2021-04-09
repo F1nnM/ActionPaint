@@ -1,10 +1,17 @@
 import styles from './TitleScreen.module.css'
 
 import { Container } from 'react-bootstrap';
+import { useInView } from 'react-intersection-observer';
 
 function TitleScreen() {
+
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0.9,
+  });
+
   return (
-    <Container className={styles.fullHeight + " " + styles.backgroundImage+ " d-flex flex-column"}>
+    <Container className={styles.fullHeight + " " + styles.backgroundImage+ " d-flex flex-column"} ref={ref}>
       <div className="flex-grow-1"/>
       <div>
         <div className="text-center">
@@ -19,7 +26,7 @@ function TitleScreen() {
       <div className="flex-grow-1"/>
       <div>
         <div className={styles.scrollNotice+" text-center"}>
-          <span className={styles.shadowBack}>v Scroll down v</span>
+          <span className={styles.shadowBack + ' ' + styles.hideable + (inView?'': ' '+styles.hidden)}>v Scroll down v</span>
         </div>
       </div>
     </Container>

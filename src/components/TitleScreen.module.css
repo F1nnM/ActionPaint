@@ -37,6 +37,7 @@
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
     color: white;
+    transition-duration: 5s;
 }
 
 .shadowBack {
@@ -44,3 +45,10 @@
     background-color: #000000aa;
 }
 
+.hideable {
+    transition-duration: 1s;
+}
+
+.hidden {
+    opacity: 0;
+}
