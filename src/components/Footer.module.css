@@ -1,6 +1,9 @@
 .footerContainer{
     background-color: #777777;
 }
+.footerLeadIn {
+    margin-top: 16px;
+}
 .footerLeadIn svg {
     /* https://codepen.io/sosuke/pen/Pjoqqp */
     filter: invert(54%) sepia(8%) saturate(8%) hue-rotate(319deg) brightness(84%) contrast(82%);

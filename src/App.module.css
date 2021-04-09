@@ -1,3 +1,6 @@
 .app {
     overflow-x: hidden;
+
+    --primaryColor: #ff5722;
+    --accentColor: #0277bd;
 }
