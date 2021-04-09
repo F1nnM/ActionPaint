@@ -16,7 +16,7 @@ function App() {
     <Container fluid className={styles.app + " px-0"}>
       {/* Navbar component goes here */}
 
-      <Row>
+      <Row className="mb-5">
         <Col>
           <TitleScreen/>
         </Col>
