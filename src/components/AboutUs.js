@@ -1,17 +1,12 @@
 import SectionFrame from "./SectionFrame";
 import team from "../data/team";
-import styles from "./AboutUs.module.css";
+// import styles from "./AboutUs.module.css";
 import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
-import Button from "react-bootstrap/Button";
 import { useState } from "react";
 
 function Playground({ name, children }) {
   const [spotlight, setSpotlight] = useState("light");
-
-  const followLink = (link) => {
-    window.location.assign(link);
-  };
 
   return (
     <SectionFrame title="About Us">
