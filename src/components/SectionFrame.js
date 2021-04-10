@@ -2,10 +2,10 @@ import { Col, Container, Row } from "react-bootstrap";
 
 function SectionFrame({ title, children }) {
   return (
-    <Container className="section">
+    <Container className="my-5">
       <Row>
         <Col className="text-center">
-          <h2>{title}</h2>
+          <h1>{title}</h1>
         </Col>
       </Row>
       <Row>
