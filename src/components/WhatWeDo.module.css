@@ -1,0 +1,22 @@
+.primarytimeline{
+    padding: 6px 16px;
+    background-color: var(--primaryColor);
+}
+
+.secondarytimeline{
+    padding: 6px 16px;
+    background-color: var(--accentColor);
+}
+
+.primarytimelineicon{
+    background-color: var(--primaryColor);
+}
+
+.secondarytimelineicon{
+    background-color: var(--accentColor);
+}
+
+
+
+
+
