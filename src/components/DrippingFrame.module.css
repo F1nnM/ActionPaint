@@ -1,3 +1,39 @@
-.primaryBackground {
+.coloredBackground {
     background-color: var(--primaryColor);
+}
+
+.coloredBackground:nth-of-type(2n) {
+    background-color: var(--accentColor);
+}
+
+.drip{
+    fill: var(--accentColor);
+    background-color: var(--primaryColor);
+}
+
+.drip:nth-of-type(2n){
+    fill: var(--primaryColor);
+    background-color: var(--accentColor);
+    transform: rotateY(180deg);
+}
+
+.drip:nth-last-of-type(2){
+    display: none;
+}
+
+.onceStart, .onceEnd {
+    display: none;
+}
+.onceStart:first-of-type, .onceEnd:last-of-type {
+    display: initial;
+}
+
+.onceEnd {
+    fill: var(--primaryColor);
+    transform: rotateX(180deg) rotateY(180deg);
+}
+
+.onceEnd:nth-of-type(2n) {
+    fill: var(--accentColor);
+    transform: rotateX(180deg) rotateY(0deg);
 }
