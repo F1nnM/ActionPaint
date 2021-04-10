@@ -29,9 +29,9 @@ function Footer() {
       </Container>
       <Container fluid className={styles.footerContainer + " py-3"}>
         <Row className="py-2">
-          <Col lg={1} xl={2} />
-          <Col>
-            <span className="text-uppercase">Impressum - Legal Notice:</span>
+          <Col md lg={1} xl={2} />
+          <Col md className="text-center text-lg-start">
+            <span className="text-uppercase">Impressum - Legal Notice</span>
             <address className="mt-3">
               <p><Business className='mr-3' />ActionPaint Agency GmbH</p>
               <p><LocationOn className='mr-3' />Max-Muster Straße 42, 12345 Berlin</p>
@@ -39,26 +39,27 @@ function Footer() {
               <p><Phone className='mr-3' /><a href="tel:+13115552368" className={styles.colorReset}>(+49) 123 456 789</a></p>
             </address>
           </Col>
-          <Col>
+          <Col md className="text-center text-lg-start mt-5 mt-md-0">
             <span className="text-uppercase">Privacy Policy</span>
-            <p className="mt-3">We don't collect any data from you, unless you reach out to us. For details click <a href="privacyPolicy.txt" className={styles.colorReset+" "+styles.underline}>here</a>.</p>
+            <p className="mt-3">We don't collect any data from you, unless you reach out to us. For details click <a href="privacyPolicy.txt" className={styles.colorReset + " " + styles.underline}>here</a>.</p>
           </Col>
-          <Col>
-            <Container>
+          <Col md className="mt-5 mt-md-0">
+            <Container className="text-center text-lg-start">
+              <span className="text-uppercase">Social</span>
               <Row>
-                <Col>
+                <Col lg className="mt-3">
                   <a href="https://twitter.com" className={styles.colorReset}><Twitter /></a>
                 </Col>
-                <Col>
+                <Col lg className="mt-3">
                   <a href="https://instagram.com" className={styles.colorReset}><Instagram /></a>
                 </Col>
-                <Col>
+                <Col lg className="mt-3">
                   <a href="https://linkedin.com" className={styles.colorReset}><LinkedIn /></a>
                 </Col>
               </Row>
             </Container>
           </Col>
-          <Col lg={1} xl={2} />
+          <Col md lg={1} xl={2} />
         </Row>
 
         <Row className="py-2">
