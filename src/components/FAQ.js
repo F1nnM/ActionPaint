@@ -1,7 +1,7 @@
 import SectionFrame from "./SectionFrame";
 import faq from "../data/faq";
 import HelpIcon from '@material-ui/icons/Help';
-import { Accordion, Card, Button} from 'react-bootstrap';
+import { Accordion, Card} from 'react-bootstrap';
 import styles from './FAQ.module.css';
 
 function FAQ() {
