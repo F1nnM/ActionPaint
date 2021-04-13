@@ -42,7 +42,7 @@ function WhatWeDo() {
 
   return(
     <SectionFrame title="What We Do">
-      <Timeline className={styles.timeline} align={width > 800 ? "alternate" : "left"}>
+      <Timeline align={width > 800 ? "alternate" : "left"}>
         {whatwedo.map((description, idx)=>(
           <TimelineItem>
             <TimelineOppositeContent className={styles.oppositecontent} style={{flex:0}}> 
