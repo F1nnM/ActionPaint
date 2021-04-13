@@ -7,6 +7,7 @@ var team = {
       age: 20,
       info: "Hier könnte Ihre Werbung stehen",
       githubName: "Fabi281",
+      twitterName: "realdonaldtrump",
       imageUrl: "lorem_ceo",
     },
     {
