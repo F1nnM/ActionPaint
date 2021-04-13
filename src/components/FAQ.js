@@ -10,14 +10,14 @@ function FAQ() {
       <Accordion defaultActiveKey="0"> 
         {faq.map((questions, idx) => (
           <Card bsPrefix={idx % 2 === 0 ? styles.orangeborder : styles.blueborder}>
-            <Card.Header>
-              <Accordion.Toggle as={Button} variant="light" eventKey={idx+1}>
+            <Card.Header className={styles.cardheader}>
+              <Accordion.Toggle className={styles.button} as={Card.Header}  eventKey={idx+1}>
                 <p><HelpIcon className={ idx % 2 === 0 ? styles.orange : styles.blue}/>  
                 <span className={idx % 2 === 0 ? styles.orange : styles.blue}> {questions.q}</span></p>
               </Accordion.Toggle>
             </Card.Header>
               <Accordion.Collapse eventKey={idx+1}>
-                <Card.Body>
+                <Card.Body className={styles.answer}>
                   {questions.a}
                 </Card.Body>
               </Accordion.Collapse>

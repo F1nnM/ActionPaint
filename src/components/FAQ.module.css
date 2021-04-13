@@ -8,10 +8,24 @@
 
 .orangeborder{
    border: 1px solid var(--primaryColor);
-   margin-top:2px;
+   margin-top:4px;
 }
 
 .blueborder{
     border: 1px solid var(--accentColor);
-    margin-top:2px;
+    margin-top:4px;
+}
+
+.button{
+    width: 100%;
+    background-color: white!important;
+    border: 0px !important;
+    text-align: left !important;
+    
+}
+.answer{
+    margin-left:2%;
+}
+.cardheader{
+    padding:0;
 }
