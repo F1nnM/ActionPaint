@@ -6,8 +6,9 @@ import PlaygroundComponent from "./components/PlaygroundComponent";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 import WhatWeDo from "./components/WhatWeDo";
+import Contact from "./components/Contact";
 
-import styles from "./App.module.css"
+import styles from "./App.module.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import TitleScreen from "./components/TitleScreen";
@@ -19,7 +20,7 @@ function App() {
 
       <Row className="mb-5">
         <Col>
-          <TitleScreen/>
+          <TitleScreen />
         </Col>
       </Row>
 
@@ -33,9 +34,10 @@ function App() {
           <AboutUs />
           <WhatWeDo />
           <FAQ />
+          <Contact />
         </Col>
       </Row>
-      <Footer/>
+      <Footer />
     </Container>
   );
 }
