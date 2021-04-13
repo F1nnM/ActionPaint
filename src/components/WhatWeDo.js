@@ -14,10 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import { useState, useEffect } from 'react';
 
 function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
+  const { innerWidth: width } = window;
   return {
-    width,
-    height
+    width
   };
 }
 
@@ -37,7 +36,7 @@ function useWindowDimensions() {
 }
 
 function WhatWeDo() {
-  const { height, width } = useWindowDimensions();
+  const {width } = useWindowDimensions();
 
   return(
     <SectionFrame title="What We Do">
