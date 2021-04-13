@@ -1,6 +1,6 @@
 import SectionFrame from "./SectionFrame";
 import team from "../data/team";
-// import styles from "./AboutUs.module.css";
+import styles from "./AboutUs.module.css";
 import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
 import { useState } from "react";
@@ -32,6 +32,7 @@ function Playground({ name, children }) {
                 setSpotlight("light");
               }}
               variant="top"
+              className={styles.imageFit}
               src={
                 process.env.PUBLIC_URL +
                 "team_images/" +
