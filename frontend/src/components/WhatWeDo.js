@@ -40,7 +40,7 @@ function WhatWeDo() {
   return(
       <Timeline align={width > 800 ? "alternate" : "left"}>
         {whatwedo.map((description, idx)=>(
-          <TimelineItem>
+          <TimelineItem key={description}>
             <TimelineOppositeContent className={styles.oppositecontent} style={{flex:0}}> 
             </TimelineOppositeContent>
           <TimelineSeparator>

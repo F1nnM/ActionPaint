@@ -22,7 +22,7 @@ function Playground() {
       <p></p>
       <CardDeck>
         {team.members.map((member) => (
-          <Card border={spotlight === member.name ? "primary" : "light"}>
+          <Card key={member.name} border={spotlight === member.name ? "primary" : "light"}>
             <Card.Img
               onMouseEnter={(_) => {
                 setSpotlight(member.name);
