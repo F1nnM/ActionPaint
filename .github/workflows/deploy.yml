@@ -61,7 +61,7 @@ jobs:
         with:
           push: true
           tags: |
-            f"1nnm/actionpaint:$GITHUB_RUN_NUMBER"
+            "f1nnm/actionpaint:$GITHUB_RUN_NUMBER"
             f1nnm/actionpaint:latest
             "ghcr.io/f1nnm/actionpaint:$GITHUB_RUN_NUMBER"
             ghcr.io/f1nnm/actionpaint:latest
