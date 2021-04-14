@@ -19,12 +19,12 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
-    - run: npm ci
-    - run: npm run build
+    - run: cd frontend && npm ci
+    - run: cd frontend && npm run build
     - uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
         server: mfinn.de
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./build/
+        local-dir: ./frontend/build/
         server-dir: /
