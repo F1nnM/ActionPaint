@@ -2,7 +2,32 @@
 
 Repository for a highschool project
 
-# Useful links
+# Deployment
+
+There's a docker image available which serves both front and backend.
+
+Pull from docker hub
+```
+docker pull f1nnm/actionpaint
+```
+
+Pull from github repository
+```
+docker pull ghcr.io/f1nnm/actionpaint
+```
+
+Server is exposed at port 4000.
+
+A simple command to run it for tests:
+```
+docker run -p80:4000 -it f1nnm/actionpaint:latest
+```
+or
+```
+docker run -p80:4000 -it ghcr.io/f1nnm/actionpaint:latest
+```
+
+# Useful dev links
 
 ## Icons
 
