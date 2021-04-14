@@ -18,12 +18,10 @@ import TitleScreen from "./components/TitleScreen";
 var sections = [
   {
     title: "Example Section",
-    anchor: "Example Section",
     component: <ExampleSection />
   },
   {
     title: "Playground",
-    anchor: "Playground",
     component: 
     <Playground name="Lorem">
       <PlaygroundComponent />
@@ -31,22 +29,18 @@ var sections = [
   },
   {
     title: "About Us",
-    anchor: "About Us",
     component: <AboutUs />
   },
   {
     title: "What We Do",
-    anchor: "What We Do",
     component: <WhatWeDo />
   },
   {
     title: "FAQ",
-    anchor: "FAQ",
     component: <FAQ />
   },
   {
     title: "Contact Us",
-    anchor: "Contact Us",
     component: <Contact />
   }  
 ]
@@ -67,7 +61,7 @@ function App() {
       <Row>
         <Col>
           {sections.map((section) => (
-            <SectionFrame anchor={section.anchor} title={section.title}>
+            <SectionFrame title={section.title}>
               {section.component}
             </SectionFrame>
           ))}
