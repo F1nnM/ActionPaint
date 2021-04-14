@@ -30,17 +30,21 @@ function Footer() {
       <Container fluid className={styles.footerContainer + " py-3"}>
         <Row className="py-2">
           <Col md lg={1} xl={2} />
-          <Col md className="text-center text-lg-start">
-            <span className="text-uppercase">Impressum - Legal Notice</span>
+          <Col md className="text-lg-start">
+            <div className="text-center">
+              <span className="text-uppercase">Impressum - Legal Notice</span>
+            </div>
             <address className="mt-3">
               <p><Business className='mr-3' />ActionPaint Agency GmbH</p>
-              <p><LocationOn className='mr-3' />Max-Muster Straße 42, 12345 Berlin</p>
+              <p><LocationOn className='mr-3' /><a href="https://www.google.com/maps" className={styles.colorReset}>Max-Muster Straße 42, 12345 Berlin</a></p>
               <p><ContactMail className='mr-3' /><a href="mailto:jim@rock.com" className={styles.colorReset}>contact@actionpaint.de</a></p>
               <p><Phone className='mr-3' /><a href="tel:+13115552368" className={styles.colorReset}>(+49) 123 456 789</a></p>
             </address>
           </Col>
-          <Col md className="text-center text-lg-start mt-5 mt-md-0">
-            <span className="text-uppercase">Privacy Policy</span>
+          <Col md className=" text-lg-start mt-5 mt-md-0">
+            <div className="text-center">
+              <span className="text-uppercase">Privacy Policy</span>
+            </div>
             <p className="mt-3">We don't collect any data from you, unless you reach out to us. For details click <a href="privacyPolicy.txt" className={styles.colorReset + " " + styles.underline}>here</a>.</p>
           </Col>
           <Col md className="mt-5 mt-md-0">
