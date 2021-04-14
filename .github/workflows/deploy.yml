@@ -67,4 +67,4 @@ jobs:
             ghcr.io/f1nnm/actionpaint:latest
       -
         name: Print tag
-        run: echo "Tagged images with latest and $GITHUB_RUN_NUMBER""
+        run: echo "Tagged images with latest and $GITHUB_RUN_NUMBER"
