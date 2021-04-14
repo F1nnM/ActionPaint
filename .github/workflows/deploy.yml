@@ -62,10 +62,10 @@ jobs:
           context: ./frontend
           push: true
           tags: |
-            f1nnm/actionpaint:${{ GITHUB_RUN_NUMBER }}
+            f1nnm/actionpaint:$GITHUB_RUN_NUMBER
             f1nnm/actionpaint:latest
-            ghcr.io/f1nnm/actionpaint:${{ GITHUB_RUN_NUMBER }}
+            ghcr.io/f1nnm/actionpaint:$GITHUB_RUN_NUMBER
             ghcr.io/f1nnm/actionpaint:latest
       -
         name: Print tag
-        run: echo "Tagged images with latest and ${{ GITHUB_RUN_NUMBER }}""
+        run: echo "Tagged images with latest and $GITHUB_RUN_NUMBER""
