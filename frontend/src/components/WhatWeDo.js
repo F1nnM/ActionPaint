@@ -1,4 +1,3 @@
-import SectionFrame from "./SectionFrame";
 import styles from './WhatWeDo.module.css';
 import whatwedo from "../data/whatwedo";
 import Timeline from '@material-ui/lab/Timeline';
@@ -39,7 +38,6 @@ function WhatWeDo() {
   const {width } = useWindowDimensions();
 
   return(
-    <SectionFrame title="What We Do">
       <Timeline align={width > 800 ? "alternate" : "left"}>
         {whatwedo.map((description, idx)=>(
           <TimelineItem>
@@ -62,7 +60,6 @@ function WhatWeDo() {
         </TimelineItem>
         ))}
     </Timeline>
-    </SectionFrame>
   );
 }
 

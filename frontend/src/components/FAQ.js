@@ -1,4 +1,3 @@
-import SectionFrame from "./SectionFrame";
 import faq from "../data/faq";
 import HelpIcon from '@material-ui/icons/Help';
 import { Accordion, Card} from 'react-bootstrap';
@@ -6,7 +5,6 @@ import styles from './FAQ.module.css';
 
 function FAQ() {
   return (
-    <SectionFrame title="FAQ">
       <Accordion defaultActiveKey="0"> 
         {faq.map((questions, idx) => (
           <Card bsPrefix={idx % 2 === 0 ? styles.orangeborder : styles.blueborder}>
@@ -24,7 +22,6 @@ function FAQ() {
           </Card>
         ))}
       </Accordion>
-    </SectionFrame>
   );
 }
 

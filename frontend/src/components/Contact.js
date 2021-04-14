@@ -1,5 +1,3 @@
-import SectionFrame from "./SectionFrame";
-
 // unused import -> warnung -> wird nicht compiled.
 //import styles from "./Contact.module.css";
 
@@ -7,7 +5,6 @@ function Contact() {
   var state = {};
 
   return (
-    <SectionFrame title="Contact Us">
       <form id="contact-form" onSubmit={handleSubmit.bind(this)} method="POST">
         <div className="form-group">
           <label htmlFor="name">Name</label>
@@ -41,7 +38,6 @@ function Contact() {
           Submit
         </button>
       </form>
-    </SectionFrame>
   );
 }
 

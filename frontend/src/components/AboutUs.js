@@ -1,15 +1,14 @@
-import SectionFrame from "./SectionFrame";
 import team from "../data/team";
 import styles from "./AboutUs.module.css";
 import { Card, CardDeck } from "react-bootstrap";
 import { useState } from "react";
 import { GitHub, Twitter, Instagram } from "@material-ui/icons";
 
-function Playground({ name, children }) {
+function Playground() {
   const [spotlight, setSpotlight] = useState("light");
 
   return (
-    <SectionFrame title="About Us">
+    <>
       <Card className="bg-dark text-white">
         <Card.Img
           src={process.env.PUBLIC_URL + "team_images/team.jpg"}
@@ -76,7 +75,7 @@ function Playground({ name, children }) {
           </Card>
         ))}
       </CardDeck>
-    </SectionFrame>
+      </>
   );
 }
 

@@ -1,8 +1,8 @@
 import { Col, Container, Row } from "react-bootstrap";
 
-function SectionFrame({ title, children }) {
+function SectionFrame({ title, anchor, children }) {
   return (
-    <Container className="my-5">
+    <Container id={anchor} className="my-5">
       <Row>
         <Col className="text-center">
           <h1>{title}</h1>
