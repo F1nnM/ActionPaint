@@ -18,11 +18,11 @@
 }
 
 .title {
-    font-size: 500%;
+    font-size: max(10vw, 300%);
 }
 
 .subtitle {
-    font-size: 200%;
+    font-size: max(3vw, 150%);
 }
 
 @keyframes scrollNoticeBounce {
