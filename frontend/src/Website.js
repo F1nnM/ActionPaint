@@ -61,7 +61,7 @@ function Website({ switchToAdmin }) {
       <Row>
         <Col>
           {sections.map((section) => (
-            <SectionFrame title={section.title}>
+            <SectionFrame title={section.title} key={section.title}>
               {section.component}
             </SectionFrame>
           ))}
