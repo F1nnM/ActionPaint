@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Button } from "react-bootstrap";
 
 import styles from './Footer.module.css'
 
@@ -11,7 +11,7 @@ import Business from '@material-ui/icons/Business';
 import LocationOn from '@material-ui/icons/LocationOn';
 import React from "react";
 
-function Footer() {
+function Footer({ switchToAdmin }) {
   return (
     <React.Fragment>
       <Container fluid className={styles.footerLeadIn}>
@@ -66,9 +66,14 @@ function Footer() {
           <Col md lg={1} xl={2} />
         </Row>
 
-        <Row className="py-2">
+        <Row className="py-5">
           <Col className="text-center">
             <span>&copy; ActionPaint 2021</span>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="text-center">
+            <Button onClick={switchToAdmin} variant="dark">Secret admin button</Button>
           </Col>
         </Row>
       </Container>
