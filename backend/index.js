@@ -6,8 +6,12 @@ const port = 4000
 app.use(express.static("built_frontend"))
 
 app.get('/api', (req, res) => {
-  // All the api handling goes here
   res.send('Hello World!')
+})
+
+app.get('/api/:action', (req, res) => {
+  // All the api handling goes here
+  res.send('Action: '+req.params.action)
 })
 
 app.listen(port, () => {
