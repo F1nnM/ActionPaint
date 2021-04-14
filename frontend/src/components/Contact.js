@@ -1,6 +1,7 @@
 import SectionFrame from "./SectionFrame";
 
-import styles from "./Contact.module.css";
+// unused import -> warnung -> wird nicht compiled.
+//import styles from "./Contact.module.css";
 
 function Contact() {
   var state = {};
