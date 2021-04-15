@@ -2,7 +2,6 @@ import styles from "./ArtistCarousel.module.scss";
 import { useState } from "react";
 import artists from "../data/artists";
 import Carousel from "react-bootstrap/Carousel";
-import Image from "react-bootstrap/Image";
 
 function ArtistCarousel() {
   const [index, setIndex] = useState(0);
