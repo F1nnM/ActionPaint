@@ -1,0 +1,19 @@
+.lorem{
+    
+}
+
+.carHeight{
+    height: 40vh;
+    object-fit: cover;
+}
+
+.triggerLink .toBeHidden{
+    max-height: 0px;
+    overflow: hidden;
+    transition: all 0.4s;
+    cursor: pointer;
+}
+
+.triggerLink:hover .toBeHidden{
+    max-height: 30px;
+}

@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 import WhatWeDo from "./components/WhatWeDo";
 import Navbar from "./components/Navbar";
+import ArtistCarousel from "./components/ArtistCarousel";
 import Contact from "./components/Contact";
 import SectionFrame from "./components/SectionFrame";
 
@@ -18,32 +19,37 @@ import TitleScreen from "./components/TitleScreen";
 var sections = [
   {
     title: "Example Section",
-    component: <ExampleSection />
+    component: <ExampleSection />,
+  },
+  {
+    title: "Artists",
+    component: <ArtistCarousel />,
   },
   {
     title: "Playground",
-    component:
+    component: (
       <Playground name="Lorem">
         <PlaygroundComponent />
       </Playground>
+    ),
   },
   {
     title: "About Us",
-    component: <AboutUs />
+    component: <AboutUs />,
   },
   {
     title: "What We Do",
-    component: <WhatWeDo />
+    component: <WhatWeDo />,
   },
   {
     title: "FAQ",
-    component: <FAQ />
+    component: <FAQ />,
   },
   {
     title: "Contact Us",
-    component: <Contact />
-  }
-]
+    component: <Contact />,
+  },
+];
 
 function Website({ switchToAdmin }) {
   return (
@@ -67,7 +73,7 @@ function Website({ switchToAdmin }) {
           ))}
         </Col>
       </Row>
-      <Footer switchToAdmin={switchToAdmin}/>
+      <Footer switchToAdmin={switchToAdmin} />
     </Container>
   );
 }
