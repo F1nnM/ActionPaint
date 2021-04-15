@@ -1,4 +1,4 @@
-import styles from "./ArtistCarousel.module.css";
+import styles from "./ArtistCarousel.module.scss";
 import { useState } from "react";
 import artists from "../data/artists";
 import Carousel from "react-bootstrap/Carousel";
