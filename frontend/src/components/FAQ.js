@@ -7,7 +7,7 @@ function FAQ() {
   return (
       <Accordion defaultActiveKey="0"> 
         {faq.map((questions, idx) => (
-          <Card key={questions.q} bsPrefix={idx % 2 === 0 ? styles.orangeborder : styles.blueborder}>
+          <Card key={"Card" +idx} bsPrefix={idx % 2 === 0 ? styles.orangeborder : styles.blueborder}>
             <Card.Header className={styles.cardheader}>
               <Accordion.Toggle className={styles.button} as={Card.Header}  eventKey={idx+1}>
                 <p><HelpIcon className={ idx % 2 === 0 ? styles.orange : styles.blue}/>  

@@ -35,12 +35,12 @@ function useWindowDimensions() {
 }
 
 function WhatWeDo() {
-  const {width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   return(
-      <Timeline align={width > 800 ? "alternate" : "left"}>
+      <Timeline key="Timeline" align={width > 800 ? "alternate" : "left"}>
         {whatwedo.map((description, idx)=>(
-          <TimelineItem key={description}>
+          <TimelineItem key={"TimelineItem"+idx}>
             <TimelineOppositeContent className={styles.oppositecontent} style={{flex:0}}> 
             </TimelineOppositeContent>
           <TimelineSeparator>

@@ -13,7 +13,7 @@ function NavbarFunc ({tmpinView}){
       <Nav>
         <NavDropdown title="Top Artists">
         {artists.map((ar, index) => (
-          <NavDropdown.Item className={styles.dropitem} href={"#"+ar.lastName+index}>
+          <NavDropdown.Item key="NavDropdown" className={styles.dropitem} href={"#"+ar.lastName+index}>
             <NavDropdown.ItemText className={styles.dropitem}><PersonIcon />{ar.firstName} {ar.lastName}</NavDropdown.ItemText>
           </NavDropdown.Item>
           ))}
