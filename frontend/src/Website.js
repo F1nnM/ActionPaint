@@ -6,8 +6,8 @@ import PlaygroundComponent from "./components/PlaygroundComponent";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 import WhatWeDo from "./components/WhatWeDo";
+import TopFlavors from "./components/TopFlavors";
 import Navbar from "./components/Navbar";
-import ArtistCarousel from "./components/ArtistCarousel";
 import Contact from "./components/Contact";
 import SectionFrame from "./components/SectionFrame";
 
@@ -22,8 +22,8 @@ var sections = [
     component: <ExampleSection />,
   },
   {
-    title: "Artists",
-    component: <ArtistCarousel />,
+    title: "Some of our artists",
+    component: <TopFlavors />,
   },
   {
     title: "Playground",

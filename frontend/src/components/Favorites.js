@@ -1,10 +1,10 @@
-import styles from "./ArtistCarousel.module.scss";
+import styles from "./Favorites.module.scss";
 import { useState } from "react";
 import artists from "../data/artists";
 import Carousel from "react-bootstrap/Carousel";
 import Image from "react-bootstrap/Image";
 
-function ArtistCarousel() {
+function Favorites() {
   const [index, setIndex] = useState(0);
 
   const handleSelect = (index, e) => {
@@ -54,4 +54,4 @@ function ArtistCarousel() {
   );
 }
 
-export default ArtistCarousel;
+export default Favorites;
