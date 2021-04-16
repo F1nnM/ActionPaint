@@ -37,6 +37,8 @@ The docker container needs to be configured with environment variables for the c
 
 Following variables need to be set:
 ```bash
+# mail settings for contact form:
+
 MAIL_HOST='smtp.example.com'
 MAIL_PORT=465
 # usually true for 465, false for other ports
@@ -45,6 +47,10 @@ MAIL_USER='user'
 MAIL_PASS='pass'
 # can also be a comma seperated list of email adresses
 MAIL_RECEIVER='<the email to send the messages to>'
+
+# admin user
+ADMIN_USER='admin'
+ADMIN_PASS='secretpassword'
 ```
 
 # Useful dev links
