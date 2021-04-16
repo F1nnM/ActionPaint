@@ -98,6 +98,6 @@ app.post("/public_api/:action", (req, res) => {
     res.status(400).send("No valid action")
 });
 
-app.listen(port, () => {
-  console.log(`ActionPaint backend listening at http://localhost:${port}`);
+app.listen(port, "0.0.0.0", () => {
+  console.log(`ActionPaint backend listening at http://0.0.0.0:${port}`);
 });
