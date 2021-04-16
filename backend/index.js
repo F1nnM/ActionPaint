@@ -1,24 +1,39 @@
 //load .env file
 require('dotenv').config();
 
+
 const express = require("express");
 const app = express();
 const port = 4000;
 
+const content = require('./content')
+const fs = require("fs");
+
+//===========================================
+// CORS stuff
+//===========================================
+if (process.env.ALLOW_CORS) {
+  const cors = require('cors')
+  app.use(cors({
+    origin: "*"
+  }))
+}
 
 
 //===========================================
-// static file serving
+// content serving
 //===========================================
 
 // serve frontend in Docker image
 app.use(express.static("built_frontend"));
 
-// serve content
-app.use("/content", express.static("content"));
-
 // serve images
 app.use("/images", express.static("images"));
+
+content.init();
+app.get("/content", (req, res) => {
+  res.json(content.content)
+});
 
 
 
@@ -44,7 +59,7 @@ function destination(req, file, callback) {
 }
 // generate a filename for the image
 function filename(req, file, callback) {
-  callback(null, file.originalname+ "_" + Date.now())
+  callback(null, file.originalname + "_" + Date.now())
 }
 
 // validate uploaded files, only allow correct image types
@@ -76,17 +91,30 @@ app.post("/api/upload_image", upload.array("images"), (req, res) => res.status(2
 
 
 // Parse URL-encoded bodies (as sent by HTML forms)
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
 const { public_actions, private_actions } = require("./actions");
 
-app.post("/api/:action", (req, res) => {
-  // All the api handling goes here
-  let action = req.params.action;
-  res.send(action)
+app.post("/api/update/:file", (req, res) => {
+  let file = req.params.file;
+  let possibleFiles = ["about", "artists", "faq", "whatwedo"];
+
+  if (!possibleFiles.includes(file)) {
+    res.status(400).send("Not a valid file");
+    return;
+  }
+
+  fs.writeFile("./content/" + file + ".json", req.body.content, "utf-8", (err) => {
+    if (err)
+      res.status(500).send(err)
+    else {
+      res.status(200).send("File updated");
+      content.update();
+    }
+  })
 });
 
 app.post("/public_api/:action", (req, res) => {

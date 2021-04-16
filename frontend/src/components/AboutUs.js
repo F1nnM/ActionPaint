@@ -1,17 +1,18 @@
-import team from "../data/team";
 import styles from "./AboutUs.module.css";
 import { Card, CardDeck } from "react-bootstrap";
 import { useState } from "react";
 import { GitHub, Twitter, Instagram } from "@material-ui/icons";
 
-function Playground() {
+function Playground({ data }) {
   const [spotlight, setSpotlight] = useState("light");
+
+  const team = data.about;
 
   return (
     <>
       <Card className="bg-dark text-white">
         <Card.Img
-          src={process.env.PUBLIC_URL + "team_images/team.jpg"}
+          src={process.env.REACT_APP_BACKEND + "images/team/team.jpg"}
           alt="Our team"
         />
         <Card.ImgOverlay>
@@ -33,10 +34,9 @@ function Playground() {
               variant="top"
               className={styles.imageFit}
               src={
-                process.env.PUBLIC_URL +
-                "team_images/" +
-                (member.imageUrl || member.name.toLowerCase()) +
-                ".jpg"
+                process.env.REACT_APP_BACKEND +
+                "images/team/" +
+                (member.imageUrl || "default.jpg")
                 /* could not load image via import because in public folder */
               }
             />
@@ -75,7 +75,7 @@ function Playground() {
           </Card>
         ))}
       </CardDeck>
-      </>
+    </>
   );
 }
 

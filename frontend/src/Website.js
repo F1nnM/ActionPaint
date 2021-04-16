@@ -15,7 +15,8 @@ import styles from "./Website.module.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import TitleScreen from "./components/TitleScreen";
-import {useInView} from "react-intersection-observer";
+import { useInView } from "react-intersection-observer";
+import React, { useEffect, useState } from "react"
 
 var sections = [
   {
@@ -59,14 +60,31 @@ function Website({ switchToAdmin }) {
     threshold: 0.9,
   });
 
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(process.env.REACT_APP_BACKEND + "content")
+      .then(resp => resp.json())
+      .then(data => setData(data))
+  }, [])
+
+  if (!data)
+  return (
+    <div>
+      Loading...
+    </div>
+  )
+
+    console.log(data)
+
   return (
     <Container fluid className={styles.app + " px-0"}>
       {/* Navbar component goes here */}
-      <Navbar tmpinView={inView} />
+      <Navbar tmpinView={inView} data={data} />
 
       <Row className="mb-5">
         <Col>
-          <TitleScreen ref={ref} tmpinView={inView}/>
+          <TitleScreen ref={ref} tmpinView={inView} />
         </Col>
       </Row>
 
@@ -75,7 +93,7 @@ function Website({ switchToAdmin }) {
         <Col>
           {sections.map((section) => (
             <SectionFrame title={section.title} key={section.title}>
-              {section.component}
+              {React.cloneElement(section.component, { data: data })}
             </SectionFrame>
           ))}
         </Col>

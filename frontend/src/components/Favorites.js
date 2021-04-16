@@ -1,10 +1,9 @@
 import styles from "./Favorites.module.scss";
 import { useState } from "react";
-import artists from "../data/artists";
 import Carousel from "react-bootstrap/Carousel";
 import Image from "react-bootstrap/Image";
 
-function Favorites() {
+function Favorites({ data }) {
   const [index, setIndex] = useState(0);
 
   const handleSelect = (index, e) => {
@@ -16,11 +15,13 @@ function Favorites() {
     console.log(e);
   };
 
+  const artists = data.artists
+
   return (
     <div onScroll={handleScroll}>
       <Carousel activeIndex={index} onSelect={handleSelect}>
         {artists.map((ar, idx) => (
-          <Carousel.Item key={"Carousel"+idx}>
+          <Carousel.Item key={"Carousel" + idx}>
             <div className={styles.triggerLink}>
               <Image
                 className={"d-block w-100 " + styles.carHeight}

@@ -1,6 +1,5 @@
 import styles from "./TopFlavors.module.scss";
 // import { useState } from "react";
-import artists from "../data/artists";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -8,7 +7,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 
-function TopFlavors(alternatingView) {
+function TopFlavors({data}) {
+
+  const artists = data.artists;
+
   /* const [index, setIndex] = useState(0);
 
   const handleSelect = (index, e) => {

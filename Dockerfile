@@ -15,7 +15,7 @@ RUN npm install react-scripts@3.4.1 -g
 # add app
 COPY ./frontend/ ./
 
-ENV REACT_APP_BACKEND "/api"
+ENV REACT_APP_BACKEND "/"
 
 RUN npm run-script build
 

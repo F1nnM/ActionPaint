@@ -1,9 +1,10 @@
 import styles from './Navbar.module.css';
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
-import artists from "../data/artists";
 import PersonIcon from '@material-ui/icons/Person';
 
-function NavbarFunc ({tmpinView}){
+function NavbarFunc ({tmpinView, data}){
+
+  const artists = data.artists
 
   return(
     <Navbar expand={tmpinView ? !tmpinView : "sm"} fixed="top" className={tmpinView ? "" : styles.navbar}>

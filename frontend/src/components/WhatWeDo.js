@@ -1,5 +1,4 @@
 import styles from './WhatWeDo.module.css';
-import whatwedo from "../data/whatwedo";
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -34,8 +33,10 @@ function useWindowDimensions() {
   return windowDimensions;
 }
 
-function WhatWeDo() {
+function WhatWeDo({ data }) {
   const { width } = useWindowDimensions();
+
+  const whatwedo = data.whatwedo;
 
   return(
       <Timeline key="Timeline" align={width > 800 ? "alternate" : "left"}>
