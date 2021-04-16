@@ -24,8 +24,8 @@ function TopFlavors({data}) {
 
   return (
     <div onScroll={handleScroll}>
-      {artists.map((ar, index) => (
-        <Container key={ar.lastName+index} id={ar.lastName+index} className="mt-4">
+      {artists.map((artist, index) => (
+        <Container key={artist.lastName+index} id={artist.lastName+index} className="mt-4">
           <Row className={styles.artistHeight}>
             <Col
               sm={12}
@@ -34,11 +34,8 @@ function TopFlavors({data}) {
               <Image
                 className={"d-block w-100 "}
                 src={
-                  process.env.PUBLIC_URL +
-                  "artists/" +
-                  (ar.firstName + "_" + ar.lastName).toLowerCase() +
-                  "/" +
-                  (ar.gallery || ar.images[0])
+                  process.env.REACT_APP_BACKEND +
+                  "images/artist/" + artist.images[0]
                 }
                 rounded
               />
@@ -54,13 +51,13 @@ function TopFlavors({data}) {
                 <Card.Body>
                   <Card.Title>
                     <span className="mr-1">
-                      <small> {ar.firstName}</small>
+                      <small> {artist.firstName}</small>
                     </span>
-                    <span>{ar.lastName}</span>
+                    <span>{artist.lastName}</span>
                   </Card.Title>
                   <Card.Text>
                     <span className={styles.descEllipsis}>
-                      {ar.shortDesc || ar.desc}
+                      {artist.shortDesc || artist.desc}
                     </span>
                   </Card.Text>
                   <Button variant="outline-primary">Visit my work</Button>
