@@ -7,7 +7,7 @@ function AdminPanel({ switchToWeb }) {
       <br />
       <br />
       <p>For API testing:</p>
-      <form action={process.env.REACT_APP_BACKEND + "/upload_image"} enctype="multipart/form-data" method="POST">
+      <form action={process.env.REACT_APP_BACKEND + "/upload_image"} encType="multipart/form-data" method="POST">
         <input type="hidden" name="imagetype" value="artist" />
         Select images: <input type="file" name="images" accept="image/*" multiple />
         <input type="submit" value="Upload your files" />
