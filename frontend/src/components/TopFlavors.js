@@ -23,7 +23,7 @@ function TopFlavors(alternatingView) {
   return (
     <div onScroll={handleScroll}>
       {artists.map((ar, index) => (
-        <Container id={ar.lastName+index} className="mt-4">
+        <Container key={ar.lastName+index} id={ar.lastName+index} className="mt-4">
           <Row className={styles.artistHeight}>
             <Col
               sm={12}

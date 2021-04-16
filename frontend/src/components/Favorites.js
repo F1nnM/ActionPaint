@@ -19,8 +19,8 @@ function Favorites() {
   return (
     <div onScroll={handleScroll}>
       <Carousel activeIndex={index} onSelect={handleSelect}>
-        {artists.map((ar) => (
-          <Carousel.Item>
+        {artists.map((ar, idx) => (
+          <Carousel.Item key={"Carousel"+idx}>
             <div className={styles.triggerLink}>
               <Image
                 className={"d-block w-100 " + styles.carHeight}
@@ -43,7 +43,7 @@ function Favorites() {
                 <div className={styles.toBeHidden}>
                   <p>go to artist page</p>
                 </div>
-                <p>{ar.desc && <p>{ar.desc}</p>}</p>
+                <p>{ar.desc}</p>
               </div>
             </div>
             <Carousel.Caption></Carousel.Caption>
