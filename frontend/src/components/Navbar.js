@@ -1,32 +1,22 @@
 import styles from './Navbar.module.css';
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
-import {useState} from 'react';
+import artists from "../data/artists";
+import PersonIcon from '@material-ui/icons/Person';
 
-function NavbarFunc (){
-  const [expanded = true, setExpanded] = useState(false);
-  window.onscroll = function(){
-    if(window.pageYOffset >= 890){
-      setExpanded(true);
-    }else{
-      setExpanded(false);
-    }
-  }
+function NavbarFunc ({tmpinView}){
+
   return(
-    <Navbar expand={expanded} fixed="top" className={expanded ? styles.navbar : "" }>
-    <Navbar.Brand className={expanded ? styles.navbar : styles.navbaralt }>ActionPaint</Navbar.Brand>
-    <Navbar.Toggle className={styles.hamburger} aria-controls="responsive-navbar-nav"/>
-    <Navbar.Collapse className={expanded ? styles.navbar : styles.collapseabletext}>
+    <Navbar expand={tmpinView ? !tmpinView : "sm"} fixed="top" className={tmpinView ? "" : styles.navbar}>
+    <Navbar.Brand href={"#TitleScreen"} className={tmpinView ? styles.navbaralt : styles.navbar}>ActionPaint</Navbar.Brand>
+    <Navbar.Toggle className={styles.hamburger}/>
+    <Navbar.Collapse className={!tmpinView ? styles.navbar : styles.collapseabletext} >
       <Nav>
-        <NavDropdown title="Our Artists">
-          <NavDropdown.Item href={"#Example Section"}>
-            <NavDropdown.ItemText>Artist 1</NavDropdown.ItemText>
+        <NavDropdown title="Top Artists">
+        {artists.map((ar, index) => (
+          <NavDropdown.Item className={styles.dropitem} href={"#"+ar.lastName+index}>
+            <NavDropdown.ItemText className={styles.dropitem}><PersonIcon />{ar.firstName} {ar.lastName}</NavDropdown.ItemText>
           </NavDropdown.Item>
-          <NavDropdown.Item href={"#Example Section"}>
-            <NavDropdown.ItemText>Artist 2</NavDropdown.ItemText>
-          </NavDropdown.Item>
-          <NavDropdown.Item href={"#Playground"}>
-            <NavDropdown.ItemText>Artist 3</NavDropdown.ItemText>
-          </NavDropdown.Item>
+          ))}
         </NavDropdown>
         <Nav.Link href={"#About Us"}>About Us</Nav.Link>
         <Nav.Link href={"#What We Do"}>What We Do</Nav.Link>

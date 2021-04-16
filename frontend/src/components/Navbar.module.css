@@ -1,26 +1,28 @@
 .navbar{
-    background-color: var(--primaryColor) !important;
+    background-color: var(--primaryColor) !important;  
+    transition: 0.75s;
 }
 
 .navbaralt{
-    color: transparent !important;
+    visibility: hidden;
+    position: fixed;
 }
 
 .hamburger{
     background-color: var(--primaryColor) !important;
-    
 }
 
 .collapseabletext{
     background-color: var(--primaryColor) !important;
-    text-align: right;
-    margin-left: 93%;
+    text-align: center;
+    max-width: 175px !important;
+    min-width: 175px !important;
+    margin-right:90% !important;
     border-radius: 5%;
-
 }
 
-
-
-
-
-
+.dropitem{
+    width: 175px ;
+    padding-left: 5px !important;
+    text-align: left;
+}

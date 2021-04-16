@@ -15,6 +15,7 @@ import styles from "./Website.module.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import TitleScreen from "./components/TitleScreen";
+import {useInView} from "react-intersection-observer";
 
 var sections = [
   {
@@ -52,14 +53,20 @@ var sections = [
 ];
 
 function Website({ switchToAdmin }) {
+
+  const { ref, inView } = useInView({
+    /* Optional options */
+    threshold: 0.9,
+  });
+
   return (
     <Container fluid className={styles.app + " px-0"}>
       {/* Navbar component goes here */}
-      <Navbar />
+      <Navbar tmpinView={inView} />
 
       <Row className="mb-5">
         <Col>
-          <TitleScreen />
+          <TitleScreen ref={ref} tmpinView={inView}/>
         </Col>
       </Row>
 
