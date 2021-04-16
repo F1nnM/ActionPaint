@@ -8,7 +8,6 @@ import FAQ from "./components/FAQ";
 import WhatWeDo from "./components/WhatWeDo";
 import TopFlavors from "./components/TopFlavors";
 import Navbar from "./components/Navbar";
-import Favorites from "./components/Favorites";
 import Contact from "./components/Contact";
 import SectionFrame from "./components/SectionFrame";
 
