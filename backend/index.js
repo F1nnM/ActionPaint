@@ -28,7 +28,7 @@ app.use("/images", express.static("images"));
 
 const basicAuth = require("express-basic-auth")
 app.use("/api", basicAuth({
-  users: { "admin": "supersecret" },
+  users: { [process.env.ADMIN_USER]: process.env.ADMIN_PASS },
   challenge: true,
 }))
 
