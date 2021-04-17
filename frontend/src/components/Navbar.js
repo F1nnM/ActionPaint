@@ -1,12 +1,10 @@
 import styles from './Navbar.module.css';
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import PersonIcon from '@material-ui/icons/Person';
+import { Link, Events, scrollSpy } from 'react-scroll'
 
 function NavbarFunc ({tmpinView, data}){
 
-  var Scroll = require('react-scroll');
-  var Events = Scroll.Events;
-  var Link = Scroll.Link;
   var Scrollspeed = 500;
 
   Events.scrollEvent.register('begin', function(to, element) {
@@ -15,7 +13,7 @@ function NavbarFunc ({tmpinView, data}){
   Events.scrollEvent.register('end', function(to, element) {
     console.log('end', to, element);
   });
-  Scroll.scrollSpy.update();
+  scrollSpy.update();
 
   const artists = data.artists
 
