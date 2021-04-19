@@ -27,11 +27,16 @@
 }
 
 .artistHeight {
-  max-height: 25vh;
+  height: 25vh;
 }
 
 .cardImg {
   object-fit: cover;
+}
+
+.workImg {
+  object-fit: cover;
+  height: 100%;
 }
 
 .descEllipsis {
