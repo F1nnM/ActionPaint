@@ -1,0 +1,19 @@
+POST /sendMessage
+    body: email, name, message
+    
+POST /admin/update/<filename>
+    body: content
+    
+POST /admin/upload_image/<imageType>
+    imageType one of ["artist", "team"]
+    
+DELETE /admin/delete_image/<filename>
+
+GET /admin
+    returns 200 if login credentials correct, else 401
+
+GET /content
+    returns concatenated content files
+
+GET /images/<filename>
+    returns requested image

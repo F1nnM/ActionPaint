@@ -1,12 +1,17 @@
 //load .env file
 require("dotenv").config();
 
+const utils = require("./utils");
+
+const path = require("path")
+
 const express = require("express");
 const app = express();
 const port = 4000;
 
-const content = require("./content");
 const fs = require("fs");
+
+
 
 //===========================================
 // CORS stuff
@@ -20,6 +25,8 @@ if (process.env.ALLOW_CORS) {
   );
 }
 
+
+
 //===========================================
 // content serving
 //===========================================
@@ -30,10 +37,12 @@ app.use(express.static("built_frontend"));
 // serve images
 app.use("/images", express.static("images"));
 
-content.init();
+utils.content.init();
 app.get("/content", (req, res) => {
-  res.json(content.content);
+  res.json(utils.content.content);
 });
+
+
 
 //===========================================
 // Auth for admin section
@@ -41,12 +50,16 @@ app.get("/content", (req, res) => {
 
 const basicAuth = require("express-basic-auth");
 app.use(
-  "/api",
+  "/admin",
   basicAuth({
-    users: { [process.env.ADMIN_USER]: process.env.ADMIN_PASS },
-    challenge: true,
+    users: { [process.env.ADMIN_USER]: process.env.ADMIN_PASS }
   })
 );
+
+// endpoint to check login
+app.get("/admin", (req, res) => res.status(200).end())
+
+
 
 //===========================================
 // file upload handling
@@ -64,7 +77,7 @@ function filename(req, file, callback) {
 // validate uploaded files, only allow correct image types
 const validTypes = ["artist", "team"];
 function fileFilter(req, file, callback) {
-  callback(null, validTypes.includes(req.body.imagetype));
+  callback(null, validTypes.includes(req.params.imagetype));
 }
 
 // multer handles the multipart/form requests
@@ -80,12 +93,27 @@ var upload = multer({
 });
 
 // define endpoint for uploading images, multer middleware, 200 return code
-app.post("/api/upload_image", upload.array("images"), (req, res) =>
+app.post("/admin/upload_image/:imagetype", upload.array("images"), (req, res) =>
   res.status(200).end()
 );
 
+app.delete("/admin/delete_image/:image", (req, res) => {
+
+  //make sure no relative paths are used to delete other files
+  let filename = path.basename(req.params.image);
+
+  fs.unlink("./images/artist/" + filename, (err) => {
+    if (err)
+      res.status(500).send(err);
+    else
+      res.status(200).send("Deleted file");
+  });
+});
+
+
+
 //===========================================
-// other api handling
+// parse POST bodies for API endpoints
 //===========================================
 
 // Parse URL-encoded bodies (as sent by HTML forms)
@@ -94,9 +122,13 @@ app.use(express.urlencoded({ extended: false }));
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
-const { public_actions, private_actions } = require("./actions");
 
-app.post("/api/update/:file", (req, res) => {
+
+//===========================================
+// updating files
+//===========================================
+
+app.post("/admin/update/:file", (req, res) => {
   let file = req.params.file;
   let possibleFiles = ["about", "artists", "faq", "whatwedo"];
 
@@ -113,19 +145,35 @@ app.post("/api/update/:file", (req, res) => {
       if (err) res.status(500).send(err);
       else {
         res.status(200).send("File updated");
-        content.update();
+        utils.content.update();
       }
     }
   );
 });
 
-app.post("/public_api/:action", (req, res) => {
-  // All the api handling goes here
-  let action = public_actions[req.params.action];
-  if (action) action(req, res);
-  else res.status(400).send("No valid action");
+
+
+//===========================================
+// send message endpoint
+//===========================================
+
+app.post("/sendMessage", async (req, res) => {
+  utils.sendMail(req.body.email, req.body.name, req.body.message)
+    .then(_ => {
+      res.status(200).send("Message delivered");
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(500).send(err);
+      return;
+    })
 });
 
+
+
+//===========================================
+// start express
+//===========================================
 app.listen(port, "0.0.0.0", () => {
   console.log(`ActionPaint backend listening at http://0.0.0.0:${port}`);
 });
