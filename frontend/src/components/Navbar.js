@@ -39,21 +39,21 @@ function NavbarFunc({ tmpinView, data }) {
         <Nav>
           <NavDropdown title="Top Artists">
             {artists.map((ar, index) => (
-              <Link
-                key={"Link" + index}
-                activeClass="active"
-                to={ar.lastName + index}
-                spy={true}
-                smooth={true}
-                duration={Scrollspeed}
-              >
-                <NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link
+                  to={index + ": " + ar.firstName + " " + ar.lastName}
+                  key={"Link" + index}
+                  activeClass="active"
+                  spy={true}
+                  smooth={true}
+                  duration={Scrollspeed}
+                >
                   <NavDropdown.ItemText className={styles.dropitem}>
                     <PersonIcon />
                     {ar.firstName} {ar.lastName}
                   </NavDropdown.ItemText>
-                </NavDropdown.Item>
-              </Link>
+                </Link>
+              </NavDropdown.Item>
             ))}
           </NavDropdown>
           <Link
