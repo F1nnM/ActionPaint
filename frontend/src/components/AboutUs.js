@@ -1,15 +1,15 @@
-import styles from "./AboutUs.module.css";
+import styles from "./AboutUs.module.scss";
 import { Card, CardDeck } from "react-bootstrap";
 import { useState } from "react";
 import { GitHub, Twitter, Instagram } from "@material-ui/icons";
 
-function Playground({ data }) {
+function AboutUs({ data }) {
   const [spotlight, setSpotlight] = useState("light");
 
   const team = data.about;
 
   return (
-    <>
+    <div>
       <Card className="bg-dark text-white">
         <Card.Img
           src={process.env.REACT_APP_BACKEND + "images/team/team.jpg"}
@@ -23,7 +23,10 @@ function Playground({ data }) {
       <p></p>
       <CardDeck>
         {team.members.map((member) => (
-          <Card key={member.name} border={spotlight === member.name ? "primary" : "light"}>
+          <Card
+            key={member.name}
+            border={spotlight === member.name ? "primary" : "light"}
+          >
             <Card.Img
               onMouseEnter={(_) => {
                 setSpotlight(member.name);
@@ -75,8 +78,8 @@ function Playground({ data }) {
           </Card>
         ))}
       </CardDeck>
-    </>
+    </div>
   );
 }
 
-export default Playground;
+export default AboutUs;

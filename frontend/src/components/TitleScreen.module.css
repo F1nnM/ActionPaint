@@ -18,7 +18,7 @@
 }
 
 .title {
-    font-size: max(10vw, 300%);
+    font-size: max(10vw, 300%); /* caused errors in SASS, no idea why */
 }
 
 .subtitle {
