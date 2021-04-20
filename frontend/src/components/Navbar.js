@@ -19,8 +19,8 @@ function NavbarFunc ({tmpinView, data}){
 
   return(
     <Navbar expand={tmpinView ? !tmpinView : "sm"} fixed="top" className={tmpinView ? "" : styles.navbar}>
-    <Link activeClass="active" className={tmpinView ? styles.navbaralt : styles.navbar} to="TitleScreen" spy={true} smooth={true} duration={Scrollspeed}>
-      <Navbar.Brand className={tmpinView ? styles.navbaralt : styles.navbar}>
+    <Link activeClass="active" to="TitleScreen" className={tmpinView ? styles.navbaralt : styles.navbar}  spy={true} smooth={true} duration={Scrollspeed}>
+      <Navbar.Brand className={styles.brand}>
         ActionPaint
       </Navbar.Brand>
     </Link>
