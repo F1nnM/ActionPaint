@@ -22,7 +22,7 @@ function TopFlavors({ data }) {
   return (
     <div onScroll={handleScroll}>
       {artists.map((artist, index) => (
-        <div>
+        <div id={index + ": " + artist.firstName + " " + artist.lastName}>
           <Card className={"mb-4"} style={{ maxWidth: "600px" }}>
             <Row className="no-gutters">
               <Col md={{ order: index % 2 === 0 ? "first" : "last" }}>

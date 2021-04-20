@@ -35,7 +35,9 @@ const TitleScreen = React.forwardRef((props, ref) => (
             (props.tmpinView ? "" : " " + styles.hidden)
           }
         >
-          v Scroll down v
+          <span>&#9660;</span>
+          <span className={"mx-4"}>Scroll down</span>
+          <span>&#9660;</span>
         </span>
       </div>
     </div>
