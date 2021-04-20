@@ -18,7 +18,7 @@ function FAQ({ data }) {
               as={Card.Header}
               eventKey={idx + 1}
             >
-              <p>
+              <p style={{ cursor: "pointer" }}>
                 <HelpIcon
                   className={idx % 2 === 0 ? styles.orange : styles.blue}
                 />
