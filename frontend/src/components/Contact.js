@@ -9,7 +9,27 @@ function Contact(props) {
   const send = (e) => {
     e.preventDefault();
 
-    alert("Message from " + name + " <" + mail + "> has been sent!");
+    const url = process.env.REACT_APP_BACKEND + "public_api/message";
+    const options = {
+      method: "POST",
+      body: JSON.stringify({
+        name: name,
+        email: mail,
+        message: message,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    fetch(url, options)
+      .then((data) => {
+        console.log(data);
+        alert(data);
+      })
+      .catch((err) => {
+        console.warn(err);
+        alert(err);
+      });
   };
 
   return (

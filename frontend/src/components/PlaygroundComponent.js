@@ -5,20 +5,20 @@ function PlaygroundComponent() {
   const options = {
     method: "POST",
     body: JSON.stringify({
-      nsame: "John",
+      name: "John",
     }),
     headers: {
       "Content-Type": "application/json",
     },
   };
-  fetch(url, options)
-    .then((res) => res.json())
-    .catch((err) => {
-      alert(err);
-    })
-    .then((data) => {
-      alert(data.value);
-    });
+  // fetch(url, options)
+  //   .then((res) => res.json())
+  //   .catch((err) => {
+  //     alert(err);
+  //   })
+  //   .then((data) => {
+  //     alert(data.value);
+  //   });
   return (
     <div>
       <p>you can use this component for testing purposes</p>

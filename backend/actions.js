@@ -29,6 +29,8 @@ async function message(req, res) {
       res.status(500).send("Error:\n" + err);
     });
 
+  console.log("sent");
+
   res.status(200).send("Message sent successfully!");
 }
 
@@ -40,12 +42,10 @@ async function ping(req, res) {
 }
 
 const endWith200 = (res, content) => {
-  res.status(200).send(JSON.stringify(content));
+  res.status(200).end(JSON.stringify(content));
 };
 
 exports.public_actions = {
   message: message,
   ping: ping,
 };
-
-exports.private_actions = {};
