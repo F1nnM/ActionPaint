@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const utils = require("./utils");
 
-const path = require("path")
+const path = require("path");
 
 const express = require("express");
 const app = express();
@@ -57,7 +57,7 @@ app.use(
 );
 
 // endpoint to check login
-app.get("/admin", (req, res) => res.status(200).end())
+app.get("/admin", (req, res) => res.status(200).end());
 
 
 
@@ -163,7 +163,6 @@ app.post("/sendMessage", async (req, res) => {
       res.status(200).send("Message delivered");
     })
     .catch((err) => {
-      console.log(err)
       res.status(500).send(err);
       return;
     })
