@@ -29,3 +29,11 @@
     padding-left: 0px !important;
     text-align: left;
 }
+
+.brand:hover{
+    color:black !important;
+    cursor: pointer;
+}
+.brand{
+    color: 	rgb(30,30,30) !important;
+}
