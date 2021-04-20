@@ -1,9 +1,7 @@
-import styles from "./ExampleSection.module.css";
+import styles from "./ExampleSection.module.scss";
 
 function ExampleSection() {
-  return (
-      <span className={styles.exampleClass}>This is some content</span>
-  );
+  return <span className={styles.exampleClass}>This is some content</span>;
 }
 
 export default ExampleSection;

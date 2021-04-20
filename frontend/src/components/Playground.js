@@ -1,5 +1,5 @@
-import styles from "./ExampleSection.module.css";
 import DrippingFrame from "./DrippingFrame";
+import styles from "./playground.module.scss";
 
 function Playground({ name, children }) {
   return (
@@ -54,7 +54,7 @@ function Playground({ name, children }) {
         </span>
       </DrippingFrame>
       <div>{children}</div>
-      </>
+    </>
   );
 }
 

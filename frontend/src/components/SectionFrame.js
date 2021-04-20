@@ -1,5 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
-import styles from './SectionFrame.module.css';
+import styles from "./SectionFrame.module.scss";
 
 function SectionFrame({ title, children }) {
   return (
@@ -10,9 +10,7 @@ function SectionFrame({ title, children }) {
         </Col>
       </Row>
       <Row>
-        <Col className={styles}>
-          {children}
-        </Col>
+        <Col className={styles}>{children}</Col>
       </Row>
     </Container>
   );

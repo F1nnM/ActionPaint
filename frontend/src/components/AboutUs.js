@@ -1,4 +1,4 @@
-import styles from "./AboutUs.module.css";
+import styles from "./AboutUs.module.scss";
 import { Card, CardDeck } from "react-bootstrap";
 import { useState } from "react";
 import { GitHub, Twitter, Instagram } from "@material-ui/icons";
