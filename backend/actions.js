@@ -20,7 +20,7 @@ async function message(req, res) {
   await transporter
     .sendMail({
       from: '"ActionPaint Contact Form" <actionpaint@mfinn.de>', // sender address
-      to: process.env.MAIL_USER, // list of receivers
+      to: process.env.MAIL_RECEIVER, // list of receivers
       subject: "ActionPaint Message", // Subject line
       text: req.body.message, // plain text body,
       replyTo: `"${req.body.name}" <${req.body.email}>`,
