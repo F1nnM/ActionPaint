@@ -41,7 +41,6 @@ var content = {}
 
 var normalizedPath = require("path").join(__dirname, "content");
 const fs = require("fs");
-const { exception } = require("console");
 function load_content() {
   fs.readdirSync(normalizedPath).forEach(function (file) {
     content[file.split(".")[0]] = require("./content/" + file);
