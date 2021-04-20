@@ -2,11 +2,8 @@ import styles from "./TopFlavors.module.scss";
 // import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Image from "react-bootstrap/Image";
-import ResponsiveEmbed from "react-bootstrap/ResponsiveEmbed";
 
 function TopFlavors({ data }) {
   const artists = data.artists;
