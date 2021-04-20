@@ -94,7 +94,7 @@ var upload = multer({
 
 // define endpoint for uploading images, multer middleware, 200 return code
 app.post("/admin/upload_image/:imagetype", upload.array("images"), (req, res) =>
-  res.status(200).end();
+  res.status(200).end()
 );
 
 app.delete("/admin/delete_image/:image", (req, res) => {
