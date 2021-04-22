@@ -1,4 +1,4 @@
-name: Build and publish to mfinn.de
+name: Build Docker image
 
 on:
   push:
