@@ -2,7 +2,7 @@ import NavFrame from "./admin_components/NavFrame";
 import FAQ from "./admin_components/FAQ";
 import Button from "react-bootstrap/Button";
 import { Col, Container, Form, Row } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import styles from "./AdminPanel.module.css"
 
@@ -11,6 +11,13 @@ function AdminPanel({ switchToWeb }) {
   const [credentials, setCredentials] = useState({});
   const [usernameInput, setUsernameInput] = useState(null);
   const [passwordInput, setPasswordInput] = useState(null);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(process.env.REACT_APP_BACKEND + "content")
+      .then(resp => resp.json())
+      .then(data => setData(data))
+    }, [])
 
   function tryLogin() {
     let url = process.env.REACT_APP_BACKEND + "admin";
@@ -61,7 +68,7 @@ function AdminPanel({ switchToWeb }) {
   const tabs = [
     {
       label: "FAQ",
-      component: <FAQ />,
+      component: <FAQ data={data} creds={credentials}/>,
     },
     {
       label: "Test",
