@@ -9,7 +9,7 @@ function Contact(props) {
   const send = (e) => {
     e.preventDefault();
 
-    const url = process.env.REACT_APP_BACKEND + "public_api/sendMessage";
+    const url = process.env.REACT_APP_BACKEND + "sendMessage";
     const options = {
       method: "POST",
       body: JSON.stringify({
