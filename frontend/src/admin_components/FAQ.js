@@ -85,8 +85,7 @@ function FAQ({ data, creds }) {
           </Form.Group>
           <Form.Group controlId="ControlTextarea1">
             <Form.Label>Answer</Form.Label>
-            <Form.Control required size= "lg" as="textarea" placeholder="Answer" onInput={e => SetAnswerInput(e.target.value)} />
-            
+            <Form.Control required size= "lg" as="textarea" placeholder="Answer" onInput={e => SetAnswerInput(e.target.value)} /> 
           </Form.Group>
           <Button variant="primary" onClick={handleAdd}>
             Add

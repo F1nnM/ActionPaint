@@ -86,7 +86,6 @@ function WhatWeDo({ data, creds }) {
           <Form.Group controlId="ControlTextarea1">
             <Form.Label>Description</Form.Label>
             <Form.Control required size= "lg" as="textarea" placeholder="Description" onInput={e => SetAnswerInput(e.target.value)} />
-            
           </Form.Group>
           <Button variant="primary" onClick={handleAdd}>
             Add
