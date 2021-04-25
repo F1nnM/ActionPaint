@@ -1,10 +1,10 @@
-//import styles from "./FAQ.module.scss";
+//import styles from "./WhatWeDo.module.scss";
 import { Table, Button, Col, Container, Form, Row  } from "react-bootstrap";
 import { useState } from "react";
 import DeleteIcon from '@material-ui/icons/Delete';
 
-function FAQ({ data, creds }) {
-  const faq = data.faq;
+function WhatWeDo({ data, creds }) {
+  const whatwedo = data.whatwedo;
   const [questionInput, setQuestionInput] = useState(null);
   const [answerInput, SetAnswerInput] = useState(null);
   let headers = new Headers();
@@ -14,13 +14,13 @@ function FAQ({ data, creds }) {
 
 
   function handleAdd(){
-    faq.push({"q":questionInput,"a":answerInput});
-    const url = process.env.REACT_APP_BACKEND + "admin/update/faq";
+    whatwedo.push({"Title":questionInput,"Description":answerInput});
+    const url = process.env.REACT_APP_BACKEND + "admin/update/whatwedo";
     const options = {
       method: "POST",
       headers,
       body: JSON.stringify({
-        content: JSON.stringify(faq),
+        content: JSON.stringify(whatwedo),
       })
     };
     fetch(url, options)
@@ -33,13 +33,13 @@ function FAQ({ data, creds }) {
   }
 
   function handleDelete(index){
-    faq.splice(index, 1);
-    const url = process.env.REACT_APP_BACKEND + "admin/update/faq";
+    whatwedo.splice(index, 1);
+    const url = process.env.REACT_APP_BACKEND + "admin/update/whatwedo";
     const options = {
       method: "POST",
       headers,
       body: JSON.stringify({
-        content: JSON.stringify(faq),
+        content: JSON.stringify(whatwedo),
       })
     };
     fetch(url, options)
@@ -57,20 +57,20 @@ function FAQ({ data, creds }) {
       <thead>
         <tr>
           <th></th>
-          <th>Questions</th>
-          <th>Answers</th>
+          <th>Title</th>
+          <th>Description</th>
         </tr>
       </thead>
       <tbody>
-      {faq.map((questions, idx) => (
+      {whatwedo.map((questions, idx) => (
         <tr>
           <th>
             <Button variant="danger" onClick={() => handleDelete(idx)}>
               <DeleteIcon/>
             </Button>
           </th>
-          <td>{questions.q}</td>
-          <td>{questions.a}</td>
+          <td>{questions.Title}</td>
+          <td>{questions.Description}</td>
         </tr>
       ))}
       </tbody>
@@ -80,12 +80,12 @@ function FAQ({ data, creds }) {
       <Col className="justify-content-center">
         <Form className="d-flex flex-column justify-content-center" action={null}>
           <Form.Group>
-            <Form.Label>Question</Form.Label>
-            <Form.Control required  size="lg" as="textarea" placeholder="Question" onInput={e => setQuestionInput(e.target.value)} />
+            <Form.Label>Title</Form.Label>
+            <Form.Control required  size="lg" as="textarea" placeholder="Title" onInput={e => setQuestionInput(e.target.value)} />
           </Form.Group>
           <Form.Group controlId="ControlTextarea1">
-            <Form.Label>Answer</Form.Label>
-            <Form.Control required size= "lg" as="textarea" placeholder="Answer" onInput={e => SetAnswerInput(e.target.value)} />
+            <Form.Label>Description</Form.Label>
+            <Form.Control required size= "lg" as="textarea" placeholder="Description" onInput={e => SetAnswerInput(e.target.value)} />
             
           </Form.Group>
           <Button variant="primary" onClick={handleAdd}>
@@ -99,4 +99,4 @@ function FAQ({ data, creds }) {
   );
 }
 
-export default FAQ;
+export default WhatWeDo;

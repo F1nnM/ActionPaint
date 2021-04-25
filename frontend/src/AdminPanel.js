@@ -1,5 +1,6 @@
 import NavFrame from "./admin_components/NavFrame";
 import FAQ from "./admin_components/FAQ";
+import WhatWeDo from "./admin_components/WhatWeDo";
 import Button from "react-bootstrap/Button";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
@@ -69,6 +70,10 @@ function AdminPanel({ switchToWeb }) {
     {
       label: "FAQ",
       component: <FAQ data={data} creds={credentials}/>,
+    },
+    {
+      label: "What We Do",
+      component: <WhatWeDo data={data} creds={credentials}/>,
     },
     {
       label: "Test",
