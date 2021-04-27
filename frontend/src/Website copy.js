@@ -11,12 +11,12 @@ import Navbar from "./components/Navbar";
 import Contact from "./components/Contact";
 import SectionFrame from "./components/SectionFrame";
 
-import styles from "./Website.module.scss";
+import styles from "./Website.module.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import TitleScreen from "./components/TitleScreen";
 import { useInView } from "react-intersection-observer";
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 var sections = [
   {
@@ -62,11 +62,49 @@ function Website({ switchToAdmin }) {
 
   const [data, setData] = useState(null);
 
+  const canvasRef = useRef();
+
   useEffect(() => {
     fetch(process.env.REACT_APP_BACKEND + "content")
       .then(resp => resp.json())
       .then(data => setData(data))
   }, [])
+
+  useEffect(() => {
+    let requestId;
+    if (canvasRef.current) {
+      let canvas = canvasRef.current;
+      let context = canvas.getContext('2d');
+      let dots = [
+
+      ]
+      
+      const render = () => {
+
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.beginPath();
+        context.arc(
+          canvas.width / 2,
+          canvas.height / 2,
+          (canvas.width / 2) * Math.abs(Math.cos(i)),
+          0,
+          2 * Math.PI
+        );
+        context.fill();
+        i += 0.005;
+
+        requestId = requestAnimationFrame(render);
+      }
+
+      render();
+
+    }
+
+    return () => {
+      cancelAnimationFrame(requestId);
+    };
+  })
 
   if (!data)
     return (
@@ -97,18 +135,7 @@ function Website({ switchToAdmin }) {
         </Col>
       </Row>
       <Footer switchToAdmin={switchToAdmin} />
-      <div className={styles.background} >
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-      </div>
+      <canvas ref={canvasRef} className={styles.background} />
     </Container>
   );
 }

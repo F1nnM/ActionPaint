@@ -1,0 +1,114 @@
+.app {
+    overflow-x: hidden;
+
+    --primaryColor: #ff5722;
+    --accentColor: #0277bd;
+    --dark: #000000;
+
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+
+    filter: blur(5vw);
+
+    animation: backgroundfade 5s linear 1;
+
+    li {
+        position: absolute;
+        display: block;
+        list-style: none;
+        width: 20vw;
+        height: 20vw;
+        background: var(--accentColor);
+        animation: animate 25s linear infinite;
+        border-radius: 100%;
+        transform: translateY(100vh);
+
+
+        &:nth-child(1),&:nth-child(3),&:nth-child(5),&:nth-child(7),&:nth-child(10) {
+            background: var(--primaryColor);
+        }
+        
+        &:nth-child(1) {
+            left: -8%;
+            animation-delay: 0s;
+            animation-duration: 27s;
+        }
+
+        &:nth-child(2) {
+            left: 8%;
+            animation-delay: 12s;
+            animation-duration: 27s;
+        }
+        &:nth-child(3) {
+            left: 23%;
+            animation-delay: 8s;
+            animation-duration: 23s;
+        }
+        &:nth-child(4) {
+            left: 35%;
+            animation-delay: 20s;
+            animation-duration: 29s;
+        }
+        &:nth-child(5) {
+            left: 40%;
+            animation-delay: 3s;
+            animation-duration: 18s;
+        }
+        &:nth-child(6) {
+            left: 45%;
+            animation-delay: 0s;
+            animation-duration: 13s;
+        }
+        &:nth-child(7) {
+            left: 58%;
+            animation-delay: 22s;
+            animation-duration: 32s;
+        }
+        &:nth-child(8) {
+            left: 72%;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+        &:nth-child(9) {
+            left: 78%;
+            animation-delay: 10s;
+            animation-duration: 15s;
+        }
+        &:nth-child(10) {
+            left: 88%;
+            animation-delay: 18s;
+            animation-duration: 30s;
+        }
+    }
+}
+@keyframes animate {
+    0% {
+        transform: translateY(100vh);
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-20vw);
+        opacity: 0.5;
+    }
+}
+
+@keyframes backgroundfade {
+    0% {
+        background-color: #4499ca;
+    }
+    100% {
+        background-color: white;
+    }
+}

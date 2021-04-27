@@ -1,7 +1,6 @@
 .fullHeight {
     height: 100vh;
 }
-
 .backgroundImage::after {
     position: absolute;
     top: 0;
@@ -9,9 +8,9 @@
     left: 0;
     right: 0;
     content: '';
-    background: url("../img/TitleScreen.jpg") no-repeat center center;
-    background-size: cover;
-    filter: blur(5px) brightness(140%);
+    /*background: url("../img/TitleScreen.png") no-repeat center center;
+    background-size: cover;*/
+    filter: saturate(20) blur(10vw);
     margin: -10px;
     margin-bottom: 0;
     z-index: -1;
