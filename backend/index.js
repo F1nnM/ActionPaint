@@ -37,9 +37,9 @@ app.use(express.static("built_frontend"));
 // serve images
 app.use("/images", express.static("images"));
 
-utils.content.init();
+var content = utils.load_content();
 app.get("/content", (req, res) => {
-  res.json(utils.content.content);
+  res.json(content);
 });
 
 
@@ -145,7 +145,7 @@ app.post("/admin/update/:file", (req, res) => {
       if (err) res.status(500).send(err);
       else {
         res.status(200).send("File updated");
-        utils.content.update();
+        content = utils.load_content();
       }
     }
   );

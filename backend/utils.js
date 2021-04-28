@@ -37,15 +37,15 @@ exports.sendMail = message;
 // manage content files
 //===========================================
 
-var content = {}
-
 var normalizedPath = require("path").join(__dirname, "content");
 const fs = require("fs");
 function load_content() {
+  var content = {};
   fs.readdirSync(normalizedPath).forEach(function (file) {
     content[file.split(".")[0]] = require("./content/" + file);
   });
+  return content;
 }
 
-exports.content = { content, update: load_content, init: load_content };
+exports.load_content = load_content;
 
