@@ -1,10 +1,12 @@
-//import styles from "./FAQ.module.scss";
+import styles from "./FAQ.module.scss";
 import { Table, Button, Col, Container, Form, Row  } from "react-bootstrap";
 import { useState } from "react";
 import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 function FAQ({ data, creds }) {
-  const faq = data.faq;
+  const [faq, setFAQ] = useState(data.faq);
   const [questionInput, setQuestionInput] = useState(null);
   const [answerInput, SetAnswerInput] = useState(null);
   let headers = new Headers();
@@ -14,7 +16,26 @@ function FAQ({ data, creds }) {
 
 
   function handleAdd(){
-    faq.push({"q":questionInput,"a":answerInput});
+    const obj = {"q":questionInput,"a":answerInput};
+    setFAQ([...faq, obj]);
+  }
+
+  function handleDelete(index){
+    if(window.confirm("Are you sure you wish to delete this item?")){
+      faq.splice(index, 1);
+      setFAQ([...faq]);
+    }
+  }
+
+  function handleUpdateQuestion(value, index){
+    faq[index].q = value;
+    }
+
+  function handleUpdateAnswer(value, index){
+    faq[index].a = value;
+  }
+
+  function handleUpdateSubmit(){
     const url = process.env.REACT_APP_BACKEND + "admin/update/faq";
     const options = {
       method: "POST",
@@ -32,28 +53,29 @@ function FAQ({ data, creds }) {
       });
   }
 
-  function handleDelete(index){
-    faq.splice(index, 1);
-    const url = process.env.REACT_APP_BACKEND + "admin/update/faq";
-    const options = {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        content: JSON.stringify(faq),
-      })
-    };
-    fetch(url, options)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
+  function handleMoveUp(idx){
+    const data = [...faq];
+    const tmp = data[idx];
+    data[idx] = data[idx-1];
+    data[idx-1] = tmp;
+
+    setFAQ([...data]);
+
+  }
+
+  function handleMoveDown(idx){
+    const data = [...faq];
+    const tmp = data[idx];
+    data[idx] = data[idx+1];
+    data[idx+1] = tmp;
+
+    setFAQ([...data]);
+
   }
 
   return (
     <>
-    <Table striped bordered hover>
+    <Table responsive="sm" striped bordered>
       <thead>
         <tr>
           <th></th>
@@ -64,28 +86,46 @@ function FAQ({ data, creds }) {
       <tbody>
       {faq.map((questions, idx) => (
         <tr>
-          <th>
+          <td width="200">
             <Button variant="danger" onClick={() => handleDelete(idx)}>
               <DeleteIcon/>
             </Button>
-          </th>
-          <td>{questions.q}</td>
-          <td>{questions.a}</td>
+            <Button className="float-right" variant="primary" onClick={() => handleMoveUp(idx)}>
+              <ArrowUpwardIcon/>
+            </Button>
+            <p></p>
+            <Button className="float-right" variant="primary" onClick={() => handleMoveDown(idx)}>
+              <ArrowDownwardIcon/>
+            </Button>
+          </td>
+          <td><Form.Control as="textarea" defaultValue={questions.q} key={questions.q} onChange={e => handleUpdateQuestion(e.target.value, idx)} /></td>
+          <td><Form.Control as="textarea" defaultValue={questions.a} key={questions.a} onChange={e => handleUpdateAnswer(e.target.value, idx)} /></td>
         </tr>
       ))}
+      <tr>
+        <td className={styles.saveChanges}>
+          <Button variant="success" onClick={() => handleUpdateSubmit()}>
+            Save Changes
+          </Button>
+        </td>
+      </tr>
       </tbody>
     </Table>
     <Container>
     <Row>
-      <Col className="justify-content-center">
-        <Form className="d-flex flex-column justify-content-center" action={null}>
+      <Col>
+        <Form>
           <Form.Group>
-            <Form.Label>Question</Form.Label>
+            <Form.Label>
+              Question
+            </Form.Label>
             <Form.Control required  size="lg" as="textarea" placeholder="Question" onInput={e => setQuestionInput(e.target.value)} />
           </Form.Group>
-          <Form.Group controlId="ControlTextarea1">
-            <Form.Label>Answer</Form.Label>
-            <Form.Control required size= "lg" as="textarea" placeholder="Answer" onInput={e => SetAnswerInput(e.target.value)} /> 
+          <Form.Group>
+            <Form.Label>
+              Answer
+            </Form.Label>
+          <Form.Control required size= "lg" as="textarea" placeholder="Answer" onInput={e => SetAnswerInput(e.target.value)} /> 
           </Form.Group>
           <Button variant="primary" onClick={handleAdd}>
             Add

@@ -18,7 +18,7 @@ function AdminPanel({ switchToWeb }) {
     fetch(process.env.REACT_APP_BACKEND + "content")
       .then(resp => resp.json())
       .then(data => setData(data))
-    }, [])
+    }, []);
 
   function tryLogin() {
     let url = process.env.REACT_APP_BACKEND + "admin";
