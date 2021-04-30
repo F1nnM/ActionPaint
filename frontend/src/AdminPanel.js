@@ -57,7 +57,7 @@ function AdminPanel({ switchToWeb }) {
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" onInput={e => setPasswordInput(e.target.value)} />
               </Form.Group>
-              <Button variant="primary" onClick={tryLogin}>
+              <Button variant="primary" type="submit" onClick={tryLogin}>
                 Log In
               </Button>
             </Form>
