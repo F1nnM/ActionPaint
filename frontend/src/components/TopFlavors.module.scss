@@ -1,46 +1,30 @@
-.lorem {
+.card{
+  background: none !important;
+  border: none !important;
 }
 
-.carHeight {
-  height: 40vh;
-  object-fit: cover;
+.orange{
+  background-color: var(--primaryColor) !important;
 }
 
-.triggerLink {
-  position: relative;
-  .anchor {
-    position: absolute;
-    content: "";
-    bottom: 5%;
-    left: 50%;
-    transform: translateX(-50%);
-    .toBeHidden {
-      max-height: 0px;
-      overflow: hidden;
-      transition: all 0.4s;
-      cursor: pointer;
-    }
-  }
-  &:hover .toBeHidden {
-    max-height: 30px; /* quick-n-dirty solution, but should work and is easy to adjust */
-  }
+.blue{
+  background-color: var(--accentColor) !important;
 }
 
-.cardImg {
-  object-fit: cover;
+.carousel{
+  background-color: none !important;
 }
 
-.workImg {
-  object-fit: cover;
+.itemleft{
+  padding-top: 20px;
+  padding-left: 20px;
 }
 
-.descEllipsis {
-  // for more info, see https://kiranworkspace.com/ellipsis-to-multiline-text-in-css/
-  text-overflow: ellipsis;
-  overflow: hidden;
-  // Addition lines for 2 line or multiline ellipsis
-  display: -webkit-box !important;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  white-space: normal;
+.itemright{
+  padding-top: 20px;
+  padding-right: 20px;
+}
+
+.text{
+  text-align: center;
 }
