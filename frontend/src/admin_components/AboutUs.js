@@ -1,6 +1,6 @@
 import styles from "./WhatWeDo.module.scss";
 import { Table, Button, Col, Container, Form, Row } from "react-bootstrap";
-import { GitHub, Twitter, Delete, Add } from "@material-ui/icons";
+import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
 
 function WhatWeDo({ data, creds }) {
@@ -14,11 +14,11 @@ function WhatWeDo({ data, creds }) {
       props = [...props, ...Object.keys(mem)];
     });
     props = [...new Set(props)]; // set removes duplicates, and ... converts it back to array
-    props = props.filter((p) => p != "id"); // id should be hidden
+    props = props.filter((p) => p !== "id"); // id should be hidden
     return props;
   })();
 
-  const [newMember, setNewMember] = useState(
+  const [newMember] = useState(
     ((_) => {
       var obj = {};
       allProps.forEach((p) => {
@@ -39,7 +39,7 @@ function WhatWeDo({ data, creds }) {
       setAboutUs(data.about);
   }
 
-  function handleUpdateInfo(key, value) {
+  function handleUpdateTeamInfo(key, value) {
     aboutUs.info = value;
   }
 
@@ -49,10 +49,6 @@ function WhatWeDo({ data, creds }) {
 
   function handleNewMember(key, value) {
     newMember[key] = value;
-  }
-
-  function handleUpdateInfo(value, idx) {
-    aboutUs.members[idx].info = value;
   }
 
   function handleDelete(idx) {
@@ -96,7 +92,7 @@ function WhatWeDo({ data, creds }) {
                   as="textarea"
                   placeholder="Description"
                   defaultValue={aboutUs.info}
-                  onInput={(e) => handleUpdateInfo(e.target.value)}
+                  onInput={(e) => handleUpdateTeamInfo(e.target.value)}
                 />
               </Form.Group>
             </Form>
