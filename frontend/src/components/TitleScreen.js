@@ -1,6 +1,6 @@
 import styles from "./TitleScreen.module.css";
 import React from "react";
-import logo from '../img/logo.svg';
+import { ReactComponent as ReactLogo } from '../img/logo.svg';
 
 import { Container } from "react-bootstrap";
 
@@ -14,11 +14,7 @@ const TitleScreen = React.forwardRef((props, ref) => (
   >
     <div className="flex-grow-1" />
     <div className="text-center">
-    <img
-            src={logo}
-            className={styles.logo}
-            alt="Navbar Logo"
-            />
+      <ReactLogo className={styles.logo} />
     </div>
     <div>
       <div className="text-center">

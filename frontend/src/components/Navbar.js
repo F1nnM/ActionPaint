@@ -2,7 +2,7 @@ import styles from "./Navbar.module.scss";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import PersonIcon from "@material-ui/icons/Person";
 import { Link, Events, scrollSpy } from "react-scroll";
-import logo from '../img/logo.svg';
+import { ReactComponent as ReactLogo} from '../img/logo.svg';
 
 function NavbarFunc({ tmpinView, data }) {
   var Scrollspeed = 500;
@@ -32,8 +32,7 @@ function NavbarFunc({ tmpinView, data }) {
         duration={Scrollspeed}
       >
         <Navbar.Brand className={styles.brand}>
-          <img
-            src={logo}
+          <ReactLogo 
             width="30"
             height="30"
             className="d-inline-block align-top"

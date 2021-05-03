@@ -56,4 +56,16 @@
     padding:0 !important;
     margin: 0 !important;
     max-width: 85vw;
+    width: 300px;
+    height: 300px;
+}
+
+.logo path:nth-child(1) {
+    animation: rotate 5s linear 0s infinite;
+    transform-origin: 50% 50%;
+}
+
+@keyframes rotate {
+    from {transform: perspective(250px) rotateY(0);}
+    to {transform: perspective(250px) rotateY(360deg);}
 }
