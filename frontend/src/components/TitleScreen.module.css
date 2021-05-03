@@ -51,3 +51,8 @@
 .hidden {
     opacity: 0;
 }
+
+.logo{
+    padding:0 !important;
+    margin: 0 !important;
+}

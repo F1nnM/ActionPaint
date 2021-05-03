@@ -1,7 +1,8 @@
 import { Col, Row } from "react-bootstrap";
-// import styles from "./NavFrame.module.scss";
+import styles from "./NavFrame.module.scss";
 import ListGroup from "react-bootstrap/ListGroup";
 import Tab from "react-bootstrap/Tab";
+import logo from '../img/logo.svg';
 
 function NavFrame({ tabs, children }) {
   return (
@@ -9,10 +10,21 @@ function NavFrame({ tabs, children }) {
       <Tab.Container className={"mt-4"}>
         <Row>
           <Col md={2}>
+
             <ListGroup
               defaultActiveKey={"#" + (tabs.length > 0 ? tabs[0].label : "")}
             >
-              {tabs.map((tab, index) => (
+              <ListGroup.Item variant="dark" className={styles.title}>
+                <img
+                  src={logo}
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                  alt="Navbar Logo"
+                  />{' '}
+                  <span>ActionPaint</span>
+              </ListGroup.Item>
+              {tabs.map((tab) => (
                 <>
                   {tab.isBreak && (
                     <>
