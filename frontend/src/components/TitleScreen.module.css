@@ -17,11 +17,11 @@
 }
 
 .title {
-    font-size: max(10vw, 300%); /* caused errors in SASS, no idea why */
+    font-size: min(max(10vw,300%),15vw); /* caused errors in SASS, no idea why */
 }
 
 .subtitle {
-    font-size: max(3vw, 150%);
+    font-size: min(max(3vw,150%),10vw);
 }
 
 @keyframes scrollNoticeBounce {
@@ -55,4 +55,5 @@
 .logo{
     padding:0 !important;
     margin: 0 !important;
+    max-width: 85vw;
 }
