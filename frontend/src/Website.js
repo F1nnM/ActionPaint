@@ -19,21 +19,21 @@ import { useInView } from "react-intersection-observer";
 import React, { useEffect, useState } from "react"
 
 var sections = [
-  {
+  /* {
     title: "Example Section",
     component: <ExampleSection />,
-  },
-  {
-    title: "Our Artists",
-    component: <TopFlavors />,
-  },
-  {
+  },*/
+  /*{
     title: "Playground",
     component: (
       <Playground name="Lorem">
         <PlaygroundComponent />
       </Playground>
     ),
+  },*/
+  {
+    title: "Our Artists",
+    component: <TopFlavors />,
   },
   {
     title: "About Us",
