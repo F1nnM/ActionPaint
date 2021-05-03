@@ -42,7 +42,7 @@ const fs = require("fs");
 function load_content() {
   var content = {};
   fs.readdirSync(normalizedPath).forEach(function (file) {
-    content[file.split(".")[0]] = require("./content/" + file);
+    content[file.split(".")[0]] = JSON.parse(fs.readFileSync("./content/" + file));
   });
   return content;
 }
