@@ -22,9 +22,9 @@ function AboutUs({ data }) {
       </Card>
       <p></p>
       <CardDeck>
-        {team.members.map((member) => (
+        {team.members.map((member, idx) => (
           <Card
-            key={member.name}
+            key={idx}
             border={spotlight === member.name ? "primary" : "light"}
           >
             <Card.Img
