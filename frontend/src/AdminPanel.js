@@ -20,7 +20,8 @@ function AdminPanel({ switchToWeb }) {
       .then((data) => setData(data));
   }, []);
 
-  function tryLogin() {
+  function tryLogin(e) {
+    e.preventDefault();
     let url = process.env.REACT_APP_BACKEND + "admin";
 
     let headers = new Headers();
@@ -42,7 +43,7 @@ function AdminPanel({ switchToWeb }) {
         }
       })
       .catch((err) => {
-        alert(err);
+        console.warn(err);
       });
   }
 
