@@ -60,6 +60,7 @@ function AdminPanel({ switchToWeb }) {
                 <Form.Label>Username</Form.Label>
                 <Form.Control
                   type="user"
+                  autoFocus={true}
                   placeholder="Username"
                   onInput={(e) => setUsernameInput(e.target.value)}
                 />

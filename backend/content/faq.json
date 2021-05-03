@@ -1,1 +1,18 @@
-[{"q":"What is the answer?","a":"42"},{"q":"What word is spelled incorrectly in every single dictionary?","a":"incorrectly"},{"q":"Test1234","a":"Test1231213"},{"q":"What came first the chicken or the egg?","a":"The allmighty chegg"}]
+[
+    {
+        "q": "What is the answer?",
+        "a": "42"
+    },
+    {
+        "q": "What word is spelled incorrectly in every single dictionary?",
+        "a": "incorrectly"
+    },
+    {
+        "q": "Test1234",
+        "a": "Test1231213"
+    },
+    {
+        "q": "What came first the chicken or the egg?",
+        "a": "The allmighty chegg"
+    }
+]
