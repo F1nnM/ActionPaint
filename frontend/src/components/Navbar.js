@@ -46,6 +46,7 @@ function NavbarFunc({ tmpinView, data }) {
                   activeClass="active"
                   spy={true}
                   smooth={true}
+                  offset={-100}
                   duration={Scrollspeed}
                 >
                   <NavDropdown.ItemText className={styles.dropitem}>

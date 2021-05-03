@@ -1,10 +1,12 @@
-//import styles from "./WhatWeDo.module.scss";
+import styles from "./WhatWeDo.module.scss";
 import { Table, Button, Col, Container, Form, Row  } from "react-bootstrap";
 import { useState } from "react";
 import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 function WhatWeDo({ data, creds }) {
-  const whatwedo = data.whatwedo;
+  const [whatwedo, setWhatWeDo] = useState(data.whatwedo);
   const [questionInput, setQuestionInput] = useState(null);
   const [answerInput, SetAnswerInput] = useState(null);
   let headers = new Headers();
@@ -14,7 +16,26 @@ function WhatWeDo({ data, creds }) {
 
 
   function handleAdd(){
-    whatwedo.push({"Title":questionInput,"Description":answerInput});
+    const obj = {"Title":questionInput,"Description":answerInput};
+    setWhatWeDo([...whatwedo, obj]);
+  }
+
+  function handleDelete(index){
+    if(window.confirm("Are you sure you wish to delete this item?")){
+      whatwedo.splice(index, 1);
+      setWhatWeDo([...whatwedo]);
+    }
+  }
+
+  function handleUpdateQuestion(value, index){
+    whatwedo[index].Title = value;
+    }
+
+  function handleUpdateAnswer(value, index){
+    whatwedo[index].Description = value;
+  }
+
+  function handleUpdateSubmit(){
     const url = process.env.REACT_APP_BACKEND + "admin/update/whatwedo";
     const options = {
       method: "POST",
@@ -32,23 +53,24 @@ function WhatWeDo({ data, creds }) {
       });
   }
 
-  function handleDelete(index){
-    whatwedo.splice(index, 1);
-    const url = process.env.REACT_APP_BACKEND + "admin/update/whatwedo";
-    const options = {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        content: JSON.stringify(whatwedo),
-      })
-    };
-    fetch(url, options)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
+  function handleMoveUp(idx){
+    const data = [...whatwedo];
+    const tmp = data[idx];
+    data[idx] = data[idx-1];
+    data[idx-1] = tmp;
+
+    setWhatWeDo([...data]);
+
+  }
+
+  function handleMoveDown(idx){
+    const data = [...whatwedo];
+    const tmp = data[idx];
+    data[idx] = data[idx+1];
+    data[idx+1] = tmp;
+
+    setWhatWeDo([...data]);
+
   }
 
   return (
@@ -62,23 +84,37 @@ function WhatWeDo({ data, creds }) {
         </tr>
       </thead>
       <tbody>
-      {whatwedo.map((questions, idx) => (
+      {whatwedo.map((entry, idx) => (
         <tr>
-          <th>
-            <Button variant="danger" onClick={() => handleDelete(idx)}>
-              <DeleteIcon/>
-            </Button>
-          </th>
-          <td>{questions.Title}</td>
-          <td>{questions.Description}</td>
-        </tr>
+        <td width="200">
+          <Button variant="danger" onClick={() => handleDelete(idx)}>
+            <DeleteIcon/>
+          </Button>
+          <Button className="float-right" variant="primary" onClick={() => handleMoveUp(idx)}>
+            <ArrowUpwardIcon/>
+          </Button>
+          <p></p>
+          <Button className="float-right" variant="primary" onClick={() => handleMoveDown(idx)}>
+            <ArrowDownwardIcon/>
+          </Button>
+        </td>
+        <td><Form.Control as="textarea" defaultValue={entry.Title} key={entry.Title} onInput={e => handleUpdateQuestion(e.target.value, idx)} /></td>
+        <td><Form.Control as="textarea" defaultValue={entry.Description} key={entry.Description} onInput={e => handleUpdateAnswer(e.target.value, idx)} /></td>
+      </tr>
       ))}
+      <tr>
+        <td className={styles.saveChanges}>
+          <Button variant="success" onClick={() => handleUpdateSubmit()}>
+            Save Changes
+          </Button>
+        </td>
+      </tr>
       </tbody>
     </Table>
     <Container>
     <Row>
-      <Col className="justify-content-center">
-        <Form className="d-flex flex-column justify-content-center" action={null}>
+      <Col>
+        <Form>
           <Form.Group>
             <Form.Label>Title</Form.Label>
             <Form.Control required  size="lg" as="textarea" placeholder="Title" onInput={e => setQuestionInput(e.target.value)} />

@@ -24,7 +24,7 @@ var sections = [
     component: <ExampleSection />,
   },
   {
-    title: "Some of our artists",
+    title: "Our Artists",
     component: <TopFlavors />,
   },
   {
