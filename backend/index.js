@@ -130,27 +130,49 @@ app.use(express.json());
 
 app.post("/admin/update/:file", (req, res) => {
   let file = req.params.file;
-  let possibleFiles = ["about", "artists", "faq", "whatwedo"];
+  let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail"];
 
   if (!possibleFiles.includes(file)) {
     res.status(400).send("Not a valid file");
     return;
   }
 
-  fs.writeFile(
-    "./content/" + file + ".json",
-    req.body.content,
-    "utf-8",
-    (err) => {
-      if (err) res.status(500).send(err);
-      else {
-        res.status(200).send("File updated");
-        content = utils.load_content();
+  if(file == "mail")
+    fs.writeFile(
+      "./mail.json",
+      req.body.content,
+      "utf-8",
+      (err) => {
+        if (err) res.status(500).send(err);
+        else {
+          res.status(200).send("File updated");
+          content = utils.load_content();
+        }
       }
-    }
-  );
+    );
+  else 
+    fs.writeFile(
+      "./content/" + file + ".json",
+      req.body.content,
+      "utf-8",
+      (err) => {
+        if (err) res.status(500).send(err);
+        else {
+          res.status(200).send("File updated");
+          content = utils.load_content();
+        }
+      }
+    );
 });
 
+
+app.get("/admin/mailconfig", (req, res) => {
+  fs.readFile("./mail.json", (err, data) => {
+    if (err) 
+      return res.status(500).send(err)
+    res.status(200).send(data);
+  })
+});
 
 
 //===========================================
