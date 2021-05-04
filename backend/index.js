@@ -137,19 +137,29 @@ app.post("/admin/update/:file", (req, res) => {
     return;
   }
 
-  if(file == "mail")
-    fs.writeFile(
-      "./mail.json",
-      req.body.content,
-      "utf-8",
-      (err) => {
-        if (err) res.status(500).send(err);
-        else {
-          res.status(200).send("File updated");
-          content = utils.load_content();
+  if(file == "mail"){
+    fs.readFile("./mail.json", (err, data) => {
+      if (err) 
+        return res.status(500).send(err)
+      let password = JSON.parse(data)["MAIL_PASS"];
+      let newConfig = JSON.parse(req.body.content); 
+      if (newConfig["MAIL_PASS"] === "****")
+        newConfig["MAIL_PASS"] = password; 
+      fs.writeFile(
+        "./mail.json",
+        JSON.stringify(newConfig),
+        "utf-8",
+        (err) => {
+          if (err) res.status(500).send(err);
+          else {
+            res.status(200).send("File updated");
+            
+          }
         }
-      }
-    );
+      );
+      res.status(200).send(config);
+    });
+  }
   else 
     fs.writeFile(
       "./content/" + file + ".json",
@@ -170,8 +180,10 @@ app.get("/admin/mailconfig", (req, res) => {
   fs.readFile("./mail.json", (err, data) => {
     if (err) 
       return res.status(500).send(err)
-    res.status(200).send(data);
-  })
+    let config = JSON.parse(data);
+    config["MAIL_PASS"] = "****";
+    res.status(200).send(config);
+  });
 });
 
 
