@@ -138,6 +138,7 @@ app.post("/admin/update/:file", (req, res) => {
   }
 
   if(file == "mail"){
+    // if the password is still **** then replace it with the password still saved in the file
     fs.readFile("./mail.json", (err, data) => {
       if (err) 
         return res.status(500).send(err)
@@ -181,6 +182,7 @@ app.get("/admin/mailconfig", (req, res) => {
     if (err) 
       return res.status(500).send(err)
     let config = JSON.parse(data);
+    // Password is writeonly
     config["MAIL_PASS"] = "****";
     res.status(200).send(config);
   });
