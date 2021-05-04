@@ -59,7 +59,6 @@
     width: 300px;
     height: 300px;
     perspective: 1000px;
-    transition-duration: 1s;
     --degX: 0;
     --degY: 0;
 }
