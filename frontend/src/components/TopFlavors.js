@@ -23,8 +23,7 @@ function TopFlavors({ data }) {
                       src={process.env.REACT_APP_BACKEND +
                       "images/artist/" +
                       artist.images[idx]}
-                      resizeMode="cover"
-
+                      object-fit="cover"
                     />
                     </Carousel.Item>
                   ))}
