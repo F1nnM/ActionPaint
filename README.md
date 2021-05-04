@@ -33,25 +33,18 @@ docker run -p80:4000 -it ghcr.io/f1nnm/actionpaint:latest
 ```
 
 ## Configuration
-The docker container needs to be configured with environment variables for the contact form to work.
+The admin panel needs to be configured over environment variables:
 
 Following variables need to be set:
 ```bash
-# mail settings for contact form:
-
-MAIL_HOST='smtp.example.com'
-MAIL_PORT=465
-# usually true for 465, false for other ports
-MAIL_SECURE=true
-MAIL_USER='user'
-MAIL_PASS='pass'
-# can also be a comma seperated list of email adresses
-MAIL_RECEIVER='<the email to send the messages to>'
-
 # admin user
 ADMIN_USER='admin'
 ADMIN_PASS='secretpassword'
 ```
+
+The variable `ALLOW_CORS` has to be set to true, when the backend runs on a different domain.
+
+The content and the settings for the contact from then can be set via the admin GUI, accessible with the above defined username/password.
 
 # Useful dev links
 

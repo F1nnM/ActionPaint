@@ -30,6 +30,8 @@ RUN npm install
 
 COPY --from=build_frontend /app/build ./built_frontend
 
+RUN echo '{"MAIL_HOST": "example.com","MAIL_PORT": 465,"MAIL_SECURE": true,"MAIL_USER": "actionpaint@example.com","MAIL_PASS": "password1234","MAIL_RECEIVER": "actionpaint_notification@example.com"}' > ./mail.json
+
 EXPOSE 4000
 
 ENTRYPOINT [ "npm", "run", "start" ]

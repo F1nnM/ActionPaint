@@ -8,22 +8,23 @@ async function message(replyTo, senderName, message) {
   if (!(replyTo && senderName && message))
     throw "Missing field";
 
+  const config = JSON.parse(fs.readFileSync("./mail.json"));
 
   let transporter = nodemailer.createTransport({
-    host: process.env.MAIL_HOST,
-    port: process.env.MAIL_PORT,
-    secure: process.env.MAIL_SECURE,
+    host: config.MAIL_HOST,
+    port: config.MAIL_PORT,
+    secure: config.MAIL_SECURE,
     auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS,
-    },
+      user: config.MAIL_USER,
+      pass: config.MAIL_PASS,
+    }
   });
 
   // send mail with defined transport object
   await transporter
     .sendMail({
       from: '"ActionPaint Contact Form" <actionpaint@mfinn.de>', // sender address
-      to: process.env.MAIL_RECEIVER, // list of receivers
+      to: config.MAIL_RECEIVER, // list of receivers
       subject: "ActionPaint Message", // Subject line
       text: message, // plain text body,
       replyTo: `"${senderName}" <${replyTo}>`,
