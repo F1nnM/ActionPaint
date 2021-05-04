@@ -65,10 +65,10 @@
 
 .logo path:nth-child(1) {
     transform-origin: 50% 50%;
-    transform: rotateX(var(--degX)) rotateY(var(--degY));
+    transform: perspective(250px) rotateX(var(--degX)) rotateY(var(--degY));
 }
 
 .logo path:nth-child(2) {
     transform-origin: 50% 50%;
-    transform: rotateX(var(--degX));
+    transform: perspective(250px) rotateX(var(--degX));
 }

@@ -18,7 +18,7 @@ function WhatWeDo({ data, creds }) {
     return props;
   })();
 
-  const freshMember = (_) => {
+  const freshMember = () => {
     var obj = {};
     allProps.forEach((p) => {
       obj[p] = "";
@@ -118,7 +118,7 @@ function WhatWeDo({ data, creds }) {
         <thead>
           <tr>
             {allProps.map((prop) => (
-              <th style={{ textTransform: "capitalize" }}>{prop}</th>
+              <th key={prop} style={{ textTransform: "capitalize" }}>{prop}</th>
             ))}
             <th>Action</th>
           </tr>
@@ -147,7 +147,7 @@ function WhatWeDo({ data, creds }) {
                 </Button>
               </td> */}
               {allProps.map((prop, idx) => (
-                <td>
+                <td key={prop}>
                   <Form.Control
                     defaultValue={entry[prop]}
                     onInput={(e) => handleUpdateProp(prop, e.target.value, idx)}
@@ -164,7 +164,7 @@ function WhatWeDo({ data, creds }) {
           ))}
           <tr>
             {allProps.map((prop) => (
-              <td>
+              <td key={prop}>
                 <Form.Control
                   defaultValue={""}
                   onInput={(e) => handleNewMember(prop, e.target.value)}

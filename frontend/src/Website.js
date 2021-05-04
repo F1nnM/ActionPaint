@@ -1,8 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
-import ExampleSection from "./components/ExampleSection";
-import Playground from "./components/Playground";
 import AboutUs from "./components/AboutUs";
-import PlaygroundComponent from "./components/PlaygroundComponent";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 import WhatWeDo from "./components/WhatWeDo";

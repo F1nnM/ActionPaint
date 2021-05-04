@@ -85,7 +85,7 @@ function FAQ({ data, creds }) {
       </thead>
       <tbody>
       {faq.map((questions, idx) => (
-        <tr>
+        <tr key={questions.q+questions.a}>
           <td width="200">
             <Button variant="danger" onClick={() => handleDelete(idx)}>
               <DeleteIcon/>

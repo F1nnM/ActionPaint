@@ -49,7 +49,7 @@ function NavbarFunc({ tmpinView, data }) {
         <Nav>
           <NavDropdown title="Top Artists">
             {artists.map((ar, index) => (
-              <NavDropdown.Item>
+              <NavDropdown.Item key={ar.firstName+ar.lastName}>
                 <Link
                   to={index + ": " + ar.firstName + " " + ar.lastName}
                   key={"Link" + index}

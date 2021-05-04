@@ -1,5 +1,5 @@
 import styles from "./TitleScreen.module.css";
-import React, { useState } from "react";
+import React from "react";
 import { ReactComponent as ReactLogo } from "../img/logo.svg";
 
 import { Container } from "react-bootstrap";
@@ -15,7 +15,7 @@ const TitleScreen = React.forwardRef((props, ref) => {
   if (svg) {
     window.onmousemove = (e) => {
       var degX = (scale(e.clientY / innerHeight) * 2 - 1) * 70;
-      var degY = (scale(e.clientX / innerWidth) * 2 - 1) * 70;
+      var degY = (scale(e.clientX / innerWidth) * 2 - 1) * -70;
       svg.style = `--degX: ${degX}deg; --degY: ${degY}deg`;
     }
   }

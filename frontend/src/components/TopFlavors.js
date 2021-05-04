@@ -8,13 +8,13 @@ function TopFlavors({ data }) {
   return (
     <>
       {artists.map((artist, index) => (
-        <DrippingFrame>
-          <Card id={index + ": " + artist.firstName + " " + artist.lastName} className={styles.card}>
+        <DrippingFrame key={artist.firstName+artist.lastName}>
+          <Card id={index +": " + artist.firstName + " " + artist.lastName} className={styles.card}>
             <Row>
               <Col md={{order: index % 2 === 0 ? 2 : 1}}>
                 <Carousel pause="false" interval={5000} className={styles.carousel}>
                   {artist.images.map((image, idx) =>(
-                    <Carousel.Item className={index % 2 === 0 ? styles.itemright : styles.itemleft}>
+                    <Carousel.Item key={idx} className={index % 2 === 0 ? styles.itemright : styles.itemleft}>
                     <img
                       className="d-block w-100"
                       alt={image + idx}
