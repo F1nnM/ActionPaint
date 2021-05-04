@@ -62,7 +62,7 @@
 }
 
 .logoTrans{
-    transition: .1s;
+    transition: transform .3s;
 }
 
 .logo path:nth-child(1) {

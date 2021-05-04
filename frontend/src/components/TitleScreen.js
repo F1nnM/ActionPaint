@@ -38,8 +38,7 @@ const TitleScreen = React.forwardRef((props, ref) => {
         styles.fullHeight +
         " " +
         styles.backgroundImage +
-        " d-flex flex-column " +
-        (transform === "" ? styles.logoTrans : "")
+        " d-flex flex-column "
       }
       ref={ref}
     >

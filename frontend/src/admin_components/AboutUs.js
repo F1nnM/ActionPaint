@@ -18,15 +18,15 @@ function WhatWeDo({ data, creds }) {
     return props;
   })();
 
-  const [newMember] = useState(
-    ((_) => {
-      var obj = {};
-      allProps.forEach((p) => {
-        obj[p] = null;
-      });
-      return obj;
-    })()
-  );
+  const freshMember = (_) => {
+    var obj = {};
+    allProps.forEach((p) => {
+      obj[p] = "";
+    });
+    return obj;
+  };
+
+  const [newMember, setNewMember] = useState(freshMember());
 
   headers.append(
     "Authorization",
@@ -35,8 +35,15 @@ function WhatWeDo({ data, creds }) {
   headers.append("Content-Type", "application/json");
 
   function discardChanges() {
-    if (window.confirm("Do you want to revert all your changes?"))
-      setAboutUs(data.about);
+    if (window.confirm("Do you want to revert all your changes?")) {
+      setAboutUs({
+        ...data.about,
+      });
+
+      setNewMember({
+        ...freshMember(),
+      });
+    }
   }
 
   function handleUpdateTeamInfo(key, value) {
@@ -53,11 +60,19 @@ function WhatWeDo({ data, creds }) {
 
   function handleDelete(idx) {
     aboutUs.members.splice(idx);
-    setAboutUs(aboutUs);
+    setAboutUs({
+      ...aboutUs,
+    });
   }
 
   function handleAdd() {
-    aboutUs.members = [...aboutUs.members, newMember];
+    aboutUs.members.push(newMember);
+    setAboutUs({
+      ...aboutUs,
+    });
+    setNewMember({
+      ...freshMember(),
+    });
   }
 
   function handleUpdateSubmit() {
