@@ -59,18 +59,17 @@
     width: 300px;
     height: 300px;
     perspective: 1000px;
-}
-
-.logoTrans{
-    transition: .1s;
+    transition-duration: 1s;
+    --degX: 0;
+    --degY: 0;
 }
 
 .logo path:nth-child(1) {
-    /* animation: not-rotate 5s linear 0s infinite; */
     transform-origin: 50% 50%;
+    transform: rotateX(var(--degX)) rotateY(var(--degY));
 }
 
-@keyframes rotate {
-    from {transform: perspective(250px) rotateY(0);}
-    to {transform: perspective(250px) rotateY(360deg);}
+.logo path:nth-child(2) {
+    transform-origin: 50% 50%;
+    transform: rotateX(var(--degX));
 }

@@ -5,47 +5,36 @@ import { ReactComponent as ReactLogo } from "../img/logo.svg";
 import { Container } from "react-bootstrap";
 
 const TitleScreen = React.forwardRef((props, ref) => {
-  const [transform, setTransform] = useState("");
 
   const innerWidth = window.innerWidth;
   const innerHeight = window.innerHeight;
 
-  const sensX = -1;
-  const sensY = -1;
-
-  function setMouse(e) {
-    var x = e.clientX,
-      y = e.clientY;
-
-    var a = ((x - innerWidth / 2) / innerWidth).toFixed(2) * 100 * sensX;
-    var b = ((y - innerHeight / 2) / innerHeight).toFixed(2) * 100 * sensY;
-
-    var s = "rotateY(" + a + "deg) rotateX(" + b + "deg)";
-
-    setTransform(s);
+  const svg = document.querySelector("#mainlogo");
+  //https://gist.github.com/gre/1650294
+  const scale = t => t;// < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t
+  if (svg) {
+    window.onmousemove = (e) => {
+      var degX = (scale(e.clientY / innerHeight) * 2 - 1) * 70;
+      var degY = (scale(e.clientX / innerWidth) * 2 - 1) * 70;
+      svg.style = `--degX: ${degX}deg; --degY: ${degY}deg`;
+    }
   }
 
-  function resetMouse() {
-    setTransform("");
-  }
 
   return (
     <Container
       id="TitleScreen"
-      onMouseMove={(e) => setMouse(e)}
-      onMouseOut={(_) => resetMouse()}
       className={
         styles.fullHeight +
         " " +
         styles.backgroundImage +
-        " d-flex flex-column " +
-        (transform === "" ? styles.logoTrans : "")
+        " d-flex flex-column "
       }
       ref={ref}
     >
       <div className="flex-grow-1" />
       <div className="text-center">
-        <ReactLogo className={styles.logo} style={{ transform: transform }} />
+        <ReactLogo id="mainlogo" className={styles.logo} />
       </div>
       <div>
         <div className="text-center">
