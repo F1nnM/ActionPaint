@@ -16,14 +16,13 @@ function TopFlavors({ data }) {
                   {artist.images.map((image, idx) =>(
                     <Carousel.Item className={styles.item}>
                     <img
-                      className="d-block w-100"
+                      className={styles.image+" d-block w-100"}
                       alt={image + idx}
                       width="415"
                       height="270"
                       src={process.env.REACT_APP_BACKEND +
                       "images/artist/" +
                       artist.images[idx]}
-                      object-fit="cover"
                     />
                     </Carousel.Item>
                   ))}
