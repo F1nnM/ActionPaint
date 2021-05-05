@@ -2,7 +2,7 @@ import { Col, Row } from "react-bootstrap";
 import styles from "./NavFrame.module.scss";
 import ListGroup from "react-bootstrap/ListGroup";
 import Tab from "react-bootstrap/Tab";
-import { ReactComponent as ReactLogo } from '../img/logo.svg';
+import { ReactComponent as ReactLogo } from "../img/logo.svg";
 
 function NavFrame({ tabs, children }) {
   return (
@@ -10,22 +10,18 @@ function NavFrame({ tabs, children }) {
       <Tab.Container className={"mt-4"}>
         <Row>
           <Col md={2}>
-
-            <ListGroup
-              defaultActiveKey={"#" + (tabs.length > 0 ? tabs[0].label : "")}
-            >
+            <ListGroup defaultActiveKey={"#" + tabs[0].label}>
               <ListGroup.Item variant="dark" className={styles.title}>
-                <ReactLogo className={styles.logo} />{' '}
-                  <span>ActionPaint</span>
+                <ReactLogo className={styles.logo} /> <span>ActionPaint</span>
               </ListGroup.Item>
-              {tabs.map((tab) => (
+              {tabs.map((tab, idx) => (
                 <>
                   {tab.isBreak && (
                     <>
                       <br />
                     </>
                   )}
-                  <ListGroup.Item action href={"#" + tab.label}>
+                  <ListGroup.Item action href={"#" + tab.label} key={idx}>
                     {tab.label}
                   </ListGroup.Item>
                 </>
