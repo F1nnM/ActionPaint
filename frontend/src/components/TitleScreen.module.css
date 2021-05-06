@@ -1,74 +1,97 @@
 .fullHeight {
-    height: 100vh;
+  height: 100vh;
 }
 .backgroundImage::after {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    content: '';
-    /*background: url("../img/TitleScreen.png") no-repeat center center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  content: "";
+  /*background: url("../img/TitleScreen.png") no-repeat center center;
     background-size: cover;*/
-    filter: saturate(20) blur(10vw);
-    margin: -10px;
-    margin-bottom: 0;
-    z-index: -1;
+  filter: saturate(20) blur(10vw);
+  margin: -10px;
+  margin-bottom: 0;
+  z-index: -1;
 }
 
 .title {
-    font-size: min(max(10vw,300%),15vw); /* caused errors in SASS, no idea why */
+  font-size: min(
+    max(10vw, 300%),
+    15vw
+  ); /* caused errors in SASS, no idea why */
 }
 
 .subtitle {
-    font-size: min(max(3vw,150%),10vw);
+  font-size: min(max(3vw, 150%), 10vw);
 }
 
 @keyframes scrollNoticeBounce {
-    0% {transform: translateY(0px);}
-    50% {transform: translateY(-20px);}
-    100% {transform: translateY(0px);}
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
-.scrollNotice{
-    animation-name: scrollNoticeBounce;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-    color: white;
-    transition-duration: 5s;
+.scrollNotice {
+  animation-name: scrollNoticeBounce;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  color: white;
+  transition-duration: 5s;
 }
 
 .shadowBack {
-    box-shadow: 0px 0px 10px 10px #000000aa;
-    background-color: #000000aa;
+  box-shadow: 0px 0px 10px 10px #000000aa;
+  background-color: #000000aa;
 }
 
 .hideable {
-    transition-duration: 1s;
+  transition-duration: 1s;
 }
 
 .hidden {
-    opacity: 0;
+  opacity: 0;
 }
 
-.logo{
-    padding:0 !important;
-    margin: 0 !important;
-    max-width: 85vw;
-    width: 300px;
-    height: 300px;
-    perspective: 1000px;
+.logo {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: 85vw;
+  width: 300px;
+  height: 300px;
+  perspective: 1000px;
+  --degX: 0;
+  --degY: 0;
+  transition: none;
+}
+
+.logoReset {
+  transition: all 0.6s ease-out !important;
+  --degX: 0 !important;
+  --degY: 0 !important;
+}
+
+@keyframes resetter {
+  to {
     --degX: 0;
     --degY: 0;
+  }
 }
 
 .logo path:nth-child(1) {
-    transform-origin: 50% 50%;
-    transform: perspective(250px) rotateX(var(--degX)) rotateY(var(--degY));
+  transform-origin: 50% 50%;
+  transform: perspective(250px) rotateX(var(--degX)) rotateY(var(--degY));
 }
 
 .logo path:nth-child(2) {
-    transform-origin: 50% 50%;
-    transform: perspective(250px) rotateX(var(--degX));
+  transform-origin: 50% 50%;
+  transform: perspective(250px) rotateX(var(--degX));
 }
