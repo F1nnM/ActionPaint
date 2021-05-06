@@ -98,7 +98,7 @@ function AdminPanel({ switchToWeb }) {
     },
     {
       label: "Test",
-      component: <><p>Some other HTML</p><FileSelector type="team" creds={credentials} onSelect={val => alert(val)}/></>,
+      component: <><p>Some other HTML</p><FileSelector type="artist" creds={credentials} onSelect={val => alert(val)}/></>,
     },
     {
       label: "Go back",

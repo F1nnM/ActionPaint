@@ -3,6 +3,7 @@
     border-radius: 1vw;
     padding: 1vw;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .imageContainer {
@@ -15,7 +16,7 @@
         .image {
             filter: brightness(0.5);
         }
-        
+
         .deleteButton {
             display: initial;
         }

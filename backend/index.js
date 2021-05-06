@@ -114,8 +114,8 @@ app.delete("/admin/delete_image/:imagetype/:image", (req, res) => {
 app.get("/admin/list_images", (req, res) => {
   let files = {};
   try{
-    files["artists"] = fs.readdirSync("./images/artist");
-  files["team"] = fs.readdirSync("./images/team");
+    files["artist"] = fs.readdirSync("./images/artist");
+    files["team"] = fs.readdirSync("./images/team");
   } catch (e) {
     res.status(500).send(e);
   }
