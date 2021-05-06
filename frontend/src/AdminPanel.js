@@ -2,10 +2,10 @@ import NavFrame from "./admin_components/NavFrame";
 import FAQ from "./admin_components/FAQ";
 import WhatWeDo from "./admin_components/WhatWeDo";
 import AboutUs from "./admin_components/AboutUs";
+import EmailConfig from "./admin_components/EmailConfig";
 import Button from "react-bootstrap/Button";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import FileSelector from "./admin_components/FileSelector";
 
 import styles from "./AdminPanel.module.css";
 
@@ -97,8 +97,12 @@ function AdminPanel({ switchToWeb }) {
       component: <AboutUs data={data} creds={credentials} />,
     },
     {
+      label: "E-Mail Config",
+      component: <EmailConfig creds={credentials} />,
+    },
+    {
       label: "Test",
-      component: <><p>Some other HTML</p><FileSelector type="artist" creds={credentials} onSelect={val => alert(val)}/></>,
+      component: <p>Some other HTML</p>,
     },
     {
       label: "Go back",

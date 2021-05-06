@@ -12,7 +12,7 @@ function FAQ({ data, creds }) {
   let headers = new Headers();
 
   headers.append('Authorization', 'Basic ' + btoa(creds.username + ":" + creds.password));
-  headers.append("Content-Type", "application/json",)
+  headers.append("Content-Type", "application/json");
 
 
   function handleAdd(){
