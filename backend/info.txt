@@ -6,8 +6,11 @@ POST /admin/update/<filename>
     
 POST /admin/upload_image/<imageType>
     imageType one of ["artist", "team"]
-    
-DELETE /admin/delete_image/<filename>
+
+GET /admin/list_images
+    list of all images    
+
+DELETE /admin/delete_image/<imagetype>/<filename>
 
 GET /admin/mailconfig
     returns the current mailconfig

@@ -5,6 +5,7 @@ import AboutUs from "./admin_components/AboutUs";
 import Button from "react-bootstrap/Button";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import FileSelector from "./admin_components/FileSelector";
 
 import styles from "./AdminPanel.module.css";
 
@@ -97,7 +98,7 @@ function AdminPanel({ switchToWeb }) {
     },
     {
       label: "Test",
-      component: <p>Some other HTML</p>,
+      component: <><p>Some other HTML</p><FileSelector type="team" creds={credentials} onSelect={val => alert(val)}/></>,
     },
     {
       label: "Go back",
