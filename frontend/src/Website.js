@@ -72,8 +72,15 @@ function Website({ switchToAdmin }) {
       </div>
     )
 
+  const cssVars= {
+    "--primaryColor": data["style"]["primaryColor"],
+    "--accentColor": data["style"]["accentColor"],
+    "--initialBackground": data["style"]["initialBackground"],
+    "--background": data["style"]["background"],
+  }
+
   return (
-    <Container fluid className={styles.app + " px-0"}>
+    <Container fluid className={styles.app + " px-0"} style={cssVars}>
       {/* Navbar component goes here */}
       <Navbar tmpinView={inView} data={data} />
 
@@ -93,18 +100,18 @@ function Website({ switchToAdmin }) {
           ))}
         </Col>
       </Row>
-      <Footer switchToAdmin={switchToAdmin} data={data}/>
+      <Footer switchToAdmin={switchToAdmin} data={data} />
       <div className={styles.background} >
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
       </div>
     </Container>
   );
