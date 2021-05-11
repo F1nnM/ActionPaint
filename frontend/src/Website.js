@@ -29,23 +29,23 @@ var sections = [
     ),
   },*/
   {
-    title: "Our Artists",
+    id: "Our Artists",
     component: <TopFlavors />,
   },
   {
-    title: "About Us",
+    id: "About Us",
     component: <AboutUs />,
   },
   {
-    title: "What We Do",
+    id: "What We Do",
     component: <WhatWeDo />,
   },
   {
-    title: "FAQ",
+    id: "FAQ",
     component: <FAQ />,
   },
   {
-    title: "Contact Us",
+    id: "Contact Us",
     component: <Contact />,
   },
 ];
@@ -87,7 +87,7 @@ function Website({ switchToAdmin }) {
       <Row>
         <Col>
           {sections.map((section) => (
-            <SectionFrame title={section.title} key={section.title}>
+            <SectionFrame title={data["sections"][section.id]} key={data["sections"][section.id]}>
               {React.cloneElement(section.component, { data: data })}
             </SectionFrame>
           ))}
