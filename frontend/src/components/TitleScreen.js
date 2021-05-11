@@ -52,13 +52,13 @@ const TitleScreen = React.forwardRef((props, ref) => {
       </div>
       <div>
         <div className="text-center">
-          <span className={styles.title}>ActionPaint</span>
+          <span className={styles.title}>{props.data.brand.title}</span>
         </div>
       </div>
       <div>
         <div className="text-center">
           <span className={styles.subtitle}>
-            - The modern agency for modern artists -
+            - {props.data.brand.slogan} -
           </span>
         </div>
       </div>

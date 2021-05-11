@@ -114,7 +114,7 @@ function AdminPanel({ switchToWeb }) {
       component: <Button onClick={switchToWeb}>Logout</Button>,
     },
   ];
-  return <NavFrame tabs={tabs}></NavFrame>;
+  return <NavFrame tabs={tabs} data={data} goBack={switchToWeb}></NavFrame>;
 }
 
 export default AdminPanel;

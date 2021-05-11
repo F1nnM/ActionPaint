@@ -38,7 +38,7 @@ function NavbarFunc({ tmpinView, data }) {
             className="d-inline-block align-top"
             alt="Navbar Logo"
             />{' '}
-          ActionPaint
+          {data.brand.title}
         </Navbar.Brand>
         
       </Link>
