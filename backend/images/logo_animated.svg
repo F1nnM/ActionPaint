@@ -50,12 +50,7 @@
       window.parent.onmousemove = (e) => {
         calcDeg(e.clientX, e.clientY, innerHeightParent, innerWidthParent)
       };
-      const innerWidth = window.innerWidth;
-      const innerHeight = window.innerHeight;
-      window.onmousemove = (e) => {
-        calcDeg(e.clientX, e.clientY, innerHeight, innerWidth)
-      };
-
+      
       window.parent.onmouseleave = (e) => {
          setDeg(0,0)
       };

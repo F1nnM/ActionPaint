@@ -67,4 +67,5 @@
   max-width: 85vw;
   width: 300px;
   height: 300px;
+  pointer-events: none;
 }
