@@ -1,0 +1,58 @@
+<svg
+   viewPort="0 0 71.120002 71.120002"
+   viewBox="0 0 71.120002 71.120002"
+   xmlns="http://www.w3.org/2000/svg">
+   <style>
+      #logo {
+         perspective: 1000px;
+         --degX: 0;
+         --degY: 0;
+         transition: none;
+      }
+
+      #letters {
+         transform-origin: 50% 50%;
+         transform: perspective(250px) rotateX(var(--degX)) rotateY(var(--degY));
+      }
+
+      #border {
+         transform-origin: 50% 50%;
+         transform: perspective(250px) rotateX(var(--degX));
+      }
+   </style>
+  <g id="logo">
+    <path
+       id="letters"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 35.601534,15.18336 h 14.64783 c 14.66023,0 14.32049,18.53931 -0.0961,18.53931 h -14.64195 m -20.359,4.8247 20.35643,-0.0838 M 5.538604,53.67792 35.652984,5.04654 m 0,0 -0.29343,60.4186" />
+    <path
+       id="border"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 5.010619,48.70765 V 5.04654 h 9.217873 m 8.104401,0 h 43.096331 v 8.334436 m 0,7.62503 V 65.46514 h -7.737548 m -7.649326,0 H 5.010619 V 56.841923 M 55.964553,7.04654 c 8.873251,6.361378 14.654381,16.76202 14.654381,28.51292 0,5.22256 -1.141925,10.17841 -3.18971,14.631485 m -4,6.642237 c -6.406433,8.38004 -16.506811,13.785748 -27.86976,13.785748 -5.191944,0 -10.120295,-1.128575 -14.553117,-3.15379 m -6.673534,-4 C 5.9259526,57.060578 0.49999824,46.943669 0.5,35.55946 c 1.19e-6,-4.613516 0.8911184,-9.018899 2.510619,-13.053418 m 4,-7.301461 C 13.368725,6.3029398 23.786421,0.5 35.559464,0.5 c 4.647516,0 9.083822,0.904299 13.14256,2.54654" />
+  </g>
+  <script>
+      const svg = document.querySelector("#logo");
+
+      function setDeg(degX, degY) {
+         svg.style = `--degX: ${degX}deg; --degY: ${degY}deg`;
+      }
+
+      const sensX = 40; // sensitivity has to be handled as percent values
+      const sensY = 80;
+      function calcDeg(x, y, innerHeight, innerWidth) {
+         var degX = (((y / innerHeight * 2 - 1) * 70) / 100) * sensX;
+         var degY = (((x / innerWidth * 2 - 1) * -70) / 100) * sensY;
+         setDeg(degX, degY)
+      }
+
+      const innerWidthParent = window.parent.innerWidth;
+      const innerHeightParent = window.parent.innerHeight;
+      window.parent.onmousemove = (e) => {
+        calcDeg(e.clientX, e.clientY, innerHeightParent, innerWidthParent)
+      };
+
+      window.parent.onmouseleave = (e) => {
+         setDeg(0,0)
+      };
+   </script>
+</svg>

@@ -1,10 +1,5 @@
 .app {
     overflow-x: hidden;
-
-    --primaryColor: #ff5722;
-    --accentColor: #0277bd;
-    --dark: #000000;
-
 }
 
 .background {
@@ -106,9 +101,9 @@
 
 @keyframes backgroundfade {
     0% {
-        background-color: #4499ca;
+        background-color: var(--initialBackground);
     }
     100% {
-        background-color: white;
+        background-color: var(--background);
     }
 }

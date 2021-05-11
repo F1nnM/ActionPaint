@@ -66,14 +66,23 @@ function Website({ switchToAdmin }) {
 
   if (!data) return <div>Loading...</div>;
 
+  const cssVars = {
+    "--primaryColor": data["style"]["primaryColor"],
+    "--accentColor": data["style"]["accentColor"],
+    "--initialBackground": data["style"]["initialBackground"],
+    "--background": data["style"]["background"],
+  }
+
+  document.title = data.brand.title
+
   return (
-    <Container fluid className={styles.app + " px-0"}>
+    <Container fluid className={styles.app + " px-0"} style={cssVars}>
       {/* Navbar component goes here */}
       <Navbar tmpinView={inView} data={data} />
 
       <Row className="mb-5">
         <Col>
-          <TitleScreen ref={ref} tmpinView={inView} />
+          <TitleScreen ref={ref} tmpinView={inView} data={data} />
         </Col>
       </Row>
 

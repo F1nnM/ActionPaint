@@ -87,17 +87,17 @@ function Footer({ switchToAdmin, data: all_data}) {
               <span className="text-uppercase">Social</span>
               <Row>
                 <Col lg className="mt-3">
-                  <a href={"https://twitter.com/"+data.twitter} className={styles.colorReset} target="_blank">
+                  <a href={"https://twitter.com/"+data.twitter} className={styles.colorReset} target="_blank" rel="noreferrer">
                     <Twitter />
                   </a>
                 </Col>
                 <Col lg className="mt-3">
-                  <a href={"https://instagram.com/"+data.instagram} className={styles.colorReset} target="_blank">
+                  <a href={"https://instagram.com/"+data.instagram} className={styles.colorReset} target="_blank" rel="noreferrer">
                     <Instagram />
                   </a>
                 </Col>
                 <Col lg className="mt-3">
-                  <a href={"https://linkedin.com/"+data.linkedin} className={styles.colorReset} target="_blank">
+                  <a href={"https://linkedin.com/"+data.linkedin} className={styles.colorReset} target="_blank" rel="noreferrer">
                     <LinkedIn />
                   </a>
                 </Col>

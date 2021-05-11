@@ -2,7 +2,6 @@ import styles from "./Navbar.module.scss";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import PersonIcon from "@material-ui/icons/Person";
 import { Link, Events, scrollSpy } from "react-scroll";
-import { ReactComponent as ReactLogo} from '../img/logo.svg';
 
 function NavbarFunc({ tmpinView, data }) {
   var Scrollspeed = 500;
@@ -32,15 +31,19 @@ function NavbarFunc({ tmpinView, data }) {
         duration={Scrollspeed}
       >
         <Navbar.Brand className={styles.brand}>
-          <ReactLogo 
+          <object
+            type="image/svg+xml"
+            data={process.env.REACT_APP_BACKEND + "images/logo_static.svg"}
             width="30"
             height="30"
             className="d-inline-block align-top"
-            alt="Navbar Logo"
-            />{' '}
-          ActionPaint
+            alt="Navbar Logo">
+            <img src={process.env.REACT_APP_BACKEND + "images/logo_static.svg"} alt="Logo"/>
+          </object>
+          {' '}
+          {data.brand.title}
         </Navbar.Brand>
-        
+
       </Link>
       <Navbar.Toggle className={styles.hamburger} />
       <Navbar.Collapse
@@ -49,7 +52,7 @@ function NavbarFunc({ tmpinView, data }) {
         <Nav>
           <NavDropdown title="Top Artists">
             {artists.map((ar, index) => (
-              <NavDropdown.Item key={ar.firstName+ar.lastName}>
+              <NavDropdown.Item key={ar.firstName + ar.lastName}>
                 <Link
                   to={index + ": " + ar.firstName + " " + ar.lastName}
                   key={"Link" + index}
