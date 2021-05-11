@@ -40,8 +40,8 @@
       const sensX = 40; // sensitivity has to be handled as percent values
       const sensY = 80;
       function calcDeg(x, y, innerHeight, innerWidth) {
-         var degX = (((scale(y / innerHeight) * 2 - 1) * 70) / 100) * sensX;
-         var degY = (((scale(x / innerWidth) * 2 - 1) * -70) / 100) * sensY;
+         var degX = (((y / innerHeight * 2 - 1) * 70) / 100) * sensX;
+         var degY = (((x / innerWidth * 2 - 1) * -70) / 100) * sensY;
          setDeg(degX, degY)
       }
 
