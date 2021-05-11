@@ -51,7 +51,7 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
           className={!hideNavbar ? styles.smallCollapse : styles.collapseabletext}
         >
           <Nav>
-            <NavDropdown title="Top Artists">
+            <NavDropdown title={data.sections["Our Artists"]}>
               {artists.map((ar, index) => (
                 <NavDropdown.Item key={ar.firstName + ar.lastName}>
                   <Link
@@ -78,7 +78,7 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
               smooth={true}
               duration={Scrollspeed}
             >
-              <Nav.Link>About Us</Nav.Link>
+              <Nav.Link>{data.sections["About Us"]}</Nav.Link>
             </Link>
             <Link
               activeClass="active"
@@ -87,7 +87,7 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
               smooth={true}
               duration={Scrollspeed}
             >
-              <Nav.Link>What We Do</Nav.Link>
+              <Nav.Link>{data.sections["What We Do"]}</Nav.Link>
             </Link>
             <Link
               activeClass="active"
@@ -96,7 +96,7 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
               smooth={true}
               duration={Scrollspeed}
             >
-              <Nav.Link>FAQ</Nav.Link>
+              <Nav.Link>{data.sections["FAQ"]}</Nav.Link>
             </Link>
             <Link
               activeClass="active"
@@ -105,7 +105,7 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
               smooth={true}
               duration={Scrollspeed}
             >
-              <Nav.Link>Contact</Nav.Link>
+              <Nav.Link>{data.sections["Contact Us"]}</Nav.Link>
             </Link>
           </Nav>
         </Navbar.Collapse>
