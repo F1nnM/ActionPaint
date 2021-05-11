@@ -10,10 +10,11 @@ function NavFrame({ tabs, children, data, goBack}) {
         <Row>
           <Col md={2}>
             <ListGroup defaultActiveKey={"#" + tabs[0].label}>
-              <ListGroup.Item variant="dark"  action className={styles.title} onClick={_=>goBack()}>
+              <ListGroup.Item variant="dark" action className={styles.title} onClick={_=>goBack()}>
                 <object className={styles.logo} type="image/svg+xml" data={process.env.REACT_APP_BACKEND + "images/logo_static.svg"}>
                   <img src={process.env.REACT_APP_BACKEND + "images/logo_static.svg"} alt="Logo" />
-                </object><span>{data.brand.title}</span>
+                </object>
+                <span>{data.brand.title}</span>
               </ListGroup.Item>
               {tabs.map((tab, idx) => (
                 <>
