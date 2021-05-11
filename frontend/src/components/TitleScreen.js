@@ -1,36 +1,9 @@
 import styles from "./TitleScreen.module.css";
-import React, { useState } from "react";
-import { ReactComponent as ReactLogo } from "../img/logo.svg";
+import React from "react";
 
 import { Container } from "react-bootstrap";
 
 const TitleScreen = React.forwardRef((props, ref) => {
-  const innerWidth = window.innerWidth;
-  const innerHeight = window.innerHeight;
-
-  const svg = document.querySelector("#mainlogo");
-  //https://gist.github.com/gre/1650294
-  const scale = (t) => t; // < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t
-
-  const sensX = 40; // sensitivity has to be handled as percent values
-  const sensY = 80;
-  if (svg) {
-    window.onmousemove = (e) => {
-      var degX =
-        (((scale(e.clientY / innerHeight) * 2 - 1) * 70) / 100) * sensX;
-      var degY =
-        (((scale(e.clientX / innerWidth) * 2 - 1) * -70) / 100) * sensY;
-      svg.style = `--degX: ${degX}deg; --degY: ${degY}deg`;
-    };
-
-    document.onmouseenter = (e) => {
-      svg.style = `--degX: 0deg; --degY: 0deg`;
-    };
-
-    document.onmouseleave = (e) => {
-      svg.style = `--degX: 0deg; --degY: 0deg`;
-    };
-  }
 
   return (
     <Container
@@ -45,10 +18,9 @@ const TitleScreen = React.forwardRef((props, ref) => {
     >
       <div className="flex-grow-1" />
       <div className="text-center">
-        <ReactLogo
-          id="mainlogo"
-          className={styles.logo}
-        />
+        <object className={styles.logo} type="image/svg+xml" data={process.env.REACT_APP_BACKEND + "images/logo_animated.svg"}>
+          <img src={process.env.REACT_APP_BACKEND + "images/logo_animated.svg"} alt="Logo" />
+        </object>
       </div>
       <div>
         <div className="text-center">

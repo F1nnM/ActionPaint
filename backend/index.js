@@ -67,15 +67,37 @@ app.get("/admin", (req, res) => res.status(200).end());
 
 // generate which folder to save a image to
 function destination(req, file, callback) {
+  if (["favicon", "logo_animated", "logo_static", "logo192", "logo512"].includes(req.params.imagetype))
+    return callback(null, './images/')
   callback(null, `./images/${req.params.imagetype}/`);
 }
 // generate a filename for the image
 function filename(req, file, callback) {
-  callback(null, file.originalname);
+  let filename;
+  switch (req.params.imagetype) {
+    case "favicon":
+      filename = "favicon.ico";
+      break;
+    case "logo_animated":
+      filename = "logo_animated.svg";
+      break;
+    case "logo_static":
+      filename = "logo_static.svg";
+      break;
+    case "logo192":
+      filename = "logo192.png";
+      break;
+    case "logo512":
+      filename = "logo512.png";
+      break;
+    default:
+      filename = file.originalname;
+  }
+  callback(null, filename);
 }
 
 // validate uploaded files, only allow correct image types
-const validTypes = ["artist", "team"];
+const validTypes = ["artist", "team", "favicon", "logo_animated", "logo_static", "logo192", "logo512"];
 function fileFilter(req, file, callback) {
   callback(null, validTypes.includes(req.params.imagetype));
 }
@@ -102,7 +124,7 @@ app.delete("/admin/delete_image/:imagetype/:image", (req, res) => {
   //make sure no relative paths are used to delete other files
   let filename = path.basename(req.params.image);
 
-  fs.unlink("./images/"+filedir+"/" + filename, (err) => {
+  fs.unlink("./images/" + filedir + "/" + filename, (err) => {
     if (err)
       res.status(500).send(err);
     else
@@ -112,7 +134,7 @@ app.delete("/admin/delete_image/:imagetype/:image", (req, res) => {
 
 app.get("/admin/list_images", (req, res) => {
   let files = {};
-  try{
+  try {
     files["artist"] = fs.readdirSync("./images/artist");
     files["team"] = fs.readdirSync("./images/team");
   } catch (e) {
@@ -121,6 +143,7 @@ app.get("/admin/list_images", (req, res) => {
 
   res.status(200).send(files);
 });
+
 
 //===========================================
 // parse POST bodies for API endpoints
@@ -133,29 +156,40 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 
-
 //===========================================
 // updating files
 //===========================================
 
 app.post("/admin/update/:file", (req, res) => {
   let file = req.params.file;
-  let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail", "footer", "sections", "style", "brand"];
+  let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail", "footer", "sections", "style", "brand", "privacy"];
 
   if (!possibleFiles.includes(file)) {
     res.status(400).send("Not a valid file");
     return;
   }
-
-  if(file == "mail"){
+  if (file == "privacy") {
+    fs.writeFile(
+      "./built_frontend/privacyPolicy",
+      req.body.content,
+      "utf-8",
+      (err) => {
+        if (err) res.status(500).send(err);
+        else {
+          res.status(200).send("File updated");
+          content = utils.load_content();
+        }
+      }
+    );
+  } else if (file == "mail") {
     // if the password is still **** then replace it with the password still saved in the file
     fs.readFile("./mail.json", (err, data) => {
-      if (err) 
+      if (err)
         return res.status(500).send(err)
       let password = JSON.parse(data)["MAIL_PASS"];
-      let newConfig = JSON.parse(req.body.content); 
+      let newConfig = JSON.parse(req.body.content);
       if (newConfig["MAIL_PASS"] === "****")
-        newConfig["MAIL_PASS"] = password; 
+        newConfig["MAIL_PASS"] = password;
       fs.writeFile(
         "./mail.json",
         JSON.stringify(newConfig),
@@ -164,13 +198,13 @@ app.post("/admin/update/:file", (req, res) => {
           if (err) res.status(500).send(err);
           else {
             res.status(200).send("File updated");
-            
+
           }
         }
-      ); 
+      );
     });
   }
-  else 
+  else
     fs.writeFile(
       "./content/" + file + ".json",
       req.body.content,
@@ -188,7 +222,7 @@ app.post("/admin/update/:file", (req, res) => {
 
 app.get("/admin/mailconfig", (req, res) => {
   fs.readFile("./mail.json", (err, data) => {
-    if (err) 
+    if (err)
       return res.status(500).send(err)
     let config = JSON.parse(data);
     // Password is writeonly
@@ -212,7 +246,6 @@ app.post("/sendMessage", async (req, res) => {
       return;
     })
 });
-
 
 
 //===========================================
