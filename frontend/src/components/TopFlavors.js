@@ -12,7 +12,7 @@ function TopFlavors({ data }) {
           <Card id={index + ": " + artist.firstName + " " + artist.lastName} className={styles.card}>
             <Row>
               <Col md={{order: index % 2 === 0 ? 2 : 1}}>
-                <Carousel pause="false" interval={5000} className={styles.carousel}>
+                <Carousel pause={false} interval={5000} className={styles.carousel}>
                   {artist.images.map((image, idx) =>(
                     <Carousel.Item className={styles.item}>
                     <img
