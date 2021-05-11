@@ -1,10 +1,20 @@
 import styles from "./WhatWeDo.module.scss";
-import { Table, Button, Col, Container, Form, Row } from "react-bootstrap";
+import {
+  Table,
+  Button,
+  Col,
+  Container,
+  Form,
+  Row,
+  Modal,
+} from "react-bootstrap";
 import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
+import FileSelector from "./FileSelector";
 
 function WhatWeDo({ data, creds }) {
   const [aboutUs, setAboutUs] = useState(data.about);
+  const [showImageSelect, setShowImageSelect] = useState(false);
   let headers = new Headers();
 
   const allProps = ((_) => {
@@ -93,6 +103,17 @@ function WhatWeDo({ data, creds }) {
       });
   }
 
+  function selectImage(url, id) {
+    alert(url + id);
+    setShowImageSelect(false);
+    var member = aboutUs.members.find((e) => e.id === id);
+    console.log(member);
+    member.imageUrl = url;
+    setAboutUs({
+      ...aboutUs,
+    });
+  }
+
   return (
     <>
       <Container>
@@ -118,7 +139,9 @@ function WhatWeDo({ data, creds }) {
         <thead>
           <tr>
             {allProps.map((prop) => (
-              <th key={prop} style={{ textTransform: "capitalize" }}>{prop}</th>
+              <th key={prop} style={{ textTransform: "capitalize" }}>
+                {prop}
+              </th>
             ))}
             <th>Action</th>
           </tr>
@@ -146,14 +169,58 @@ function WhatWeDo({ data, creds }) {
                   <ArrowDownwardIcon />
                 </Button>
               </td> */}
-              {allProps.map((prop, idx) => (
-                <td key={prop}>
-                  <Form.Control
-                    defaultValue={entry[prop]}
-                    onInput={(e) => handleUpdateProp(prop, e.target.value, idx)}
-                  />
-                </td>
-              ))}
+              {allProps.map((prop, propIdx) =>
+                prop === "imageUrl" ? (
+                  <>
+                    <span>{entry[prop] + entry.id}</span>
+                    <Button
+                      variant="info"
+                      onClick={(_) => setShowImageSelect(true)}
+                    >
+                      Change
+                    </Button>
+                    <Modal show={showImageSelect}>
+                      <Modal.Header
+                        closeButton
+                        onClick={(_) => setShowImageSelect(false)}
+                      >
+                        <Modal.Title>Choose an image</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <FileSelector
+                          type="team"
+                          creds={creds}
+                          onSelect={(val) => selectImage(val, entry.id)}
+                        />
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <p>Click on an image to select</p>
+                        {/* <Button
+                          variant="secondary"
+                          onClick={(_) => setShowImageSelect(false)}
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          variant="primary"
+                          onClick={(_) => setShowImageSelect(false)}
+                        >
+                          Save Changes
+                        </Button> */}
+                      </Modal.Footer>
+                    </Modal>
+                  </>
+                ) : (
+                  <td key={prop}>
+                    <Form.Control
+                      defaultValue={entry[prop]}
+                      onInput={(e) =>
+                        handleUpdateProp(prop, e.target.value, idx)
+                      }
+                    />
+                  </td>
+                )
+              )}
 
               <td>
                 <Button variant="danger" onClick={() => handleDelete(idx)}>

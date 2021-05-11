@@ -13,7 +13,7 @@ import styles from "./Website.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import TitleScreen from "./components/TitleScreen";
 import { useInView } from "react-intersection-observer";
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 
 var sections = [
   /* {
@@ -51,7 +51,6 @@ var sections = [
 ];
 
 function Website({ switchToAdmin }) {
-
   const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0.9,
@@ -61,16 +60,11 @@ function Website({ switchToAdmin }) {
 
   useEffect(() => {
     fetch(process.env.REACT_APP_BACKEND + "content")
-      .then(resp => resp.json())
-      .then(data => setData(data))
-  }, [])
+      .then((resp) => resp.json())
+      .then((data) => setData(data));
+  }, []);
 
-  if (!data)
-    return (
-      <div>
-        Loading...
-      </div>
-    )
+  if (!data) return <div>Loading...</div>;
 
   const cssVars= {
     "--primaryColor": data["style"]["primaryColor"],
@@ -94,14 +88,17 @@ function Website({ switchToAdmin }) {
       <Row>
         <Col>
           {sections.map((section) => (
-            <SectionFrame title={data["sections"][section.id]} key={data["sections"][section.id]}>
+            <SectionFrame
+              title={data["sections"][section.id]}
+              key={data["sections"][section.id]}
+            >
               {React.cloneElement(section.component, { data: data })}
             </SectionFrame>
           ))}
         </Col>
       </Row>
       <Footer switchToAdmin={switchToAdmin} data={data} />
-      <div className={styles.background} >
+      <div className={styles.background}>
         <li />
         <li />
         <li />
