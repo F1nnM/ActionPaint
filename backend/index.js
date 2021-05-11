@@ -65,13 +65,13 @@ app.get("/admin", (req, res) => res.status(200).end());
 // file upload handling
 //===========================================
 
-// generate which folter to save a image to
+// generate which folder to save a image to
 function destination(req, file, callback) {
-  callback(null, `./images/${req.body.imagetype}/`);
+  callback(null, `./images/${req.params.imagetype}/`);
 }
 // generate a filename for the image
 function filename(req, file, callback) {
-  callback(null, file.originalname + "_" + Date.now());
+  callback(null, file.originalname);
 }
 
 // validate uploaded files, only allow correct image types
@@ -97,12 +97,12 @@ app.post("/admin/upload_image/:imagetype", upload.array("images"), (req, res) =>
   res.status(200).end()
 );
 
-app.delete("/admin/delete_image/:image", (req, res) => {
+app.delete("/admin/delete_image/:imagetype/:image", (req, res) => {
 
   //make sure no relative paths are used to delete other files
   let filename = path.basename(req.params.image);
 
-  fs.unlink("./images/artist/" + filename, (err) => {
+  fs.unlink("./images/"+filedir+"/" + filename, (err) => {
     if (err)
       res.status(500).send(err);
     else
@@ -110,7 +110,17 @@ app.delete("/admin/delete_image/:image", (req, res) => {
   });
 });
 
+app.get("/admin/list_images", (req, res) => {
+  let files = {};
+  try{
+    files["artist"] = fs.readdirSync("./images/artist");
+    files["team"] = fs.readdirSync("./images/team");
+  } catch (e) {
+    res.status(500).send(e);
+  }
 
+  res.status(200).send(files);
+});
 
 //===========================================
 // parse POST bodies for API endpoints
@@ -130,7 +140,7 @@ app.use(express.json());
 
 app.post("/admin/update/:file", (req, res) => {
   let file = req.params.file;
-  let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail"];
+  let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail", "footer", "sections"];
 
   if (!possibleFiles.includes(file)) {
     res.status(400).send("Not a valid file");

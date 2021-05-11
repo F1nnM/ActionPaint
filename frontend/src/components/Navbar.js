@@ -69,39 +69,39 @@ function NavbarFunc({ tmpinView, data }) {
           </NavDropdown>
           <Link
             activeClass="active"
-            to="About Us"
+            to={data["sections"]["About Us"]}
             spy={true}
             smooth={true}
             duration={Scrollspeed}
           >
-            <Nav.Link>About Us</Nav.Link>
+            <Nav.Link>{data["sections"]["About Us"]}</Nav.Link>
           </Link>
           <Link
             activeClass="active"
-            to="What We Do"
+            to={data["sections"]["What We Do"]}
             spy={true}
             smooth={true}
             duration={Scrollspeed}
           >
-            <Nav.Link>What We Do</Nav.Link>
+            <Nav.Link>{data["sections"]["What We Do"]}</Nav.Link>
           </Link>
           <Link
             activeClass="active"
-            to="FAQ"
+            to={data["sections"]["FAQ"]}
             spy={true}
             smooth={true}
             duration={Scrollspeed}
           >
-            <Nav.Link>FAQ</Nav.Link>
+            <Nav.Link>{data["sections"]["FAQ"]}</Nav.Link>
           </Link>
           <Link
             activeClass="active"
-            to="Contact Us"
+            to={data["sections"]["Contact Us"]}
             spy={true}
             smooth={true}
             duration={Scrollspeed}
           >
-            <Nav.Link>Contact</Nav.Link>
+            <Nav.Link>{data["sections"]["Contact Us"]}</Nav.Link>
           </Link>
         </Nav>
       </Navbar.Collapse>

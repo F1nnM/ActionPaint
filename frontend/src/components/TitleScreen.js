@@ -8,8 +8,6 @@ const TitleScreen = React.forwardRef((props, ref) => {
   const innerWidth = window.innerWidth;
   const innerHeight = window.innerHeight;
 
-  const [inDoc, setInDoc] = useState("false");
-
   const svg = document.querySelector("#mainlogo");
   //https://gist.github.com/gre/1650294
   const scale = (t) => t; // < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t
@@ -26,15 +24,11 @@ const TitleScreen = React.forwardRef((props, ref) => {
     };
 
     document.onmouseenter = (e) => {
-      setInDoc(true); // class toggling works only via states
-      /* svg.classList.add(styles.logoReset);
-      console.warn("added"); */
+      svg.style = `--degX: 0deg; --degY: 0deg`;
     };
 
     document.onmouseleave = (e) => {
-      setInDoc(false);
-      /* svg.classList.remove(styles.logoReset);
-      console.warn("removed"); */
+      svg.style = `--degX: 0deg; --degY: 0deg`;
     };
   }
 
@@ -53,7 +47,7 @@ const TitleScreen = React.forwardRef((props, ref) => {
       <div className="text-center">
         <ReactLogo
           id="mainlogo"
-          className={styles.logo + " " + (inDoc ? "" : styles.logoReset)}
+          className={styles.logo}
         />
       </div>
       <div>

@@ -11,7 +11,10 @@ import Business from "@material-ui/icons/Business";
 import LocationOn from "@material-ui/icons/LocationOn";
 import React from "react";
 
-function Footer({ switchToAdmin }) {
+function Footer({ switchToAdmin, data: all_data}) {
+
+  const data = all_data["footer"];
+
   return (
     <React.Fragment>
       <Container fluid className={styles.footerLeadIn}>
@@ -38,27 +41,27 @@ function Footer({ switchToAdmin }) {
             <address className="mt-3">
               <p>
                 <Business className="mr-3" />
-                ActionPaint Agency GmbH
+                {data.companyName}
               </p>
               <p>
                 <LocationOn className="mr-3" />
                 <a
-                  href="https://www.google.com/maps"
+                  href={data.mapsLink}
                   className={styles.colorReset}
                 >
-                  Max-Muster Straße 42, 12345 Berlin
+                  {data.location}
                 </a>
               </p>
               <p>
                 <ContactMail className="mr-3" />
-                <a href="mailto:jim@rock.com" className={styles.colorReset}>
-                  contact@actionpaint.de
+                <a href={"mailto:"+data.mail} className={styles.colorReset}>
+                  {data.mail}
                 </a>
               </p>
               <p>
                 <Phone className="mr-3" />
-                <a href="tel:+13115552368" className={styles.colorReset}>
-                  (+49) 123 456 789
+                <a href={"tel:"+data.telephone} className={styles.colorReset}>
+                  {data.telephone}
                 </a>
               </p>
             </address>
@@ -84,17 +87,17 @@ function Footer({ switchToAdmin }) {
               <span className="text-uppercase">Social</span>
               <Row>
                 <Col lg className="mt-3">
-                  <a href="https://twitter.com" className={styles.colorReset}>
+                  <a href={"https://twitter.com/"+data.twitter} className={styles.colorReset} target="_blank">
                     <Twitter />
                   </a>
                 </Col>
                 <Col lg className="mt-3">
-                  <a href="https://instagram.com" className={styles.colorReset}>
+                  <a href={"https://instagram.com/"+data.instagram} className={styles.colorReset} target="_blank">
                     <Instagram />
                   </a>
                 </Col>
                 <Col lg className="mt-3">
-                  <a href="https://linkedin.com" className={styles.colorReset}>
+                  <a href={"https://linkedin.com/"+data.linkedin} className={styles.colorReset} target="_blank">
                     <LinkedIn />
                   </a>
                 </Col>
@@ -106,7 +109,7 @@ function Footer({ switchToAdmin }) {
 
         <Row className="py-5">
           <Col className="text-center">
-            <span>&copy; ActionPaint 2021</span>
+            <span>&copy; {data.copyright}</span>
           </Col>
         </Row>
         <Row>
