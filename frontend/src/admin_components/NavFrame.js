@@ -37,7 +37,7 @@ function NavFrame({ tabs, children, data, goBack}) {
             </ListGroup>
           </Col>
           <Col md={10}>
-            <Tab.Content>
+            <Tab.Content className="pr-5 py-5 pl-3">
               {tabs.map((tab, index) => (
                 <>
                   <Tab.Pane eventKey={"#" + tab.label}>
