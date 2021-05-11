@@ -33,28 +33,31 @@
   <script>
       const svg = document.querySelector("#logo");
 
-      const innerWidth = window.parent.innerWidth;
-      const innerHeight = window.parent.innerHeight;
-
-      //https://gist.github.com/gre/1650294
-      const scale = (t) => t; // t (less than) .5 ? 2 * t * t : -1 + (4 - 2 * t) * t
+      function setDeg(degX, degY) {
+         svg.style = `--degX: ${degX}deg; --degY: ${degY}deg`;
+      }
 
       const sensX = 40; // sensitivity has to be handled as percent values
       const sensY = 80;
+      function calcDeg(x, y, innerHeight, innerWidth) {
+         var degX = (((scale(y / innerHeight) * 2 - 1) * 70) / 100) * sensX;
+         var degY = (((scale(x / innerWidth) * 2 - 1) * -70) / 100) * sensY;
+         setDeg(degX, degY)
+      }
+
+      const innerWidthParent = window.parent.innerWidth;
+      const innerHeightParent = window.parent.innerHeight;
       window.parent.onmousemove = (e) => {
-         var degX =
-         (((scale(e.clientY / innerHeight) * 2 - 1) * 70) / 100) * sensX;
-         var degY =
-         (((scale(e.clientX / innerWidth) * 2 - 1) * -70) / 100) * sensY;
-         svg.style = `--degX: ${degX}deg; --degY: ${degY}deg`;
+        calcDeg(e.clientX, e.clientY, innerHeightParent, innerWidthParent)
+      };
+      const innerWidth = window.innerWidth;
+      const innerHeight = window.innerHeight;
+      window.onmousemove = (e) => {
+        calcDeg(e.clientX, e.clientY, innerHeight, innerWidth)
       };
 
-      document.onmouseenter = (e) => {
-         svg.style = `--degX: 0deg; --degY: 0deg`;
-      };
-
-      document.onmouseleave = (e) => {
-         svg.style = `--degX: 0deg; --degY: 0deg`;
+      window.parent.onmouseleave = (e) => {
+         setDeg(0,0)
       };
    </script>
 </svg>
