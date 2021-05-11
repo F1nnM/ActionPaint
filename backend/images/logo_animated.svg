@@ -33,8 +33,8 @@
   <script>
       const svg = document.querySelector("#logo");
 
-      const innerWidth = window.innerWidth;
-      const innerHeight = window.innerHeight;
+      const innerWidth = window.parent.innerWidth;
+      const innerHeight = window.parent.innerHeight;
 
       //https://gist.github.com/gre/1650294
       const scale = (t) => t; // t (less than) .5 ? 2 * t * t : -1 + (4 - 2 * t) * t
