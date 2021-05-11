@@ -5,7 +5,7 @@ import Website from "./Website";
 function App() {
   const [adminMode, setAdminMode] = useState(false);
 
-  const allowedKeysForAdmin = [""]; // allows to set keys for admin access, only prototype, should not be used in prod mode!
+  const allowedKeysForAdmin = ["-"]; // allows to set keys for admin access, only prototype, should not be used in prod mode!
 
   document.addEventListener("keydown", (e) => {
     if (adminMode === false) {

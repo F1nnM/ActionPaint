@@ -57,6 +57,7 @@ function AdminPanel({ switchToWeb }) {
             <Form
               className="d-flex flex-column justify-content-center"
               action={null}
+              onSubmit={tryLogin}
             >
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Username</Form.Label>
