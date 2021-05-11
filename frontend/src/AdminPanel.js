@@ -4,6 +4,7 @@ import WhatWeDo from "./admin_components/WhatWeDo";
 import AboutUs from "./admin_components/AboutUs";
 import EmailConfig from "./admin_components/EmailConfig";
 import Artists from "./admin_components/Artists";
+import Titlescreen from "./admin_components/Titlescreen";
 import Button from "react-bootstrap/Button";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
@@ -105,6 +106,10 @@ function AdminPanel({ switchToWeb }) {
     {
       label: "E-Mail Config",
       component: <EmailConfig creds={credentials} />,
+    },
+    {
+      label: "Titlescreen / Brand",
+      component: <Titlescreen data={data} creds={credentials} />,
     },
     {
       label: "Test",
