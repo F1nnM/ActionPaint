@@ -140,7 +140,7 @@ app.use(express.json());
 
 app.post("/admin/update/:file", (req, res) => {
   let file = req.params.file;
-  let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail"];
+  let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail", "footer"];
 
   if (!possibleFiles.includes(file)) {
     res.status(400).send("Not a valid file");

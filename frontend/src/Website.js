@@ -93,7 +93,7 @@ function Website({ switchToAdmin }) {
           ))}
         </Col>
       </Row>
-      <Footer switchToAdmin={switchToAdmin} />
+      <Footer switchToAdmin={switchToAdmin} data={data}/>
       <div className={styles.background} >
         <li/>
         <li/>
