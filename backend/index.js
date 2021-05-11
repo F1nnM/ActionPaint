@@ -170,7 +170,7 @@ app.post("/admin/update/:file", (req, res) => {
   }
   if (file == "privacy") {
     fs.writeFile(
-      "./built_frontend/privacyPolicy",
+      "./built_frontend/privacyPolicy.txt",
       req.body.content,
       "utf-8",
       (err) => {
