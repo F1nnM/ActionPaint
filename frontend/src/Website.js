@@ -92,6 +92,7 @@ function Website({ switchToAdmin }) {
           {sections.map((section) => (
             <SectionFrame
               title={data["sections"][section.id]}
+              ID={section.id}
               key={data["sections"][section.id]}
             >
               {React.cloneElement(section.component, { data: data })}
