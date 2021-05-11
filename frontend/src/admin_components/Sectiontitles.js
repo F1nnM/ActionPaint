@@ -2,7 +2,7 @@ import styles from "./WhatWeDo.module.scss";
 import { Table, Button, Form } from "react-bootstrap";
 import { useState } from "react";
 
-function Sectiontitles({ data, creds }) {
+function Sectiontitles({ fetchContent, data, creds }) {
   const [titles] = useState(data.sections);
 
   function handleUpdateValue(value, entry) {
@@ -26,6 +26,7 @@ function Sectiontitles({ data, creds }) {
     fetch(url, options)
       .then((data) => {
         console.log(data);
+        fetchContent();
       })
       .catch((err) => {
         console.warn(err);

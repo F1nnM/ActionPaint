@@ -17,12 +17,15 @@ function AdminPanel({ switchToWeb }) {
   const [credentials, setCredentials] = useState({});
   const [usernameInput, setUsernameInput] = useState(null);
   const [passwordInput, setPasswordInput] = useState(null);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(null); 
 
-  useEffect(() => {
+  function fetchContent(){
     fetch(process.env.REACT_APP_BACKEND + "content")
       .then((resp) => resp.json())
       .then((data) => setData(data));
+  }
+  useEffect(() => {
+    fetchContent();
   }, []);
 
   function tryLogin(e) {
@@ -91,36 +94,36 @@ function AdminPanel({ switchToWeb }) {
 
   const tabs = [
     {
-      label: "Logos",
-      component: <Logos data={data} creds={credentials} />,
-    },
-    {
-      label: "Artists",
+      label: data.sections["Our Artists"],
       component: <Artists data={data} creds={credentials} />,
     },
     {
-      label: "About Us",
+      label: data.sections["About Us"],
       component: <AboutUs data={data} creds={credentials} />,
     },
     {
-      label: "What We Do",
+      label: data.sections["What We Do"],
       component: <WhatWeDo data={data} creds={credentials} />,
     },
     {
-      label: "FAQ",
+      label: data.sections["FAQ"],
       component: <FAQ data={data} creds={credentials} />,
+    },
+    {
+      label: data.sections["Contact Us"] + " / Mail-Config",
+      component: <EmailConfig creds={credentials} />,
+    },
+    {
+      label: "Logos",
+      component: <Logos data={data} creds={credentials} />,
     },
     {
       label: "Titlescreen / Brand",
       component: <Titlescreen data={data} creds={credentials} />,
     },
     {
-      label: "E-Mail Config",
-      component: <EmailConfig creds={credentials} />,
-    },
-    {
       label: "Section Titles",
-      component: <Sectiontitles data={data} creds={credentials} />
+      component: <Sectiontitles fetchContent={fetchContent} data={data} creds={credentials} />
     },
     {
       label: "Go back",
