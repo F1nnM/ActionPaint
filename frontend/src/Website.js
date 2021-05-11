@@ -13,7 +13,7 @@ import styles from "./Website.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import TitleScreen from "./components/TitleScreen";
 import { useInView } from "react-intersection-observer";
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 
 var sections = [
   /* {
@@ -29,7 +29,7 @@ var sections = [
     ),
   },*/
   {
-    title: "Our Artists",
+    title: "Some of our artists",
     component: <TopFlavors />,
   },
   {
@@ -51,7 +51,6 @@ var sections = [
 ];
 
 function Website({ switchToAdmin }) {
-
   const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0.9,
@@ -61,16 +60,11 @@ function Website({ switchToAdmin }) {
 
   useEffect(() => {
     fetch(process.env.REACT_APP_BACKEND + "content")
-      .then(resp => resp.json())
-      .then(data => setData(data))
-  }, [])
+      .then((resp) => resp.json())
+      .then((data) => setData(data));
+  }, []);
 
-  if (!data)
-    return (
-      <div>
-        Loading...
-      </div>
-    )
+  if (!data) return <div>Loading...</div>;
 
   return (
     <Container fluid className={styles.app + " px-0"}>
@@ -94,17 +88,17 @@ function Website({ switchToAdmin }) {
         </Col>
       </Row>
       <Footer switchToAdmin={switchToAdmin} />
-      <div className={styles.background} >
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
-        <li/>
+      <div className={styles.background}>
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
       </div>
     </Container>
   );

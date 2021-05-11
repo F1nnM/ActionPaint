@@ -3,6 +3,7 @@ import FAQ from "./admin_components/FAQ";
 import WhatWeDo from "./admin_components/WhatWeDo";
 import AboutUs from "./admin_components/AboutUs";
 import EmailConfig from "./admin_components/EmailConfig";
+import Artists from "./admin_components/Artists";
 import Button from "react-bootstrap/Button";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
@@ -95,6 +96,10 @@ function AdminPanel({ switchToWeb }) {
     {
       label: "About Us",
       component: <AboutUs data={data} creds={credentials} />,
+    },
+    {
+      label: "Artists",
+      component: <Artists data={data} creds={credentials} />,
     },
     {
       label: "E-Mail Config",
