@@ -10,6 +10,7 @@ import { Col, Container, Form, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 import styles from "./AdminPanel.module.css";
+import Logos from "./admin_components/Logos";
 
 function AdminPanel({ switchToWeb }) {
   const [credentials, setCredentials] = useState({});
@@ -46,6 +47,7 @@ function AdminPanel({ switchToWeb }) {
         }
       })
       .catch((err) => {
+        alert("Login failed")
         console.warn(err);
       });
   }
@@ -88,32 +90,32 @@ function AdminPanel({ switchToWeb }) {
 
   const tabs = [
     {
-      label: "FAQ",
-      component: <FAQ data={data} creds={credentials} />,
-    },
-    {
-      label: "What We Do",
-      component: <WhatWeDo data={data} creds={credentials} />,
-    },
-    {
-      label: "About Us",
-      component: <AboutUs data={data} creds={credentials} />,
+      label: "Logos",
+      component: <Logos data={data} creds={credentials} />,
     },
     {
       label: "Artists",
       component: <Artists data={data} creds={credentials} />,
     },
     {
-      label: "E-Mail Config",
-      component: <EmailConfig creds={credentials} />,
+      label: "About Us",
+      component: <AboutUs data={data} creds={credentials} />,
+    },
+    {
+      label: "What We Do",
+      component: <WhatWeDo data={data} creds={credentials} />,
+    },
+    {
+      label: "FAQ",
+      component: <FAQ data={data} creds={credentials} />,
     },
     {
       label: "Titlescreen / Brand",
       component: <Titlescreen data={data} creds={credentials} />,
     },
     {
-      label: "Test",
-      component: <p>Some other HTML</p>,
+      label: "E-Mail Config",
+      component: <EmailConfig creds={credentials} />,
     },
     {
       label: "Go back",
