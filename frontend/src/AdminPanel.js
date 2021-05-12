@@ -17,9 +17,9 @@ function AdminPanel({ switchToWeb }) {
   const [credentials, setCredentials] = useState({});
   const [usernameInput, setUsernameInput] = useState(null);
   const [passwordInput, setPasswordInput] = useState(null);
-  const [data, setData] = useState(null); 
+  const [data, setData] = useState(null);
 
-  function fetchContent(){
+  function fetchContent() {
     fetch(process.env.REACT_APP_BACKEND + "content")
       .then((resp) => resp.json())
       .then((data) => setData(data));
@@ -51,7 +51,7 @@ function AdminPanel({ switchToWeb }) {
         }
       })
       .catch((err) => {
-        alert("Login failed")
+        alert("Login failed");
         console.warn(err);
       });
   }
@@ -123,13 +123,20 @@ function AdminPanel({ switchToWeb }) {
     },
     {
       label: "Section Titles",
-      component: <Sectiontitles fetchContent={fetchContent} data={data} creds={credentials} />
+      component: (
+        <Sectiontitles
+          fetchContent={fetchContent}
+          data={data}
+          creds={credentials}
+        />
+      ),
     },
     {
       label: "Go back",
       component: <Button onClick={switchToWeb}>Logout</Button>,
     },
   ];
+
   return <NavFrame tabs={tabs} data={data} goBack={switchToWeb}></NavFrame>;
 }
 

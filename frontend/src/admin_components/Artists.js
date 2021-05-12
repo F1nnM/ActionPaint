@@ -1,16 +1,5 @@
 import styles from "./Artists.module.scss";
-import {
-  Table,
-  Button,
-  Col,
-  Container,
-  Form,
-  Row,
-  Modal,
-  Card,
-} from "react-bootstrap";
-import Badge from "react-bootstrap/Badge";
-import Image from "react-bootstrap/Image";
+import { Button, Col, Container, Form, Row, Card } from "react-bootstrap";
 import ListGroup from "react-bootstrap/ListGroup";
 import FileSelector from "./FileSelector";
 import Tab from "react-bootstrap/Tab";
@@ -19,8 +8,9 @@ import { useState } from "react";
 // import FileSelector from "./FileSelector";
 
 function Artists({ data, creds }) {
-  const [aboutUs, setAboutUs] = useState(data.artists);
-  const [showImageSelect, setShowImageSelect] = useState("false");
+  const initialData = data.artists;
+  const [aboutUs, setAboutUs] = useState(initialData);
+  const [showImageSelect, setShowImageSelect] = useState("false"); // needed later for modals
   const [currentArtist, setCurrentArtist] = useState(
     aboutUs.length > 0 ? aboutUs[0] : null
   );
@@ -30,13 +20,13 @@ function Artists({ data, creds }) {
   const allProps = ["firstName", "lastName", "images", "mail", "desc"];
   // could have it been solved like in AboutUs.js, but unneccesary processing time!
 
-  const freshMember = () => {
+  const freshMember = (() => {
     var obj = {};
     allProps.forEach((p) => {
       obj[p] = "";
     });
     return obj;
-  };
+  })();
 
   const artistNames = aboutUs.map((a) => (
     <>
@@ -59,7 +49,7 @@ function Artists({ data, creds }) {
       .map((y) => y.charAt(0).toUpperCase() + y.substr(1).toLowerCase())
       .join(" ");
 
-  const [newMember, setNewMember] = useState(freshMember());
+  const [newMember, setNewMember] = useState(freshMember);
 
   headers.append(
     "Authorization",
@@ -69,21 +59,33 @@ function Artists({ data, creds }) {
 
   function discardChanges() {
     if (window.confirm("Do you want to revert all your changes?")) {
-      setAboutUs([...data.artists]);
+      console.log(aboutUs);
+      console.log(initialData);
+      setAboutUs(initialData);
+      console.log(aboutUs);
+      setCurrentArtist(currentArtist);
 
       setNewMember({
-        ...freshMember(),
+        ...freshMember,
       });
     }
   }
 
   function setArtistAndIndex(a, idx) {
-    setCurrentArtist(a);
-    setCurrentIndex(idx);
+    if (!a && !idx) {
+      setCurrentArtist(freshMember);
+    } else {
+      setCurrentArtist(a);
+      setCurrentIndex(idx);
+    }
   }
 
   function handleUpdateProp(key, value, idx) {
-    aboutUs[idx][key] = value;
+    if (!idx) {
+      newMember[key] = value;
+    } else {
+      aboutUs[idx][key] = value;
+    }
   }
 
   function handleNewMember(key, value) {
@@ -94,6 +96,7 @@ function Artists({ data, creds }) {
     if (window.confirm("Do you really want to delete " + artName + "?")) {
       aboutUs.splice(idx);
       setAboutUs([...aboutUs]);
+      setCurrentArtist(aboutUs.length > 0 ? aboutUs[0] : freshMember); // when deleting, directly change view to first artist or new member
     }
   }
 
@@ -101,7 +104,7 @@ function Artists({ data, creds }) {
     aboutUs.push(newMember);
     setAboutUs([...aboutUs]);
     setNewMember({
-      ...freshMember(),
+      ...freshMember,
     });
   }
 
@@ -140,6 +143,18 @@ function Artists({ data, creds }) {
         <Row>
           <Col sm={2}>
             <ListGroup variant="flush">
+              <ListGroup.Item
+                action
+                onClick={(_) => setArtistAndIndex(null, null)}
+              >
+                <Button
+                  variant="outline-success"
+                  size="sm"
+                  onClick={(_) => handleAdd()}
+                >
+                  <Add />
+                </Button>
+              </ListGroup.Item>
               {aboutUs.map((a, idx) => (
                 <ListGroup.Item
                   active={a === currentArtist}
@@ -166,129 +181,117 @@ function Artists({ data, creds }) {
                   </div>
                 </ListGroup.Item>
               ))}
-              <ListGroup.Item action>
-                <Button variant="outline-success" size="sm" block>
-                  <Add />
-                </Button>
-              </ListGroup.Item>
             </ListGroup>
           </Col>
           <Col>
-            {
-              <Tab.Content>
-                <Container>
-                  {currentArtist && (
-                    <>
-                      <Row>
-                        <Col>
-                          <Card>
-                            <Card.Header>
-                              <Card.Title>
-                                <Row>
-                                  <Col>
-                                    <span class="mr-1">
-                                      <Form.Control
-                                        defaultValue={currentArtist.firstName}
-                                        onInput={(e) =>
-                                          handleUpdateProp(
-                                            "firstName",
-                                            e.target.value,
-                                            currentIndex
-                                          )
-                                        }
-                                      />
-                                    </span>
-                                  </Col>
-                                  <Col>
-                                    <span>
-                                      <Form.Control
-                                        defaultValue={currentArtist.lastName}
-                                        onInput={(e) =>
-                                          handleUpdateProp(
-                                            "lastName",
-                                            e.target.value,
-                                            currentIndex
-                                          )
-                                        }
-                                      />
-                                    </span>
-                                  </Col>
-                                </Row>
-                              </Card.Title>
-                              <Card.Text>
+            <Tab.Content>
+              <Container>
+                <>
+                  <Row key={currentArtist.lastName}>
+                    <Col>
+                      <Card>
+                        <Card.Header>
+                          <Card.Title>
+                            <Row>
+                              <Col>
+                                <span class="mr-1">
+                                  <Form.Control
+                                    defaultValue={currentArtist.firstName}
+                                    onInput={(e) =>
+                                      handleUpdateProp(
+                                        "firstName",
+                                        e.target.value,
+                                        currentIndex
+                                      )
+                                    }
+                                  />
+                                </span>
+                              </Col>
+                              <Col>
+                                <span>
+                                  <Form.Control
+                                    defaultValue={currentArtist.lastName}
+                                    onInput={(e) =>
+                                      handleUpdateProp(
+                                        "lastName",
+                                        e.target.value,
+                                        currentIndex
+                                      )
+                                    }
+                                  />
+                                </span>
+                              </Col>
+                            </Row>
+                          </Card.Title>
+                          <Card.Text>
+                            <Form.Control
+                              defaultValue={currentArtist.desc}
+                              onInput={(e) =>
+                                handleUpdateProp(
+                                  "desc",
+                                  e.target.value,
+                                  currentIndex
+                                )
+                              }
+                            />
+                          </Card.Text>
+                        </Card.Header>
+
+                        <Card.Body>
+                          <FileSelector
+                            type="artist"
+                            creds={creds}
+                            onSelect={(val) => alert(val)}
+                          />
+                        </Card.Body>
+
+                        <Card.Footer>
+                          <small className="text-muted">
+                            <Row>
+                              <Col>
                                 <Form.Control
-                                  defaultValue={currentArtist.desc}
+                                  defaultValue={currentArtist.mail}
                                   onInput={(e) =>
                                     handleUpdateProp(
-                                      "desc",
+                                      "mail",
                                       e.target.value,
                                       currentIndex
                                     )
                                   }
                                 />
-                              </Card.Text>
-                            </Card.Header>
-
-                            <Card.Body>
-                              <FileSelector
-                                type="artist"
-                                creds={creds}
-                                onSelect={(val) => alert(val)}
-                              />
-                            </Card.Body>
-
-                            <Card.Footer>
-                              <small className="text-muted">
-                                <Row>
-                                  <Col>
-                                    <Form.Control
-                                      defaultValue={currentArtist.mail}
-                                      onInput={(e) =>
-                                        handleUpdateProp(
-                                          "mail",
-                                          e.target.value,
-                                          currentIndex
-                                        )
-                                      }
-                                    />
-                                  </Col>
-                                  <Col>
-                                    <Form.Control
-                                      defaultValue={currentArtist.instagram}
-                                      onInput={(e) =>
-                                        handleUpdateProp(
-                                          "instagram",
-                                          e.target.value,
-                                          currentIndex
-                                        )
-                                      }
-                                    />
-                                  </Col>
-                                </Row>
-                              </small>
-                            </Card.Footer>
-                          </Card>
-                        </Col>
-                      </Row>
-                      <hr />
-                      <Button
-                        variant="success"
-                        className="mr-4"
-                        onClick={(_) => handleUpdateSubmit()}
-                      >
-                        Save changes
-                      </Button>
-                      <Button
-                        variant="warning"
-                        onClick={(_) => discardChanges()}
-                      >
-                        Discard all changes
-                      </Button>
-                    </>
-                  )}
-                </Container>
-              </Tab.Content>
-            }
+                              </Col>
+                              <Col>
+                                <Form.Control
+                                  defaultValue={currentArtist.instagram}
+                                  onInput={(e) =>
+                                    handleUpdateProp(
+                                      "instagram",
+                                      e.target.value,
+                                      currentIndex
+                                    )
+                                  }
+                                />
+                              </Col>
+                            </Row>
+                          </small>
+                        </Card.Footer>
+                      </Card>
+                    </Col>
+                  </Row>
+                  <hr />
+                  <Button
+                    variant="success"
+                    className="mr-4"
+                    onClick={(_) => handleUpdateSubmit()}
+                  >
+                    Save changes
+                  </Button>
+                  <Button variant="warning" onClick={(_) => discardChanges()}>
+                    Discard all changes
+                  </Button>
+                </>
+              </Container>
+            </Tab.Content>
           </Col>
         </Row>
       </Tab.Container>

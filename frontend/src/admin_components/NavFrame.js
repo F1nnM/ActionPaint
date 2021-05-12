@@ -3,22 +3,34 @@ import styles from "./NavFrame.module.scss";
 import ListGroup from "react-bootstrap/ListGroup";
 import Tab from "react-bootstrap/Tab";
 
-function NavFrame({ tabs, children, data, goBack}) {
+function NavFrame({ tabs, children, data, goBack }) {
   return (
     <>
       <Tab.Container className={"mt-4"}>
         <Row>
           <Col md={2}>
             <ListGroup defaultActiveKey={"#" + tabs[0].label}>
-              <ListGroup.Item variant="dark" action className={styles.title} onClick={_=>goBack()}>
-                <object className={styles.logo} 
-                type="image/svg+xml" 
-                data={process.env.REACT_APP_BACKEND + "images/logo_static.svg"}
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
+              <ListGroup.Item
+                variant="dark"
+                action
+                className={styles.title}
+                onClick={(_) => goBack()}
+              >
+                <object
+                  className={styles.logo + " d-inline-block align-top"}
+                  type="image/svg+xml"
+                  data={
+                    process.env.REACT_APP_BACKEND + "images/logo_static.svg"
+                  }
+                  width="30"
+                  height="30"
                 >
-                  <img src={process.env.REACT_APP_BACKEND + "images/logo_static.svg"} alt="Logo" />
+                  <img
+                    src={
+                      process.env.REACT_APP_BACKEND + "images/logo_static.svg"
+                    }
+                    alt="Logo"
+                  />
                 </object>{" "}
                 <span>{data.brand.title}</span>
               </ListGroup.Item>
