@@ -25,8 +25,10 @@
 }
 
 .smallCollapse{
+    width: 100vw;
     background-color: var(--primaryColor) !important;
     text-align: center;
+    border-radius: 12%
 }
 
 .dropitem{
@@ -63,7 +65,7 @@
 }
 
 .dripanimation{
-    animation: drop 16s cubic-bezier(0.5, 0, 0.75, 0) infinite;
+    animation: drop 32s cubic-bezier(0.5, 0, 0.75, 0) infinite;
     animation-delay: 3s;
 }
 
@@ -82,7 +84,7 @@
     width: 100vw;
     fill: var(--primaryColor);
     position: fixed !important;
-    animation: dropbody 16s cubic-bezier(0.5, 0.03, 0.685, 0.15) infinite forwards;
+    animation: dropbody 32s cubic-bezier(0.5, 0.03, 0.685, 0.15) infinite forwards;
     animation-delay: 1.7s;
     top: 0px;
 }
@@ -94,13 +96,13 @@
 
 @keyframes drop {
     0% {transform: translateY(0); visibility: hidden;}
-    12% {visibility: hidden;}
-    20% {transform: translateY(120vh); visibility: visible;}
+    6% {visibility: hidden;}
+    10% {transform: translateY(120vh); visibility: visible;}
     100% {transform: translateY(120vh); visibility: hidden;}
   }
 
 @keyframes dropbody {
     0% {transform: translateY(0px) rotateY(180deg); visibility: visible;}
-    20% {transform: translateY(60px) rotateY(180deg); animation-delay: 3s; visibility: hidden;}
+    10% {transform: translateY(60px) rotateY(180deg); animation-delay: 3s; visibility: hidden;}
     100%{transform:translate(60px) rotate(180deg);}
   }
