@@ -118,7 +118,7 @@ function AdminPanel({ switchToWeb }) {
       component: <Logos data={data} creds={credentials}/>,
     },
     {
-      label: "Titlescreen / Brand",
+      label: "Brand(ing)",
       component: <Titlescreen data={data} creds={credentials} />,
     },
     {
