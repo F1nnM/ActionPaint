@@ -34,6 +34,13 @@ function Logos({ creds }) {
       "file": "logo192.png",
       "tag": "img"
     },
+    {
+      "title": "Favicon",
+      "description": "The small icon in tabs, a .ico file",
+      "type": "favicon",
+      "file": "favicon.ico",
+      "tag": "img"
+    },
   ]
 
   function handleUpload(file, type, target) {
@@ -84,7 +91,7 @@ function Logos({ creds }) {
               }
             </div>
             <div>
-              <input type="file" className="w-100" onChange={e => handleUpload(e.target.files[0], logo.type, e.target)} />
+              <input accept={logo.type==="favicon" ? ".ico" : logo.tag === "img" ? ".png": ".svg"} type="file" className="w-100" onChange={e => handleUpload(e.target.files[0], logo.type, e.target)} />
             </div>
           </Col>
         ))}
