@@ -46,7 +46,7 @@ function Sectiontitles({ fetchContent, data, creds }) {
           {Object.keys(titles).map((entry) => (
             <tr>
               <td width="30%"><Form.Control defaultValue={entry.toUpperCase()} readOnly /></td>
-              <td width><Form.Control id={entry} type={entry === "MAIL_PASS" ? "password" : ""} defaultValue={titles[entry]} key={titles[entry]} onChange={e => handleUpdateValue(e.target.value, entry)} /></td>
+              <td width><Form.Control id={entry} defaultValue={titles[entry]} key={titles[entry]} onChange={e => handleUpdateValue(e.target.value, entry)} /></td>
             </tr>
           ))}
           <tr>

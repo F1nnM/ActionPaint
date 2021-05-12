@@ -45,7 +45,7 @@ function Titlescreen({ data, creds }) {
           {Object.keys(brand).map((entry) => (
             <tr>
               <td width="20%"><Form.Control defaultValue={entry.toUpperCase()} readOnly /></td>
-              <td width><Form.Control id={entry} type={entry === "MAIL_PASS" ? "password" : ""} defaultValue={brand[entry]} key={brand[entry]} onChange={e => handleUpdateValue(e.target.value, entry)} /></td>
+              <td width><Form.Control id={entry} defaultValue={brand[entry]} key={brand[entry]} onChange={e => handleUpdateValue(e.target.value, entry)} /></td>
             </tr>
           ))}
           <tr>
