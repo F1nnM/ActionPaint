@@ -11,7 +11,7 @@ import Business from "@material-ui/icons/Business";
 import LocationOn from "@material-ui/icons/LocationOn";
 import React from "react";
 
-function Footer({ switchToAdmin, data: all_data}) {
+function Footer({ togglePopup, switchToAdmin, data: all_data}) {
 
   const data = all_data["footer"];
 
@@ -73,13 +73,7 @@ function Footer({ switchToAdmin, data: all_data}) {
             <p className="mt-3">
               We don't collect any data from you, unless you reach out to us.
               For details click{" "}
-              <a
-                href="privacyPolicy.txt"
-                className={styles.colorReset + " " + styles.underline}
-              >
-                here
-              </a>
-              .
+              <Button variant="outline-warning" className={styles.popupButton} onClick={() => togglePopup()}>here</Button>
             </p>
           </Col>
           <Col md className="mt-5 mt-md-0">

@@ -7,6 +7,7 @@ import Artists from "./admin_components/Artists";
 import Titlescreen from "./admin_components/Titlescreen";
 import Sectiontitles from "./admin_components/Sectiontitles";
 import Button from "react-bootstrap/Button";
+import PrivacyPolicy from "./admin_components/PrivacyPolicy";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
@@ -115,7 +116,7 @@ function AdminPanel({ switchToWeb }) {
     },
     {
       label: "Logos",
-      component: <Logos data={data} creds={credentials} />,
+      component: <Logos data={data} creds={credentials}/>,
     },
     {
       label: "Titlescreen / Brand",
@@ -130,6 +131,10 @@ function AdminPanel({ switchToWeb }) {
           creds={credentials}
         />
       ),
+    },
+    {
+      label: "Privacy Policy",
+      component: <PrivacyPolicy creds={credentials} />,
     },
     {
       label: "Go back",

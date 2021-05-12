@@ -1,4 +1,4 @@
-import styles from "./WhatWeDo.module.scss";
+import styles from "./Sectiontitles.module.scss";
 import { Table, Button, Form } from "react-bootstrap";
 import { useState } from "react";
 

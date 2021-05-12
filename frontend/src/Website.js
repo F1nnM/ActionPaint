@@ -6,6 +6,7 @@ import WhatWeDo from "./components/WhatWeDo";
 import TopFlavors from "./components/TopFlavors";
 import Navbar from "./components/Navbar";
 import Contact from "./components/Contact";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 import SectionFrame from "./components/SectionFrame";
 
 import styles from "./Website.module.scss";
@@ -57,11 +58,20 @@ function Website({ switchToAdmin }) {
   });
 
   const [data, setData] = useState(null);
+  const [policy, setPolicy] = useState(false);
+  const [policytext, setPolicytext] = useState("");
+
+  function togglePopup(){
+    setPolicy(!policy);
+  }
 
   useEffect(() => {
     fetch(process.env.REACT_APP_BACKEND + "content")
       .then((resp) => resp.json())
       .then((data) => setData(data));
+    fetch(process.env.PUBLIC_URL + '/privacyPolicy.txt')
+      .then(text => text.text())
+      .then(text => setPolicytext(text))
   }, []);
 
   if (!data) return <div>Loading...</div>;
@@ -100,7 +110,14 @@ function Website({ switchToAdmin }) {
           ))}
         </Col>
       </Row>
-      <Footer switchToAdmin={switchToAdmin} data={data} />
+      <Footer togglePopup={togglePopup} switchToAdmin={switchToAdmin} data={data} />
+      {policy ? 
+          <PrivacyPolicy
+            policy={policytext}
+            togglePopup={togglePopup}
+          />
+          : null
+        }
       <div className={styles.background}>
         <li />
         <li />
