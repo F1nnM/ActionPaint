@@ -13,7 +13,7 @@ import React from "react";
 
 function Footer({ togglePopup, switchToAdmin, data: all_data}) {
 
-  const data = all_data["footer"];
+  const data = all_data["brand"];
 
   return (
     <React.Fragment>

@@ -1,4 +1,13 @@
 {
     "title": "ActionPaint",
-    "slogan": "The modern agency for modern artists"
+    "slogan": "The modern agency for modern artists",
+    "companyName": "ActionPaint Agency GmbH",
+    "location": "Max-Muster Straße 42, 12345 Berlin",
+    "mapsLink": "https://www.google.com/maps",
+    "mail": "contact@actionpaint.de",
+    "telephone": "+49 123 456 789",
+    "twitter": "actionpaint",
+    "instagram": "actionpaint",
+    "linkedin": "actionpaint",
+    "copyright": "ActionPaint 2021"
 }
