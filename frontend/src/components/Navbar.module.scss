@@ -63,7 +63,7 @@
 }
 
 .dripanimation{
-    animation: drop 4s cubic-bezier(0.5, 0, 0.75, 0) infinite;
+    animation: drop 16s cubic-bezier(0.5, 0, 0.75, 0) infinite;
     animation-delay: 3s;
 }
 
@@ -82,8 +82,8 @@
     width: 100vw;
     fill: var(--primaryColor);
     position: fixed !important;
-    animation: dropbody 4s cubic-bezier(0.5, 0.03, 0.685, 0.15) infinite forwards;
-    animation-delay: 1.4s;
+    animation: dropbody 16s cubic-bezier(0.5, 0.03, 0.685, 0.15) infinite forwards;
+    animation-delay: 1.7s;
     top: 0px;
 }
 
@@ -94,11 +94,13 @@
 
 @keyframes drop {
     0% {transform: translateY(0); visibility: hidden;}
-    60% {visibility: hidden;}
-    100% {transform: translateY(120vh); visibility: visible;}
+    12% {visibility: hidden;}
+    20% {transform: translateY(120vh); visibility: visible;}
+    100% {transform: translateY(120vh); visibility: hidden;}
   }
 
 @keyframes dropbody {
     0% {transform: translateY(0px) rotateY(180deg); visibility: visible;}
-    100% {transform: translateY(60px) rotateY(180deg); animation-delay: 3s;}
+    20% {transform: translateY(60px) rotateY(180deg); animation-delay: 3s; visibility: hidden;}
+    100%{transform:translate(60px) rotate(180deg);}
   }
