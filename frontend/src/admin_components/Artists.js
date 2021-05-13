@@ -81,7 +81,7 @@ function Artists({ data, creds }) {
   }
 
   function handleUpdateProp(key, value, idx) {
-    if (!idx) {
+    if (idx === null) {
       newMember[key] = value;
     } else {
       aboutUs[idx][key] = value;
@@ -117,6 +117,7 @@ function Artists({ data, creds }) {
         content: JSON.stringify(aboutUs),
       }),
     };
+    alert(JSON.stringify(aboutUs));
     fetch(url, options)
       .then((data) => {
         console.log(data);
@@ -226,6 +227,8 @@ function Artists({ data, creds }) {
                           <Card.Text>
                             <Form.Control
                               defaultValue={currentArtist.desc}
+                              as="textarea"
+                              rows={4}
                               onInput={(e) =>
                                 handleUpdateProp(
                                   "desc",

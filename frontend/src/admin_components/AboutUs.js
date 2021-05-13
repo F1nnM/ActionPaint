@@ -56,7 +56,7 @@ function WhatWeDo({ data, creds }) {
     }
   }
 
-  function handleUpdateTeamInfo(key, value) {
+  function handleUpdateTeamInfo(value) {
     aboutUs.info = value;
   }
 
@@ -124,8 +124,8 @@ function WhatWeDo({ data, creds }) {
                 <Form.Label>Info</Form.Label>
                 <Form.Control
                   required
-                  size="lg"
                   as="textarea"
+                  rows={10}
                   placeholder="Description"
                   defaultValue={aboutUs.info}
                   onInput={(e) => handleUpdateTeamInfo(e.target.value)}
