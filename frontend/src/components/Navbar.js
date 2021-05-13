@@ -1,23 +1,17 @@
 import styles from "./Navbar.module.scss";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import PersonIcon from "@material-ui/icons/Person";
-import { Link, Events, scrollSpy } from "react-scroll";
+import { Link } from "react-scroll";
 
 function NavbarFunc({ tmpinView: hideNavbar, data }) {
-  var Scrollspeed = 500;
-
-  Events.scrollEvent.register("begin", function (to, element) {
-    console.log("begin", to, element);
-  });
-  Events.scrollEvent.register("end", function (to, element) {
-    console.log("end", to, element);
-  });
-  scrollSpy.update();
-
+  var Scrollspeed = 500;  
   const artists = data.artists;
 
   return (
     <>
+    {/* Create navbar which collapses based on a visible percentage of the titlescreen-component (90%).
+        Embed clickable logo and title to return to the titlescreen.
+          */}
       <Navbar
         expand={hideNavbar ? !hideNavbar : "sm"}
         fixed="top"
@@ -44,14 +38,19 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
           {' '}
           {data.brand.title}
         </Navbar.Brand>
-
         </Link>
+
+        {/* Enable toggle and style the hamburger menu and the link elements while being collapsed (including mobile)*/}
+
         <Navbar.Toggle className={styles.hamburger} />
         <Navbar.Collapse
           className={!hideNavbar ? styles.smallCollapse : styles.collapseabletext}
         >
           <Nav>
             <NavDropdown title={data.sections["Our Artists"]}>
+
+              {/* Iterate over all artists and create a corresponding dropdown item with a link to its component */}
+
               {artists.map((ar, index) => (
                 <NavDropdown.Item key={ar.firstName + ar.lastName}>
                   <Link
@@ -71,6 +70,9 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
                 </NavDropdown.Item>
               ))}
             </NavDropdown>
+
+            {/* Create links for all remaining sections with dynamic titles based on the adminsection input */}
+
             <Link
               activeClass="active"
               to="About Us"
@@ -111,7 +113,7 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
         </Navbar.Collapse>
       </Navbar>
       <svg viewBox="0 0 2.6470001 3.97" className={styles.dropletShadow + " " + styles.droplet + " " + (!hideNavbar ? styles.dripanimation : "")}>
-        {/* This is the DropletShadow */}
+        {/* This is the droplet shadow */}
         <g transform="translate(0,-19.03)">
           <path
             id="Droplet"
@@ -119,7 +121,7 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
         </g>
       </svg>
       <svg viewBox="0 0 2.6470001 3.97" className={styles.droplet + " " + (!hideNavbar ? styles.dripanimation : "")}>
-        {/* This is the Droplet itself */}
+        {/* This is the droplet itself */}
         <g transform="translate(0,-19.03)">
           <path
             id="Droplet"
@@ -128,7 +130,7 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
       </svg>
       {!hideNavbar && (
         <svg viewBox="0 0 100 6" className={styles.curvedBaseNavbar}>
-        {/* This is the base body of the Navbarextension */}
+        {/* This is the base body of the navbarextension */}
         <g transform="scale(0.05555556,0.49937021)">
           <path d="M 0,0 H 1800 V 6 C 1292.2945,-0.5551 443.3498,-1 0,6 Z" />
         </g>
@@ -136,7 +138,7 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
       )}
       {!hideNavbar && (
        <svg viewBox="0 0 200 14" className={styles.curvedDripNavbar}>
-       {/* This is the body of the Navbar with the building body of the Droplet*/}
+       {/* This is the body of the navbar with the building body of the droplet*/}
        <g>
          <path d="M 32,0.2553291 C -0.36636208,0.3477646 1.7979987e-4,0 1.7979987e-4,0 17.318234,0.2643583 12.671446,7.5171128 16.654902,7.5124378 19.642496,7.5089598 14.709115,0.28731875 32,0.2553291 Z" />
        </g>

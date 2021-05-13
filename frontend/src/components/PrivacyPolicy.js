@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 
 function PrivacyPolicy({policy, togglePopup}) {
   return (
+    /* Creates a popup-like window to read the privacy policy. Closable by clicking the red x or anywhere except the window */
     <div className={styles.popup} onClick={() => togglePopup()}>
       <div className={styles.popupInner} onClick={e=>e.stopPropagation()}>
         <Button className={"float-right" +" " + styles.closeButton} variant="danger" onClick={() => togglePopup()}>

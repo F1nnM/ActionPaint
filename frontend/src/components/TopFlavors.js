@@ -8,6 +8,11 @@ function TopFlavors({ data }) {
   return (
     <>
       {artists.map((artist, index) => (
+        /* Iterate over all Artists and create a Dripping Frame Container with their corresponding:
+              - Picture Slideshow (Carousel)
+              - Name
+              - Description
+              - Link to their Work (not yet implemented) */
         <DrippingFrame>
           <Card
             id={index + ": " + artist.firstName + " " + artist.lastName}

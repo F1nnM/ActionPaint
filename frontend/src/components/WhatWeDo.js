@@ -6,7 +6,7 @@ import TimelineConnector from "@material-ui/lab/TimelineConnector";
 import TimelineContent from "@material-ui/lab/TimelineContent";
 import TimelineDot from "@material-ui/lab/TimelineDot";
 import TimelineOppositeContent from "@material-ui/lab/TimelineOppositeContent";
-import FastfoodIcon from "@material-ui/icons/Fastfood";
+import CheckIcon from '@material-ui/icons/Check';
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useState, useEffect } from "react";
@@ -18,6 +18,7 @@ function getWindowDimensions() {
   };
 }
 
+  /* Get current width and width after Resizing */
 function useWindowDimensions() {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
@@ -41,8 +42,13 @@ function WhatWeDo({ data }) {
   const whatwedo = data.whatwedo;
 
   return (
+    /* Create a Timeline which alternates in Position (only if width > 800 for Spacing Reasons on Mobile) and Color */
+
     <Timeline key="Timeline" align={width > 800 ? "alternate" : "left"}>
       {whatwedo.map((description, idx) => (
+
+        /* Iterate over whatwedo.json and create a Timeline Item based on the content */
+
         <TimelineItem key={"TimelineItem" + idx}>
           <TimelineOppositeContent
             className={styles.oppositecontent}
@@ -56,7 +62,7 @@ function WhatWeDo({ data }) {
                   : styles.secondarytimelineicon
               }
             >
-              <FastfoodIcon />
+              <CheckIcon />
             </TimelineDot>
             <TimelineConnector />
           </TimelineSeparator>

@@ -75,6 +75,13 @@ function WhatWeDo({ data, creds }) {
 
   return (
     <>
+    {/* Create a fully editable Table with all titles and descriptions in the whatwedo.json which will be updated on the main page instantly after submitting
+        It is possible to:
+          - Add a new element
+          - Change the index of existing ones
+          - Change the content of existing ones 
+          - Delete elements
+          */}
       <Table striped bordered hover>
         <thead>
           <tr>

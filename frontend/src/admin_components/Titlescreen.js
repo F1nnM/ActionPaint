@@ -34,6 +34,10 @@ function Titlescreen({ data, creds }) {
 
   return (
     <>
+    {/* Create a table with all branding information by iterating over brand.json 
+        the changes will applied instantly on main page 
+        */}
+
       <Table striped bordered hover>
         <thead>
           <tr>
