@@ -5,11 +5,11 @@ import { useState, useEffect } from "react";
 function PrivacyPolicy({ creds }) {
   const [policy, setPolicy] = useState("");
 
-  useEffect(() => {
+  useEffect(()=>{
     fetch(process.env.PUBLIC_URL + '/privacyPolicy.txt')
     .then(text => text.text())
     .then(text => setPolicy(text))
-  }, []);
+  }, []); 
 
   function handleUpdateValue(value) {
     setPolicy(value);
@@ -41,7 +41,7 @@ function PrivacyPolicy({ creds }) {
   return (
     <>
     <Container>
-      <Form.Control className={styles.policyForm} id={12345} as="textarea" defaultValue={policy} key={policy} onChange={e => handleUpdateValue(e.target.value)} />
+      <Form.Control className={styles.policyForm} as="textarea" defaultValue={policy} key={12345} onChange={e => handleUpdateValue(e.target.value)} />
         <Button variant="success" onClick={() => handleUpdateSubmit()}>
           Save Changes
         </Button>
