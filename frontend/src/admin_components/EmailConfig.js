@@ -69,6 +69,8 @@ function EmailConfig({ creds }) {
         </thead>
         <tbody>
           {Object.keys(email).map((entry) => (
+            /*  Iterate over mail.json and create a ReadOnly Field for the Key Element and a Editable Value Field for the Content.
+                The Password is a dummy Value and will be again overwritten by one after Submitting aswell */
             <tr>
               <td>
                 <Form.Control

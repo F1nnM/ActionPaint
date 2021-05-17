@@ -39,6 +39,12 @@ function Sectiontitles({ fetchContent, data, creds }) {
 
   return (
     <>
+    {/* Create a Table with every titled section on the main page and made their shown titles editable.
+        The changes will be instantly applied after submitting in:
+          - The Adminsection
+          - The Navbar
+          - The Component itself */}
+          
       <Table striped bordered hover>
         <thead>
           <tr>

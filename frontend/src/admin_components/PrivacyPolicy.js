@@ -40,6 +40,7 @@ function PrivacyPolicy({ creds }) {
 
   return (
     <>
+    {/* Create a editable textarea to change the privacy policy on the main page instantly after submitting */}
     <Container>
       <Form.Control className={styles.policyForm} as="textarea" defaultValue={policy} key={12345} onChange={e => handleUpdateValue(e.target.value)} />
         <Button variant="success" onClick={() => handleUpdateSubmit()}>

@@ -7,6 +7,10 @@ function FAQ({ data }) {
 
   return (
     <Accordion defaultActiveKey="0">
+      {/* Iterating over faq.json while assigning colors based on index (odd = primary, even = accent). 
+          Header/Toggle = Question
+          Body/Collapse = Answer     
+          */}
       {faq.map((questions, idx) => (
         <Card
           key={"Card" + idx}

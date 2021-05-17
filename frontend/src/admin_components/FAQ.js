@@ -75,6 +75,13 @@ function FAQ({ data, creds }) {
 
   return (
     <>
+    {/* Create a fully editable Table with all questions and answers in the faq.json which will be updated on the main page instantly after submitting
+        It is possible to:
+          - Add a new element
+          - Change the index of existing ones
+          - Change the content of existing ones 
+          - Delete elements
+           */}
     <Table responsive="sm" striped bordered>
       <thead>
         <tr>
