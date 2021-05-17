@@ -82,7 +82,7 @@ function Logos({ creds }) {
             </div>
             <div>
               {logo.tag === "img" &&
-                <img key={imageKey} className={styles.image + " my-3"} src={process.env.REACT_APP_BACKEND + "images/" + logo.file + "?" + imageKey} />
+                <img key={imageKey} alt={logo} className={styles.image + " my-3"} src={process.env.REACT_APP_BACKEND + "images/" + logo.file + "?" + imageKey} />
               }
               {logo.tag === "object" &&
                 <object key={imageKey} className={styles.image + " my-3"} type="image/svg+xml" data={process.env.REACT_APP_BACKEND + "images/" + logo.file + "?" + imageKey}>

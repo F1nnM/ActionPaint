@@ -84,7 +84,7 @@ function FileSelector({ creds, type, onSelect }) {
         imageList.map(src => {
           return (
             <div className={styles.imageContainer}>
-              <img onClick={_=>onSelect(src)} className={styles.image} width={100} height={100} src={process.env.REACT_APP_BACKEND + "images/" + type + "/" + src} />
+              <img onClick={_=>onSelect(src)} alt={src} className={styles.image} width={100} height={100} src={process.env.REACT_APP_BACKEND + "images/" + type + "/" + src} />
               <Button onClick={_=>handleDelete(src)} className={styles.deleteButton} variant="danger">-</Button>
               <span>{src}</span>
             </div>

@@ -1,5 +1,5 @@
 import styles from "./Navbar.module.scss";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import PersonIcon from "@material-ui/icons/Person";
 import { Link } from "react-scroll";
 
@@ -79,8 +79,9 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
               spy={true}
               smooth={true}
               duration={Scrollspeed}
+              className={styles.navitem}
             >
-              <Nav.Link>{data.sections["About Us"]}</Nav.Link>
+              <Container className={styles.navitem} bsPrefix={'nav-link'}>{data.sections["About Us"]}</Container>
             </Link>
             <Link
               activeClass="active"
@@ -88,8 +89,9 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
               spy={true}
               smooth={true}
               duration={Scrollspeed}
+              className={styles.navitem}
             >
-              <Nav.Link>{data.sections["What We Do"]}</Nav.Link>
+              <Container className={styles.navitem} bsPrefix={'nav-link'}>{data.sections["What We Do"]}</Container>
             </Link>
             <Link
               activeClass="active"
@@ -97,8 +99,9 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
               spy={true}
               smooth={true}
               duration={Scrollspeed}
+              className={styles.navitem}
             >
-              <Nav.Link>{data.sections["FAQ"]}</Nav.Link>
+              <Container className={styles.navitem} bsPrefix={'nav-link'}>{data.sections["FAQ"]}</Container>
             </Link>
             <Link
               activeClass="active"
@@ -106,8 +109,9 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
               spy={true}
               smooth={true}
               duration={Scrollspeed}
+              className={styles.navitem}
             >
-              <Nav.Link>{data.sections["Contact Us"]}</Nav.Link>
+              <Container className={styles.navitem} bsPrefix={'nav-link'}>{data.sections["Contact Us"]}</Container>
             </Link>
           </Nav>
         </Navbar.Collapse>

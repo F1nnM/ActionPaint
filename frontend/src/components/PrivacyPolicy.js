@@ -8,7 +8,7 @@ function PrivacyPolicy({policy, togglePopup}) {
     /* Creates a popup-like window to read the privacy policy. Closable by clicking the red x or anywhere except the window */
     <div className={styles.popup} onClick={() => togglePopup()}>
       <div className={styles.popupInner} onClick={e=>e.stopPropagation()}>
-        <Button className={"float-right" +" " + styles.closeButton} variant="danger" onClick={() => togglePopup()}>
+        <Button className={`${styles.closeButton}| float-right`} variant="danger" onClick={() => togglePopup()}>
           X
         </Button>{" "}
         <h1 className={styles.title}>Privacy Policy</h1>

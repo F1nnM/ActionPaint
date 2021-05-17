@@ -18,7 +18,7 @@ function EmailConfig({ creds }) {
       .catch(err => alert(err))
       .then(data => { setEmail(data) })
       .catch(err => alert(err))
-  }, []);
+  }, [creds]);
 
   function handleUpdateValue(value, entry) {
     email[entry] = value;
