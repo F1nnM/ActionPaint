@@ -5,6 +5,7 @@ import AboutUs from "./admin_components/AboutUs";
 import EmailConfig from "./admin_components/EmailConfig";
 import Artists from "./admin_components/Artists";
 import Titlescreen from "./admin_components/Titlescreen";
+import Coloring from "./admin_components/Coloring";
 import Sectiontitles from "./admin_components/Sectiontitles";
 import Button from "react-bootstrap/Button";
 import PrivacyPolicy from "./admin_components/PrivacyPolicy";
@@ -116,11 +117,15 @@ function AdminPanel({ switchToWeb }) {
     },
     {
       label: "Logos",
-      component: <Logos data={data} creds={credentials}/>,
+      component: <Logos data={data} creds={credentials} />,
     },
     {
       label: "Brand(ing)",
       component: <Titlescreen data={data} creds={credentials} />,
+    },
+    {
+      label: "Color & Style",
+      component: <Coloring data={data} creds={credentials} />,
     },
     {
       label: "Section Titles",
