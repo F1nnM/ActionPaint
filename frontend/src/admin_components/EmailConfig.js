@@ -1,6 +1,7 @@
 import styles from "./EmailConfig.module.scss";
 import { Table, Button, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { toPascalCaseWithWhiteSpace } from "../frontendUtils";
 
 function EmailConfig({ creds }) {
   const [email, setEmail] = useState({});
@@ -9,7 +10,10 @@ function EmailConfig({ creds }) {
     let url = process.env.REACT_APP_BACKEND + "admin/mailconfig";
     let headers = new Headers();
 
-    headers.append('Authorization', 'Basic ' + btoa(creds.username + ":" + creds.password));
+    headers.append(
+      "Authorization",
+      "Basic " + btoa(creds.username + ":" + creds.password)
+    );
 
     fetch(url, {
       method: "GET",
@@ -28,7 +32,10 @@ function EmailConfig({ creds }) {
     const url = process.env.REACT_APP_BACKEND + "admin/update/mail";
     let headers = new Headers();
 
-    headers.append('Authorization', 'Basic ' + btoa(creds.username + ":" + creds.password));
+    headers.append(
+      "Authorization",
+      "Basic " + btoa(creds.username + ":" + creds.password)
+    );
     headers.append("Content-Type", "application/json");
 
     const options = {
@@ -36,12 +43,12 @@ function EmailConfig({ creds }) {
       headers,
       body: JSON.stringify({
         content: JSON.stringify(email),
-      })
+      }),
     };
     fetch(url, options)
       .then((data) => {
         console.log(data);
-        document.querySelector("#MAIL_PASS").value= "****";
+        document.querySelector("#MAIL_PASS").value = "****";
       })
       .catch((err) => {
         console.warn(err);
@@ -62,8 +69,21 @@ function EmailConfig({ creds }) {
             /*  Iterate over mail.json and create a ReadOnly Field for the Key Element and a Editable Value Field for the Content.
                 The Password is a dummy Value and will be again overwritten by one after Submitting aswell */
             <tr>
-              <td><Form.Control defaultValue={entry} readOnly /></td>
-              <td><Form.Control id={entry} type={entry === "MAIL_PASS" ? "password" : ""} defaultValue={email[entry]} key={email[entry]} onChange={e => handleUpdateValue(e.target.value, entry)} /></td>
+              <td>
+                <Form.Control
+                  defaultValue={toPascalCaseWithWhiteSpace(entry)}
+                  readOnly
+                />
+              </td>
+              <td>
+                <Form.Control
+                  id={entry}
+                  type={entry === "MAIL_PASS" ? "password" : ""}
+                  defaultValue={email[entry]}
+                  key={email[entry]}
+                  onChange={(e) => handleUpdateValue(e.target.value, entry)}
+                />
+              </td>
             </tr>
           ))}
           <tr>

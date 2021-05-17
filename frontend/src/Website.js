@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Contact from "./components/Contact";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import SectionFrame from "./components/SectionFrame";
+import PlaygroundComponent from "./components/PlaygroundComponent";
 
 import styles from "./Website.module.scss";
 
@@ -51,6 +52,13 @@ var sections = [
   },
 ];
 
+if (process.env.NODE_ENV === "development")
+  // if in dev mode, add the playground component
+  sections.unshift({
+    id: "playground",
+    component: <PlaygroundComponent />,
+  });
+
 function Website({ switchToAdmin }) {
   const { ref, inView } = useInView({
     /* Optional options */
@@ -61,7 +69,7 @@ function Website({ switchToAdmin }) {
   const [policy, setPolicy] = useState(false);
   const [policytext, setPolicytext] = useState("");
 
-  function togglePopup(){
+  function togglePopup() {
     setPolicy(!policy);
   }
 
@@ -69,9 +77,9 @@ function Website({ switchToAdmin }) {
     fetch(process.env.REACT_APP_BACKEND + "content")
       .then((resp) => resp.json())
       .then((data) => setData(data));
-    fetch(process.env.PUBLIC_URL + '/privacyPolicy.txt')
-      .then(text => text.text())
-      .then(text => setPolicytext(text))
+    fetch(process.env.PUBLIC_URL + "/privacyPolicy.txt")
+      .then((text) => text.text())
+      .then((text) => setPolicytext(text));
   }, []);
 
   if (!data) return <div>Loading...</div>;
@@ -81,9 +89,9 @@ function Website({ switchToAdmin }) {
     "--accentColor": data["style"]["accentColor"],
     "--initialBackground": data["style"]["initialBackground"],
     "--background": data["style"]["background"],
-  }
+  };
 
-  document.title = data.brand.title
+  document.title = data.brand.title;
 
   return (
     <Container fluid className={styles.app + " px-0"} style={cssVars}>
@@ -101,23 +109,29 @@ function Website({ switchToAdmin }) {
         <Col>
           {sections.map((section) => (
             <SectionFrame
-              title={data["sections"][section.id]}
+              title={
+                section.id !== "playground"
+                  ? data["sections"][section.id]
+                  : section.id
+              }
               ID={section.id}
-              key={data["sections"][section.id]}
+              key={
+                section.id !== "playground" ? data["sections"][section.id] : -1
+              }
             >
               {React.cloneElement(section.component, { data: data })}
             </SectionFrame>
           ))}
         </Col>
       </Row>
-      <Footer togglePopup={togglePopup} switchToAdmin={switchToAdmin} data={data} />
-      {policy ? 
-          <PrivacyPolicy
-            policy={policytext}
-            togglePopup={togglePopup}
-          />
-          : null
-        }
+      <Footer
+        togglePopup={togglePopup}
+        switchToAdmin={switchToAdmin}
+        data={data}
+      />
+      {policy ? (
+        <PrivacyPolicy policy={policytext} togglePopup={togglePopup} />
+      ) : null}
       <div className={styles.background}>
         <li />
         <li />

@@ -1,6 +1,7 @@
 import styles from "./Sectiontitles.module.scss";
 import { Table, Button, Form } from "react-bootstrap";
 import { useState } from "react";
+import { toPascalCaseWithWhiteSpace } from "../frontendUtils";
 
 function Sectiontitles({ fetchContent, data, creds }) {
   const [titles] = useState(data.sections);
@@ -13,7 +14,10 @@ function Sectiontitles({ fetchContent, data, creds }) {
     const url = process.env.REACT_APP_BACKEND + "admin/update/sections";
     let headers = new Headers();
 
-    headers.append('Authorization', 'Basic ' + btoa(creds.username + ":" + creds.password));
+    headers.append(
+      "Authorization",
+      "Basic " + btoa(creds.username + ":" + creds.password)
+    );
     headers.append("Content-Type", "application/json");
 
     const options = {
@@ -21,7 +25,7 @@ function Sectiontitles({ fetchContent, data, creds }) {
       headers,
       body: JSON.stringify({
         content: JSON.stringify(titles),
-      })
+      }),
     };
     fetch(url, options)
       .then((data) => {
@@ -51,8 +55,20 @@ function Sectiontitles({ fetchContent, data, creds }) {
         <tbody>
           {Object.keys(titles).map((entry) => (
             <tr>
-              <td width="30%"><Form.Control defaultValue={entry.toUpperCase()} readOnly /></td>
-              <td width><Form.Control id={entry} defaultValue={titles[entry]} key={titles[entry]} onChange={e => handleUpdateValue(e.target.value, entry)} /></td>
+              <td width="30%">
+                <Form.Control
+                  defaultValue={toPascalCaseWithWhiteSpace(entry)}
+                  readOnly
+                />
+              </td>
+              <td width>
+                <Form.Control
+                  id={entry}
+                  defaultValue={titles[entry]}
+                  key={titles[entry]}
+                  onChange={(e) => handleUpdateValue(e.target.value, entry)}
+                />
+              </td>
             </tr>
           ))}
           <tr>
