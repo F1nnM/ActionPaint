@@ -1,6 +1,6 @@
 import styles from "./Coloring.module.scss";
 import { Table, Button, Form } from "react-bootstrap";
-import { useState, Component } from "react";
+import { useState } from "react";
 import { Edit } from "@material-ui/icons";
 import { toPascalCaseWithWhiteSpace } from "../frontendUtils";
 import { ChromePicker } from "react-color";
@@ -99,7 +99,7 @@ function Coloring({ data, creds, resetData }) {
                 <Button
                   variant="primary"
                   onClick={(_) => {
-                    /* loadEntry(entry) */ var i = 1;
+                    /* loadEntry(entry) */
                   }}
                 >
                   <Edit />

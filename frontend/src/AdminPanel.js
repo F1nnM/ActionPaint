@@ -26,14 +26,14 @@ function AdminPanel({ switchToWeb }) {
     fetch(process.env.REACT_APP_BACKEND + "content")
       .then((resp) => resp.json())
       .then((data) => setData(data));
-  });
+  }, []);
 
   const discardChanges = useCallback(() => {
     if (window.confirm("Do you want to revert all your changes?")) {
       fetchContent();
       reloadInterface();
     }
-  });
+  }, []);
 
   const reloadInterface = fetchContent;
 

@@ -13,7 +13,7 @@ function PrivacyPolicy({policy, togglePopup}) {
         </Button>{" "}
         <h1 className={styles.title}>Privacy Policy</h1>
         <div className={styles.TextWrapper}>
-          <textarea readOnly className={styles.privacyText}>{policy}</textarea>
+          <textarea readOnly className={styles.privacyText} defaultValue={policy}/>
         </div>
       </div>
     </div>
