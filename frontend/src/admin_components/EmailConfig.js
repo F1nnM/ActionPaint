@@ -79,7 +79,7 @@ function EmailConfig({ creds, discardChanges }) {
                 <Form.Control
                   id={entry}
                   type={entry === "MAIL_PASS" ? "password" : ""}
-                  autocomplete={entry="MAIL_PASS" ? "off": "on"}
+                  autocomplete={entry==="MAIL_PASS" ? "off": "on"}
                   defaultValue={email[entry]}
                   key={email[entry]}
                   onChange={(e) => handleUpdateValue(e.target.value, entry)}
