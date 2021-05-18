@@ -20,7 +20,6 @@ function AdminPanel({ switchToWeb }) {
   const [usernameInput, setUsernameInput] = useState(null);
   const [passwordInput, setPasswordInput] = useState(null);
   const [data, setData] = useState(null);
-  const [frameKeyForCaching, setFrameKey] = useState(Date.now())
   const [tabIndex, setTabIndex] = useState(0);
 
   function fetchContent() {
@@ -37,7 +36,7 @@ function AdminPanel({ switchToWeb }) {
   }
 
   function reloadInterface() {
-    setFrameKey(Date.now());
+    fetchContent();
   }
 
   useEffect(() => {
@@ -155,7 +154,7 @@ function AdminPanel({ switchToWeb }) {
     },
   ];
 
-  return <NavFrame key={frameKeyForCaching} tabs={tabs} data={data} goBack={switchToWeb} activeTab={tabIndex} onTabChange={index=>setTabIndex(index)}></NavFrame>;
+  return <NavFrame tabs={tabs} data={data} goBack={switchToWeb} activeTab={tabIndex} onTabChange={index=>setTabIndex(index)}></NavFrame>;
 }
 
 export default AdminPanel;
