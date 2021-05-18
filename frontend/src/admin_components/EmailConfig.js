@@ -1,7 +1,6 @@
 import styles from "./EmailConfig.module.scss";
 import { Table, Button, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { toPascalCaseWithWhiteSpace } from "../frontendUtils";
 
 function EmailConfig({ creds, discardChanges }) {
   const [email, setEmail] = useState({});
@@ -18,10 +17,13 @@ function EmailConfig({ creds, discardChanges }) {
     fetch(url, {
       method: "GET",
       headers,
-    }).then(data => data.json())
-      .catch(err => alert(err))
-      .then(data => { setEmail(data) })
-      .catch(err => alert(err))
+    })
+      .then((data) => data.json())
+      .catch((err) => alert(err))
+      .then((data) => {
+        setEmail(data);
+      })
+      .catch((err) => alert(err));
   }, [creds]);
 
   function handleUpdateValue(value, entry) {
@@ -70,16 +72,13 @@ function EmailConfig({ creds, discardChanges }) {
                 The Password is a dummy Value and will be again overwritten by one after Submitting aswell */
             <tr key={entry}>
               <td>
-                <Form.Control
-                  defaultValue={toPascalCaseWithWhiteSpace(entry)}
-                  readOnly
-                />
+                <Form.Control defaultValue={entry} readOnly />
               </td>
               <td>
                 <Form.Control
                   id={entry}
                   type={entry === "mailPass" ? "password" : ""}
-                  autocomplete={entry==="mailPass" ? "off": "on"}
+                  autocomplete={entry === "mailPass" ? "off" : "on"}
                   defaultValue={email[entry]}
                   key={email[entry]}
                   onChange={(e) => handleUpdateValue(e.target.value, entry)}
@@ -89,7 +88,11 @@ function EmailConfig({ creds, discardChanges }) {
           ))}
           <tr>
             <td className={styles.saveChanges}>
-              <Button variant="success" className="mr-3" onClick={() => handleUpdateSubmit()}>
+              <Button
+                variant="success"
+                className="mr-3"
+                onClick={() => handleUpdateSubmit()}
+              >
                 Save Changes
               </Button>
               <Button variant="warning" onClick={discardChanges}>
