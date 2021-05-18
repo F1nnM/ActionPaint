@@ -1,6 +1,6 @@
 import styles from "./PrivacyPolicy.module.scss";
 import { Container, Button, Form } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function PrivacyPolicy({ data, creds }) {
   const [policy, setPolicy] = useState(data.privacy_policy.text);
