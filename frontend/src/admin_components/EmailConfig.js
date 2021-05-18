@@ -48,7 +48,7 @@ function EmailConfig({ creds, discardChanges }) {
     fetch(url, options)
       .then((data) => {
         console.log(data);
-        document.querySelector("#MAIL_PASS").value = "****";
+        document.querySelector("#mailPass").value = "****";
       })
       .catch((err) => {
         console.warn(err);
@@ -78,8 +78,8 @@ function EmailConfig({ creds, discardChanges }) {
               <td>
                 <Form.Control
                   id={entry}
-                  type={entry === "MAIL_PASS" ? "password" : ""}
-                  autocomplete={entry==="MAIL_PASS" ? "off": "on"}
+                  type={entry === "mailPass" ? "password" : ""}
+                  autocomplete={entry==="mailPass" ? "off": "on"}
                   defaultValue={email[entry]}
                   key={email[entry]}
                   onChange={(e) => handleUpdateValue(e.target.value, entry)}
