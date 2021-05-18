@@ -7,7 +7,7 @@ function NavFrame({ tabs, children, data, goBack }) {
   return (
     <>
       <Tab.Container className={"mt-4"}>
-        <Row>
+        <Row noGutters>
           <Col md={2}>
             <ListGroup defaultActiveKey={"#" + tabs[0].label}>
               <ListGroup.Item
@@ -49,7 +49,7 @@ function NavFrame({ tabs, children, data, goBack }) {
             </ListGroup>
           </Col>
           <Col md={10}>
-            <Tab.Content className="pr-5 py-5 pl-3">
+            <Tab.Content className="p-5">
               {tabs.map((tab, index) => (
                 <>
                   <Tab.Pane key={tab + index} eventKey={"#" + tab.label}>
