@@ -139,7 +139,7 @@ function AdminPanel({ switchToWeb }) {
     },
     {
       label: "Privacy Policy",
-      component: <PrivacyPolicy creds={credentials} />,
+      component: <PrivacyPolicy data={data} creds={credentials} />,
     },
     {
       label: "Go back",
