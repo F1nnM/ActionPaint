@@ -3,13 +3,13 @@ import styles from "./NavFrame.module.scss";
 import ListGroup from "react-bootstrap/ListGroup";
 import Tab from "react-bootstrap/Tab";
 
-function NavFrame({ tabs, children, data, goBack }) {
+function NavFrame({ tabs, data, goBack, activeTab, onTabChange }) {
   return (
     <>
-      <Tab.Container className={"mt-4"}>
-        <Row>
+      <Tab.Container className={"mt-4"} activeKey={tabs[activeTab].label}>
+        <Row noGutters>
           <Col md={2}>
-            <ListGroup defaultActiveKey={"#" + tabs[0].label}>
+            <ListGroup defaultActiveKey={tabs[activeTab].label}>
               <ListGroup.Item
                 variant="dark"
                 action
@@ -34,28 +34,19 @@ function NavFrame({ tabs, children, data, goBack }) {
                 </object>{" "}
                 <span>{data.brand.title}</span>
               </ListGroup.Item>
-              {tabs.map((tab, idx) => (
-                <>
-                  {tab.isBreak && (
-                    <>
-                      <br />
-                    </>
-                  )}
-                  <ListGroup.Item action href={"#" + tab.label} key={idx}>
-                    {tab.label}
-                  </ListGroup.Item>
-                </>
+              {tabs.map((tab, index) => (
+                <ListGroup.Item action eventKey={tab.label} onClick={_ => onTabChange(index)} key={tab + index + "2"}>
+                  {tab.label}
+                </ListGroup.Item>
               ))}
             </ListGroup>
           </Col>
           <Col md={10}>
-            <Tab.Content className="pr-5 py-5 pl-3">
+            <Tab.Content className="p-5">
               {tabs.map((tab, index) => (
-                <>
-                  <Tab.Pane eventKey={"#" + tab.label}>
-                    {tab.component}
-                  </Tab.Pane>
-                </>
+                <Tab.Pane key={tab + index} eventKey={tab.label}>
+                  {tab.component}
+                </Tab.Pane>
               ))}
             </Tab.Content>
           </Col>

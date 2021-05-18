@@ -13,7 +13,7 @@ function TopFlavors({ data }) {
               - Name
               - Description
               - Link to their Work (not yet implemented) */
-        <DrippingFrame>
+        <DrippingFrame key={artist + index+3}>
           <Card
             id={index + ": " + artist.firstName + " " + artist.lastName}
             className={styles.card}
@@ -28,7 +28,7 @@ function TopFlavors({ data }) {
                       className={styles.carousel}
                     >
                       {artist.images.map((image, idx) => (
-                        <Carousel.Item className={styles.item}>
+                        <Carousel.Item key={image + idx} className={styles.item}>
                           <img
                             className={styles.image + " d-block w-100"}
                             alt={image + idx}

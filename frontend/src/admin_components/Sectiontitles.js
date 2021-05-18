@@ -3,11 +3,11 @@ import { Table, Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import { toPascalCaseWithWhiteSpace } from "../frontendUtils";
 
-function Sectiontitles({ fetchContent, data, creds }) {
-  const [titles] = useState(data.sections);
+function Sectiontitles({ data, creds, discardChanges, reloadInterface }) {
+  const [titles, setTitles] = useState(data.sections);
 
   function handleUpdateValue(value, entry) {
-    titles[entry] = value;
+    setTitles({ ...titles, [entry]: value });
   }
 
   function handleUpdateSubmit() {
@@ -30,21 +30,19 @@ function Sectiontitles({ fetchContent, data, creds }) {
     fetch(url, options)
       .then((data) => {
         console.log(data);
-        fetchContent();
+        reloadInterface();
       })
       .catch((err) => {
         console.warn(err);
       });
   }
 
+  /*  Create a Table with every titled section on the main page and made their shown titles editable.
+      The changes will be instantly applied after submitting in:
+        - The Adminsection
+        - The Navbar
+        - The Component itself */
   return (
-    <>
-    {/* Create a Table with every titled section on the main page and made their shown titles editable.
-        The changes will be instantly applied after submitting in:
-          - The Adminsection
-          - The Navbar
-          - The Component itself */}
-          
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -54,33 +52,35 @@ function Sectiontitles({ fetchContent, data, creds }) {
         </thead>
         <tbody>
           {Object.keys(titles).map((entry) => (
-            <tr>
+            <tr key={entry}>
               <td width="30%">
                 <Form.Control
                   defaultValue={toPascalCaseWithWhiteSpace(entry)}
                   readOnly
                 />
               </td>
-              <td width>
+              <td>
                 <Form.Control
                   id={entry}
                   defaultValue={titles[entry]}
                   key={titles[entry]}
-                  onChange={(e) => handleUpdateValue(e.target.value, entry)}
+                  onBlur={(e) => handleUpdateValue(e.target.value, entry)}
                 />
               </td>
             </tr>
           ))}
           <tr>
             <td className={styles.saveChanges}>
-              <Button variant="success" onClick={() => handleUpdateSubmit()}>
+              <Button variant="success" className="mr-3 my-2" onClick={() => handleUpdateSubmit()}>
                 Save Changes
+              </Button>
+              <Button variant="warning" className="my-2" onClick={discardChanges}>
+                Discard Changes
               </Button>
             </td>
           </tr>
         </tbody>
       </Table>
-    </>
   );
 }
 

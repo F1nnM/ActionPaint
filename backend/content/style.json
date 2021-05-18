@@ -1,1 +1,6 @@
-{"primaryColor":"#7979ff","accentColor":"#000000","background":"#ffffff","initialBackground":"#ffffff"}
+{
+    "primaryColor": "#7979ff",
+    "accentColor": "#000000",
+    "background": "#ffffff",
+    "initialBackground": "#ffffff"
+}

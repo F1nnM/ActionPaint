@@ -73,7 +73,7 @@ function Footer({ togglePopup, switchToAdmin, data: all_data}) {
             <p className="mt-3">
               We don't collect any data from you, unless you reach out to us.
               For details click{" "}
-              <a className={styles.colorReset} href="Javascript:void" onClick={() => togglePopup()}>here</a>
+              <a className={styles.colorReset} href="#0" onClick={() => togglePopup()}>here</a>
               .
             </p>
           </Col>

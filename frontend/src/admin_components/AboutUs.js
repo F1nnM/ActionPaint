@@ -12,7 +12,7 @@ import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
 import FileSelector from "./FileSelector";
 
-function WhatWeDo({ data, creds }) {
+function AboutUs({ data, creds, discardChanges }) {
   const [aboutUs, setAboutUs] = useState(data.about);
   const [showImageSelect, setShowImageSelect] = useState(false);
   let headers = new Headers();
@@ -43,18 +43,6 @@ function WhatWeDo({ data, creds }) {
     "Basic " + btoa(creds.username + ":" + creds.password)
   );
   headers.append("Content-Type", "application/json");
-
-  function discardChanges() {
-    if (window.confirm("Do you want to revert all your changes?")) {
-      setAboutUs({
-        ...data.about,
-      });
-
-      setNewMember({
-        ...freshMember(),
-      });
-    }
-  }
 
   function handleUpdateTeamInfo(value) {
     aboutUs.info = value;
@@ -151,15 +139,16 @@ function WhatWeDo({ data, creds }) {
             <tr>
               {allProps.map((prop, propIdx) =>
                 prop === "imageUrl" ? (
-                  <>
+                  <td key={prop}>
                     <span>{entry[prop] + entry.id}</span>
                     <Button
                       variant="info"
                       onClick={(_) => setShowImageSelect(true)}
+                      key={prop + propIdx + "Button"}
                     >
                       Change
                     </Button>
-                    <Modal show={showImageSelect}>
+                    <Modal key={prop + propIdx} show={showImageSelect}>
                       <Modal.Header
                         closeButton
                         onClick={(_) => setShowImageSelect(false)}
@@ -189,7 +178,7 @@ function WhatWeDo({ data, creds }) {
                         </Button> */}
                       </Modal.Footer>
                     </Modal>
-                  </>
+                  </td>
                 ) : (
                   <td key={prop}>
                     <Form.Control
@@ -197,6 +186,7 @@ function WhatWeDo({ data, creds }) {
                       onInput={(e) =>
                         handleUpdateProp(prop, e.target.value, idx)
                       }
+                      key={prop + "1"}
                     />
                   </td>
                 )
@@ -215,6 +205,7 @@ function WhatWeDo({ data, creds }) {
                 <Form.Control
                   defaultValue={""}
                   onInput={(e) => handleNewMember(prop, e.target.value)}
+                  key={prop + "1"}
                 />
               </td>
             ))}
@@ -229,7 +220,7 @@ function WhatWeDo({ data, creds }) {
       </Table>
       <hr />
       <span className={"mr-4 " + styles.discardChanges}>
-        <Button variant="warning" onClick={() => discardChanges()}>
+        <Button variant="warning" onClick={discardChanges}>
           Discard Changes
         </Button>
       </span>
@@ -242,4 +233,4 @@ function WhatWeDo({ data, creds }) {
   );
 }
 
-export default WhatWeDo;
+export default AboutUs;

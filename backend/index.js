@@ -162,34 +162,22 @@ app.use(express.json());
 
 app.post("/admin/update/:file", (req, res) => {
   let file = req.params.file;
-  let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail", "footer", "sections", "style", "brand", "privacy"];
+  let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail", "footer", "sections", "style", "brand", "privacy_policy"];
 
   if (!possibleFiles.includes(file)) {
     res.status(400).send("Not a valid file");
     return;
   }
-  if (file == "privacy") {
-    fs.writeFile(
-      "./built_frontend/privacyPolicy.txt",
-      req.body.content,
-      "utf-8",
-      (err) => {
-        if (err) res.status(500).send(err);
-        else {
-          res.status(200).send("File updated");
-          content = utils.load_content();
-        }
-      }
-    );
-  } else if (file == "mail") {
+  
+  if (file == "mail") {
     // if the password is still **** then replace it with the password still saved in the file
     fs.readFile("./mail.json", (err, data) => {
       if (err)
         return res.status(500).send(err)
-      let password = JSON.parse(data)["MAIL_PASS"];
+      let password = JSON.parse(data)["mailPass"];
       let newConfig = JSON.parse(req.body.content);
-      if (newConfig["MAIL_PASS"] === "****")
-        newConfig["MAIL_PASS"] = password;
+      if (newConfig["mailPass"] === "****")
+        newConfig["mailPass"] = password;
       fs.writeFile(
         "./mail.json",
         JSON.stringify(newConfig),
@@ -226,7 +214,7 @@ app.get("/admin/mailconfig", (req, res) => {
       return res.status(500).send(err)
     let config = JSON.parse(data);
     // Password is writeonly
-    config["MAIL_PASS"] = "****";
+    config["mailPass"] = "****";
     res.status(200).send(config);
   });
 });
@@ -252,5 +240,5 @@ app.post("/sendMessage", async (req, res) => {
 // start express
 //===========================================
 app.listen(port, "0.0.0.0", () => {
-  console.log(`ActionPaint backend listening at http://0.0.0.0:${port}`);
+  console.log(`Backend listening at http://0.0.0.0:${port}`);
 });

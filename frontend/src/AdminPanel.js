@@ -4,13 +4,13 @@ import WhatWeDo from "./admin_components/WhatWeDo";
 import AboutUs from "./admin_components/AboutUs";
 import EmailConfig from "./admin_components/EmailConfig";
 import Artists from "./admin_components/Artists";
-import Titlescreen from "./admin_components/Titlescreen";
+import Branding from "./admin_components/Branding";
 import Coloring from "./admin_components/Coloring";
 import Sectiontitles from "./admin_components/Sectiontitles";
 import Button from "react-bootstrap/Button";
 import PrivacyPolicy from "./admin_components/PrivacyPolicy";
 import { Col, Container, Form, Row } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import styles from "./AdminPanel.module.css";
 import Logos from "./admin_components/Logos";
@@ -20,15 +20,26 @@ function AdminPanel({ switchToWeb }) {
   const [usernameInput, setUsernameInput] = useState(null);
   const [passwordInput, setPasswordInput] = useState(null);
   const [data, setData] = useState(null);
+  const [tabIndex, setTabIndex] = useState(0);
 
-  function fetchContent() {
+  const fetchContent = useCallback(() => {
     fetch(process.env.REACT_APP_BACKEND + "content")
       .then((resp) => resp.json())
       .then((data) => setData(data));
-  }
+  }, []);
+
+  const reloadInterface = fetchContent;
+
+  const discardChanges = useCallback(() => {
+      if (window.confirm("Do you want to revert all your changes?")) {
+        fetchContent();
+        reloadInterface();
+      }
+    }, [fetchContent, reloadInterface]);
+
   useEffect(() => {
     fetchContent();
-  }, []);
+  }, [fetchContent]);
 
   function tryLogin(e) {
     e.preventDefault();
@@ -97,49 +108,43 @@ function AdminPanel({ switchToWeb }) {
   const tabs = [
     {
       label: data.sections["Our Artists"],
-      component: <Artists data={data} creds={credentials} />,
+      component: <Artists data={data} creds={credentials} discardChanges={discardChanges}/>,
     },
     {
       label: data.sections["About Us"],
-      component: <AboutUs data={data} creds={credentials} />,
+      component: <AboutUs data={data} creds={credentials} discardChanges={discardChanges} />,
     },
     {
       label: data.sections["What We Do"],
-      component: <WhatWeDo data={data} creds={credentials} />,
+      component: <WhatWeDo data={data} creds={credentials} discardChanges={discardChanges} />,
     },
     {
       label: data.sections["FAQ"],
-      component: <FAQ data={data} creds={credentials} />,
+      component: <FAQ data={data} creds={credentials} discardChanges={discardChanges} />,
     },
     {
       label: data.sections["Contact Us"] + " / Mail-Config",
-      component: <EmailConfig creds={credentials} />,
+      component: <EmailConfig creds={credentials} discardChanges={discardChanges} />,
     },
     {
       label: "Logos",
-      component: <Logos data={data} creds={credentials} />,
+      component: <Logos data={data} creds={credentials} discardChanges={discardChanges} reloadInterface={reloadInterface} />,
     },
     {
       label: "Brand(ing)",
-      component: <Titlescreen data={data} creds={credentials} />,
+      component: <Branding data={data} creds={credentials} discardChanges={discardChanges} />,
     },
     {
       label: "Color & Style",
-      component: <Coloring data={data} creds={credentials} />,
+      component: <Coloring data={data} creds={credentials} discardChanges={discardChanges} />,
     },
     {
       label: "Section Titles",
-      component: (
-        <Sectiontitles
-          fetchContent={fetchContent}
-          data={data}
-          creds={credentials}
-        />
-      ),
+      component: <Sectiontitles data={data} creds={credentials} discardChanges={discardChanges} reloadInterface={reloadInterface} />,
     },
     {
       label: "Privacy Policy",
-      component: <PrivacyPolicy creds={credentials} />,
+      component: <PrivacyPolicy data={data} creds={credentials} discardChanges={discardChanges}/>,
     },
     {
       label: "Go back",
@@ -147,7 +152,7 @@ function AdminPanel({ switchToWeb }) {
     },
   ];
 
-  return <NavFrame tabs={tabs} data={data} goBack={switchToWeb}></NavFrame>;
+  return <NavFrame tabs={tabs} data={data} goBack={switchToWeb} activeTab={tabIndex} onTabChange={index=>setTabIndex(index)}></NavFrame>;
 }
 
 export default AdminPanel;
