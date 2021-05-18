@@ -30,7 +30,7 @@ function Sectiontitles({ data, creds, discardChanges, reloadInterface }) {
     fetch(url, options)
       .then((data) => {
         console.log(data);
-        //reloadInterface();
+        reloadInterface();
       })
       .catch((err) => {
         console.warn(err);
