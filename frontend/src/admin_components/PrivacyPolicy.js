@@ -20,7 +20,7 @@ function PrivacyPolicy({ data, creds, discardChanges }) {
       method: "POST",
       headers,
       body: JSON.stringify({
-        text: JSON.stringify(policy),
+        content: JSON.stringify({text: policy}),
       })
     };
     fetch(url, options)
