@@ -33,7 +33,7 @@ function AdminPanel({ switchToWeb }) {
       fetchContent();
       reloadInterface();
     }
-  }, []);
+  }, [fetchContent, reloadInterface]);
 
   const reloadInterface = fetchContent;
 
