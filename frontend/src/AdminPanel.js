@@ -35,7 +35,7 @@ function AdminPanel({ switchToWeb }) {
     }
   }
 
-  const reloadInterface = fetchContent()
+  const reloadInterface = fetchContent;
 
   useEffect(() => {
     fetchContent();
