@@ -35,7 +35,12 @@ function NavFrame({ tabs, data, goBack, activeTab, onTabChange }) {
                 <span>{data.brand.title}</span>
               </ListGroup.Item>
               {tabs.map((tab, index) => (
-                <ListGroup.Item action eventKey={tab.label} onClick={_ => onTabChange(index)} key={tab + index + "2"}>
+                <ListGroup.Item
+                  action
+                  eventKey={tab.label}
+                  onClick={(_) => onTabChange(index)}
+                  key={tab + index + "2"}
+                >
                   {tab.label}
                 </ListGroup.Item>
               ))}

@@ -28,15 +28,16 @@ function AboutUs({ data, creds, discardChanges }) {
     return props;
   })();
 
-  const freshMember = () => {
+  const freshMember = (() => {
+    // returns an object containing the union set of all properties of all already stored persons
     var obj = {};
     allProps.forEach((p) => {
       obj[p] = "";
     });
     return obj;
-  };
+  })();
 
-  const [newMember, setNewMember] = useState(freshMember());
+  const [newMember, setNewMember] = useState(freshMember);
 
   headers.append(
     "Authorization",
@@ -69,7 +70,7 @@ function AboutUs({ data, creds, discardChanges }) {
       ...aboutUs,
     });
     setNewMember({
-      ...freshMember(),
+      ...freshMember,
     });
   }
 
@@ -92,10 +93,8 @@ function AboutUs({ data, creds, discardChanges }) {
   }
 
   function selectImage(url, id) {
-    alert(url + id);
     setShowImageSelect(false);
-    var member = aboutUs.members.find((e) => e.id === id);
-    console.log(member);
+    var member = aboutUs.members.find((e) => e.id === id); // first find matching member the url is supposed to be attached to
     member.imageUrl = url;
     setAboutUs({
       ...aboutUs,
@@ -108,7 +107,7 @@ function AboutUs({ data, creds, discardChanges }) {
         <Row>
           <Col>
             <Form>
-              <Form.Group controlId="ControlTextarea1">
+              <Form.Group>
                 <Form.Label>Info</Form.Label>
                 <Form.Control
                   required
@@ -139,6 +138,7 @@ function AboutUs({ data, creds, discardChanges }) {
             <tr>
               {allProps.map((prop, propIdx) =>
                 prop === "imageUrl" ? (
+                  /* when imageUrl, then show image selector */
                   <td key={prop}>
                     <span>{entry[prop] + entry.id}</span>
                     <Button
@@ -180,6 +180,7 @@ function AboutUs({ data, creds, discardChanges }) {
                     </Modal>
                   </td>
                 ) : (
+                  /* and show a simple text field otherwise */
                   <td key={prop}>
                     <Form.Control
                       defaultValue={entry[prop]}

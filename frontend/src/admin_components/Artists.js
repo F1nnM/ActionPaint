@@ -20,6 +20,7 @@ function Artists({ data, creds, discardChanges }) {
   // could have it been solved like in AboutUs.js, but unneccesary processing time!
 
   const freshMember = (() => {
+    // same like in AboutUs
     var obj = {};
     allProps.forEach((p) => {
       obj[p] = "";
@@ -37,6 +38,7 @@ function Artists({ data, creds, discardChanges }) {
 
   function setArtistAndIndex(a, idx) {
     if (!a && !idx) {
+      // other mode of this func: when neither a oder index make new member
       setCurrentArtist(freshMember);
     } else {
       setCurrentArtist(a);
@@ -104,7 +106,7 @@ function Artists({ data, creds, discardChanges }) {
 
   return (
     <>
-      <Tab.Container id="list-group-tabs-example" defaultActiveKey={"#" + 0}>
+      <Tab.Container defaultActiveKey={"#" + 0}>
         <Row>
           <Col sm={2}>
             <ListGroup variant="flush">

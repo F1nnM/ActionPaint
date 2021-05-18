@@ -7,18 +7,15 @@ function Coloring({ data, creds }) {
   const [style, setStyle] = useState(data.style);
 
   function handleUpdateValue(value, entry) {
-    console.log(style);
     style[entry] = value;
     setStyle({ ...style });
-    console.log(value + entry);
-    console.log(style);
   }
 
   function colorDragComplete(value, entry) {
     // will be triggered each time picker has been set
     console.log(value);
 
-    value.rgb.a = "1";
+    value.rgb.a = "1"; // sets alpha to 1, user should not be able to set an rgba value, as hex cannot represent it
     handleUpdateValue(value.hex, entry);
   }
 
