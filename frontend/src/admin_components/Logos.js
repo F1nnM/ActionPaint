@@ -4,6 +4,8 @@ import styles from "./Logos.module.scss";
 
 function Logos({ creds, reloadInterface }) {
 
+  const [imageKey, setImageKey] = useState(Date.now());
+
   const logos = [
     {
       "title": "Animated SVG logo",
@@ -64,7 +66,8 @@ function Logos({ creds, reloadInterface }) {
     })
       .catch(err => alert(err))
       .then(data => {
-        reloadInterface();
+        setImageKey(Date.now())
+        target.value = "";
       })
   }
 
@@ -79,11 +82,11 @@ function Logos({ creds, reloadInterface }) {
             </div>
             <div>
               {logo.tag === "img" &&
-                <img alt={logo} className={styles.image + " my-3"} src={process.env.REACT_APP_BACKEND + "images/" + logo.file } />
+                <img key={imageKey} alt={logo} className={styles.image + " my-3"} src={process.env.REACT_APP_BACKEND + "images/" + logo.file + "?" + imageKey} />
               }
               {logo.tag === "object" &&
-                <object className={styles.image + " my-3"} type="image/svg+xml" data={process.env.REACT_APP_BACKEND + "images/" + logo.file}>
-                  <img src={process.env.REACT_APP_BACKEND + "images/" + logo.file} alt="Logo" />
+                <object key={imageKey} className={styles.image + " my-3"} type="image/svg+xml" data={process.env.REACT_APP_BACKEND + "images/" + logo.file + "?" + imageKey}>
+                  <img key={imageKey} src={process.env.REACT_APP_BACKEND + "images/" + logo.file + "?" + imageKey} alt="Logo" />
                 </object>
               }
             </div>
