@@ -3,20 +3,14 @@ import { Container, Button, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 function PrivacyPolicy({ creds }) {
-  const [policy, setPolicy] = useState("");
-
-  useEffect(()=>{
-    fetch(process.env.PUBLIC_URL + '/privacyPolicy.txt')
-    .then(text => text.text())
-    .then(text => setPolicy(text))
-  }, []); 
+  const [policy, setPolicy] = useState(data.privacy_policy.text);
 
   function handleUpdateValue(value) {
     setPolicy(value);
   }
 
   function handleUpdateSubmit() {
-    const url = process.env.REACT_APP_BACKEND + "admin/update/privacy";
+    const url = process.env.REACT_APP_BACKEND + "admin/update/privacy_policy";
     let headers = new Headers();
 
     headers.append('Authorization', 'Basic ' + btoa(creds.username + ":" + creds.password));
@@ -26,7 +20,7 @@ function PrivacyPolicy({ creds }) {
       method: "POST",
       headers,
       body: JSON.stringify({
-        content: JSON.stringify(policy),
+        text: JSON.stringify(policy),
       })
     };
     fetch(url, options)

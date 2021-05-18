@@ -162,26 +162,14 @@ app.use(express.json());
 
 app.post("/admin/update/:file", (req, res) => {
   let file = req.params.file;
-  let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail", "footer", "sections", "style", "brand", "privacy"];
+  let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail", "footer", "sections", "style", "brand", "privacy_policy"];
 
   if (!possibleFiles.includes(file)) {
     res.status(400).send("Not a valid file");
     return;
   }
-  if (file == "privacy") {
-    fs.writeFile(
-      "./built_frontend/privacyPolicy.txt",
-      req.body.content,
-      "utf-8",
-      (err) => {
-        if (err) res.status(500).send(err);
-        else {
-          res.status(200).send("File updated");
-          content = utils.load_content();
-        }
-      }
-    );
-  } else if (file == "mail") {
+  
+  if (file == "mail") {
     // if the password is still **** then replace it with the password still saved in the file
     fs.readFile("./mail.json", (err, data) => {
       if (err)
