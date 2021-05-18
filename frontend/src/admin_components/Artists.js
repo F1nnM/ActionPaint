@@ -1,4 +1,3 @@
-import styles from "./Artists.module.scss";
 import { Button, Col, Container, Form, Row, Card } from "react-bootstrap";
 import ListGroup from "react-bootstrap/ListGroup";
 import FileSelector from "./FileSelector";
@@ -10,7 +9,7 @@ import { useState } from "react";
 function Artists({ data, creds }) {
   const initialData = data.artists;
   const [aboutUs, setAboutUs] = useState(initialData);
-  const [showImageSelect, setShowImageSelect] = useState("false"); // needed later for modals
+  const [showImageSelect, setShowImageSelect] = useState(false); // needed later for modals
   const [currentArtist, setCurrentArtist] = useState(
     aboutUs.length > 0 ? aboutUs[0] : null
   );
@@ -27,15 +26,6 @@ function Artists({ data, creds }) {
     });
     return obj;
   })();
-
-  const artistNames = aboutUs.map((a) => (
-    <>
-      <span class="mr-1">{a.firstName}</span>
-      <span>
-        <strong>{a.lastName}</strong>
-      </span>
-    </>
-  ));
 
   const [newMember, setNewMember] = useState(freshMember);
 

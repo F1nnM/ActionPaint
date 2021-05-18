@@ -149,26 +149,6 @@ function WhatWeDo({ data, creds }) {
         <tbody>
           {aboutUs.members.map((entry, idx) => (
             <tr>
-              {/* <td width="200">
-                <Button variant="danger" onClick={() => handleDelete(idx)}>
-                  <DeleteIcon />
-                </Button>
-                <Button
-                  className="float-right"
-                  variant="primary"
-                  onClick={() => handleMoveUp(idx)}
-                >
-                  <ArrowUpwardIcon />
-                </Button>
-                <p></p>
-                <Button
-                  className="float-right"
-                  variant="primary"
-                  onClick={() => handleMoveDown(idx)}
-                >
-                  <ArrowDownwardIcon />
-                </Button>
-              </td> */}
               {allProps.map((prop, propIdx) =>
                 prop === "imageUrl" ? (
                   <>
