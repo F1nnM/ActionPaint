@@ -5,7 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
-function FAQ({ data, creds }) {
+function FAQ({ data, creds, discardChanges }) {
   const [faq, setFAQ] = useState(data.faq);
   const [questionInput, setQuestionInput] = useState(null);
   const [answerInput, SetAnswerInput] = useState(null);
@@ -111,8 +111,11 @@ function FAQ({ data, creds }) {
       ))}
       <tr>
         <td className={styles.saveChanges}>
-          <Button variant="success" onClick={() => handleUpdateSubmit()}>
+          <Button variant="success" className="mr-3 mb-3" onClick={() => handleUpdateSubmit()}>
             Save Changes
+          </Button>
+          <Button variant="warning" onClick={discardChanges}>
+            Discard Changes
           </Button>
         </td>
       </tr>

@@ -12,7 +12,7 @@ import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
 import FileSelector from "./FileSelector";
 
-function AboutUs({ data, creds }) {
+function AboutUs({ data, creds, discardChanges }) {
   const [aboutUs, setAboutUs] = useState(data.about);
   const [showImageSelect, setShowImageSelect] = useState(false);
   let headers = new Headers();
@@ -43,18 +43,6 @@ function AboutUs({ data, creds }) {
     "Basic " + btoa(creds.username + ":" + creds.password)
   );
   headers.append("Content-Type", "application/json");
-
-  function discardChanges() {
-    if (window.confirm("Do you want to revert all your changes?")) {
-      setAboutUs({
-        ...data.about,
-      });
-
-      setNewMember({
-        ...freshMember(),
-      });
-    }
-  }
 
   function handleUpdateTeamInfo(value) {
     aboutUs.info = value;
@@ -252,7 +240,7 @@ function AboutUs({ data, creds }) {
       </Table>
       <hr />
       <span className={"mr-4 " + styles.discardChanges}>
-        <Button variant="warning" onClick={() => discardChanges()}>
+        <Button variant="warning" onClick={discardChanges}>
           Discard Changes
         </Button>
       </span>

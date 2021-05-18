@@ -3,13 +3,13 @@ import styles from "./NavFrame.module.scss";
 import ListGroup from "react-bootstrap/ListGroup";
 import Tab from "react-bootstrap/Tab";
 
-function NavFrame({ tabs, children, data, goBack }) {
+function NavFrame({ tabs, data, goBack, activeTab, onTabChange }) {
   return (
     <>
-      <Tab.Container className={"mt-4"}>
+      <Tab.Container className={"mt-4"} activeKey={tabs[activeTab].label}>
         <Row noGutters>
           <Col md={2}>
-            <ListGroup defaultActiveKey={"#" + tabs[0].label}>
+            <ListGroup defaultActiveKey={tabs[activeTab].label}>
               <ListGroup.Item
                 variant="dark"
                 action
@@ -34,14 +34,14 @@ function NavFrame({ tabs, children, data, goBack }) {
                 </object>{" "}
                 <span>{data.brand.title}</span>
               </ListGroup.Item>
-              {tabs.map((tab, idx) => (
+              {tabs.map((tab, index) => (
                 <>
                   {tab.isBreak && (
                     <>
-                      <br key={tab + idx + "1"} />
+                      <br key={tab + index + "1"} />
                     </>
                   )}
-                  <ListGroup.Item action href={"#" + tab.label} key={tab + idx + "2"}>
+                  <ListGroup.Item action eventKey={tab.label} onClick={_=>onTabChange(index)} key={tab + index + "2"}>
                     {tab.label}
                   </ListGroup.Item>
                 </>
@@ -52,7 +52,7 @@ function NavFrame({ tabs, children, data, goBack }) {
             <Tab.Content className="p-5">
               {tabs.map((tab, index) => (
                 <>
-                  <Tab.Pane key={tab + index} eventKey={"#" + tab.label}>
+                  <Tab.Pane key={tab + index} eventKey={tab.label}>
                     {tab.component}
                   </Tab.Pane>
                 </>

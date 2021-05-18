@@ -3,7 +3,7 @@ import { Table, Button, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { toPascalCaseWithWhiteSpace } from "../frontendUtils";
 
-function EmailConfig({ creds }) {
+function EmailConfig({ creds, discardChanges }) {
   const [email, setEmail] = useState({});
 
   useEffect(() => {
@@ -88,8 +88,11 @@ function EmailConfig({ creds }) {
           ))}
           <tr>
             <td className={styles.saveChanges}>
-              <Button variant="success" onClick={() => handleUpdateSubmit()}>
+              <Button variant="success" className="mr-3" onClick={() => handleUpdateSubmit()}>
                 Save Changes
+              </Button>
+              <Button variant="warning" onClick={discardChanges}>
+                Discard Changes
               </Button>
             </td>
           </tr>

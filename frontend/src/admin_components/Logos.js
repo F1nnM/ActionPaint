@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./Logos.module.scss";
 
-function Logos({ creds }) {
-
-  const [imageKey, setImageKey] = useState(Date.now());
+function Logos({ creds, reloadInterface }) {
 
   const logos = [
     {
@@ -66,8 +64,7 @@ function Logos({ creds }) {
     })
       .catch(err => alert(err))
       .then(data => {
-        setImageKey(Date.now())
-        target.value = "";
+        reloadInterface();
       })
   }
 
@@ -82,11 +79,11 @@ function Logos({ creds }) {
             </div>
             <div>
               {logo.tag === "img" &&
-                <img key={imageKey} alt={logo} className={styles.image + " my-3"} src={process.env.REACT_APP_BACKEND + "images/" + logo.file + "?" + imageKey} />
+                <img alt={logo} className={styles.image + " my-3"} src={process.env.REACT_APP_BACKEND + "images/" + logo.file } />
               }
               {logo.tag === "object" &&
-                <object key={imageKey} className={styles.image + " my-3"} type="image/svg+xml" data={process.env.REACT_APP_BACKEND + "images/" + logo.file + "?" + imageKey}>
-                  <img key={imageKey} src={process.env.REACT_APP_BACKEND + "images/" + logo.file + "?" + imageKey} alt="Logo" />
+                <object className={styles.image + " my-3"} type="image/svg+xml" data={process.env.REACT_APP_BACKEND + "images/" + logo.file}>
+                  <img src={process.env.REACT_APP_BACKEND + "images/" + logo.file} alt="Logo" />
                 </object>
               }
             </div>

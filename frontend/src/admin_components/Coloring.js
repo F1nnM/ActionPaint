@@ -5,7 +5,7 @@ import { Edit } from "@material-ui/icons";
 import { toPascalCaseWithWhiteSpace } from "../frontendUtils";
 import { ChromePicker } from "react-color";
 
-function Coloring({ data, creds }) {
+function Coloring({ data, creds, resetData }) {
   const [style] = useState(data.style);
   /* [color, setColor] = useState({
       r: "241",
@@ -48,6 +48,12 @@ function Coloring({ data, creds }) {
       .catch((err) => {
         console.warn(err);
       });
+  }
+
+  function discardChanges() {
+    if (window.confirm("Do you want to revert all your changes?")) {
+      resetData();
+    }
   }
 
   return (
@@ -105,6 +111,9 @@ function Coloring({ data, creds }) {
             <td className={styles.saveChanges}>
               <Button variant="success" onClick={() => handleUpdateSubmit()}>
                 Save Changes
+              </Button><br/>
+              <Button variant="warning" className="mt-3" onClick={() => discardChanges()}>
+                Discard Changes
               </Button>
             </td>
           </tr>
