@@ -10,7 +10,7 @@ import Sectiontitles from "./admin_components/Sectiontitles";
 import Button from "react-bootstrap/Button";
 import PrivacyPolicy from "./admin_components/PrivacyPolicy";
 import { Col, Container, Form, Row } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import styles from "./AdminPanel.module.css";
 import Logos from "./admin_components/Logos";
@@ -22,24 +22,24 @@ function AdminPanel({ switchToWeb }) {
   const [data, setData] = useState(null);
   const [tabIndex, setTabIndex] = useState(0);
 
-  function fetchContent() {
+  const fetchContent = useCallback(() => {
     fetch(process.env.REACT_APP_BACKEND + "content")
       .then((resp) => resp.json())
       .then((data) => setData(data));
-  }
+  });
 
-  function discardChanges() {
+  const discardChanges = useCallback(() => {
     if (window.confirm("Do you want to revert all your changes?")) {
       fetchContent();
       reloadInterface();
     }
-  }
+  });
 
   const reloadInterface = fetchContent;
 
   useEffect(() => {
     fetchContent();
-  }, []);
+  }, [fetchContent]);
 
   function tryLogin(e) {
     e.preventDefault();
