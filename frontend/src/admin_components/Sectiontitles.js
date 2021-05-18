@@ -3,7 +3,7 @@ import { Table, Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import { toPascalCaseWithWhiteSpace } from "../frontendUtils";
 
-function Sectiontitles({ data, creds, discardChanges }) {
+function Sectiontitles({ data, creds, discardChanges, reloadInterface }) {
   const [titles, setTitles] = useState(data.sections);
 
   function handleUpdateValue(value, entry) {
@@ -30,20 +30,19 @@ function Sectiontitles({ data, creds, discardChanges }) {
     fetch(url, options)
       .then((data) => {
         console.log(data);
+        //reloadInterface();
       })
       .catch((err) => {
         console.warn(err);
       });
   }
 
+  /*  Create a Table with every titled section on the main page and made their shown titles editable.
+      The changes will be instantly applied after submitting in:
+        - The Adminsection
+        - The Navbar
+        - The Component itself */
   return (
-    <>
-      {/* Create a Table with every titled section on the main page and made their shown titles editable.
-        The changes will be instantly applied after submitting in:
-          - The Adminsection
-          - The Navbar
-          - The Component itself */}
-
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -53,14 +52,14 @@ function Sectiontitles({ data, creds, discardChanges }) {
         </thead>
         <tbody>
           {Object.keys(titles).map((entry) => (
-            <tr>
+            <tr key={entry}>
               <td width="30%">
                 <Form.Control
                   defaultValue={toPascalCaseWithWhiteSpace(entry)}
                   readOnly
                 />
               </td>
-              <td width>
+              <td>
                 <Form.Control
                   id={entry}
                   defaultValue={titles[entry]}
@@ -82,7 +81,6 @@ function Sectiontitles({ data, creds, discardChanges }) {
           </tr>
         </tbody>
       </Table>
-    </>
   );
 }
 

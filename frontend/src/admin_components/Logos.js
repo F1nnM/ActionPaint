@@ -72,7 +72,7 @@ function Logos({ creds, reloadInterface }) {
     <Container>
       <Row>
         {logos.map(logo => (
-          <Col md={6} xl={3} className="d-flex flex-column pb-5">
+          <Col md={6} xl={3} className="d-flex flex-column pb-5" key={logo.title}>
             <div className="flex-grow-1">
               <h3>{logo.title}</h3>
               {logo.description}

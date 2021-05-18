@@ -30,7 +30,7 @@ function Artists({ data, creds, discardChanges }) {
 
   const artistNames = aboutUs.map((a) => (
     <>
-      <span class="mr-1">{a.firstName}</span>
+      <span className="mr-1">{a.firstName}</span>
       <span>
         <strong>{a.lastName}</strong>
       </span>
@@ -139,7 +139,7 @@ function Artists({ data, creds, discardChanges }) {
                 >
                   <div style={{ alignContent: "space-between" }}>
                     <>
-                      <span class="mr-1">{a.firstName}</span>
+                      <span className="mr-1">{a.firstName}</span>
                       <span>
                         <strong>{a.lastName}</strong>
                       </span>
@@ -170,7 +170,7 @@ function Artists({ data, creds, discardChanges }) {
                           <Card.Title>
                             <Row>
                               <Col>
-                                <span class="mr-1">
+                                <span className="mr-1">
                                   <Form.Control
                                     defaultValue={currentArtist.firstName}
                                     onInput={(e) =>

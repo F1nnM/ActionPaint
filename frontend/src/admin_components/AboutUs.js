@@ -136,7 +136,7 @@ function AboutUs({ data, creds, discardChanges }) {
         </thead>
         <tbody>
           {aboutUs.members.map((entry, idx) => (
-            <tr>
+            <tr key={entry.id}>
               {/* <td width="200">
                 <Button variant="danger" onClick={() => handleDelete(idx)}>
                   <DeleteIcon />
@@ -159,7 +159,7 @@ function AboutUs({ data, creds, discardChanges }) {
               </td> */}
               {allProps.map((prop, propIdx) =>
                 prop === "imageUrl" ? (
-                  <>
+                  <td key={prop}>
                     <span>{entry[prop] + entry.id}</span>
                     <Button
                       variant="info"
@@ -198,7 +198,7 @@ function AboutUs({ data, creds, discardChanges }) {
                         </Button> */}
                       </Modal.Footer>
                     </Modal>
-                  </>
+                  </td>
                 ) : (
                   <td key={prop}>
                     <Form.Control

@@ -51,14 +51,14 @@ function Branding({ data, creds, discardChanges }) {
         </thead>
         <tbody>
           {Object.keys(brand).map((entry) => (
-            <tr>
+            <tr key={entry}>
               <td width="20%">
                 <Form.Control
                   defaultValue={toPascalCaseWithWhiteSpace(entry)}
                   readOnly
                 />
               </td>
-              <td width>
+              <td>
                 <Form.Control
                   id={entry}
                   defaultValue={brand[entry]}

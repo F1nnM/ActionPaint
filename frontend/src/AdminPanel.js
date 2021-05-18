@@ -143,9 +143,7 @@ function AdminPanel({ switchToWeb }) {
     },
     {
       label: "Section Titles",
-      component: (
-        <Sectiontitles data={data} creds={credentials} discardChanges={discardChanges} />
-      ),
+      component: <Sectiontitles data={data} creds={credentials} discardChanges={discardChanges} reloadInterface={reloadInterface} />,
     },
     {
       label: "Privacy Policy",

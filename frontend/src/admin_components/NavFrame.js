@@ -35,27 +35,18 @@ function NavFrame({ tabs, data, goBack, activeTab, onTabChange }) {
                 <span>{data.brand.title}</span>
               </ListGroup.Item>
               {tabs.map((tab, index) => (
-                <>
-                  {tab.isBreak && (
-                    <>
-                      <br key={tab + index + "1"} />
-                    </>
-                  )}
-                  <ListGroup.Item action eventKey={tab.label} onClick={_=>onTabChange(index)} key={tab + index + "2"}>
-                    {tab.label}
-                  </ListGroup.Item>
-                </>
+                <ListGroup.Item action eventKey={tab.label} onClick={_ => onTabChange(index)} key={tab + index + "2"}>
+                  {tab.label}
+                </ListGroup.Item>
               ))}
             </ListGroup>
           </Col>
           <Col md={10}>
             <Tab.Content className="p-5">
               {tabs.map((tab, index) => (
-                <>
-                  <Tab.Pane key={tab + index} eventKey={tab.label}>
-                    {tab.component}
-                  </Tab.Pane>
-                </>
+                <Tab.Pane key={tab + index} eventKey={tab.label}>
+                  {tab.component}
+                </Tab.Pane>
               ))}
             </Tab.Content>
           </Col>

@@ -76,7 +76,7 @@ function Coloring({ data, creds, resetData }) {
         </thead>
         <tbody>
           {Object.keys(style).map((entry) => (
-            <tr>
+            <tr key={entry}>
               <td width="20%">
                 <Form.Control
                   defaultValue={toPascalCaseWithWhiteSpace(entry)}
