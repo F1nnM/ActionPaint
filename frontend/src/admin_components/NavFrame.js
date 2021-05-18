@@ -38,10 +38,10 @@ function NavFrame({ tabs, children, data, goBack }) {
                 <>
                   {tab.isBreak && (
                     <>
-                      <br />
+                      <br key={tab + idx + "1"} />
                     </>
                   )}
-                  <ListGroup.Item action href={"#" + tab.label} key={idx}>
+                  <ListGroup.Item action href={"#" + tab.label} key={tab + idx + "2"}>
                     {tab.label}
                   </ListGroup.Item>
                 </>
@@ -52,7 +52,7 @@ function NavFrame({ tabs, children, data, goBack }) {
             <Tab.Content className="pr-5 py-5 pl-3">
               {tabs.map((tab, index) => (
                 <>
-                  <Tab.Pane eventKey={"#" + tab.label}>
+                  <Tab.Pane key={tab + index} eventKey={"#" + tab.label}>
                     {tab.component}
                   </Tab.Pane>
                 </>

@@ -94,14 +94,14 @@ function WhatWeDo({ data, creds }) {
           {whatwedo.map((entry, idx) => (
             <tr key={entry.Title+entry.Description}>
               <td width="200">
-                <Button variant="danger" onClick={() => handleDelete(idx)}>
+                <Button key={"Button 1" + entry} variant="danger" onClick={() => handleDelete(idx)}>
                   <DeleteIcon />
                 </Button>
-                <Button className="float-right" variant="primary" onClick={() => handleMoveUp(idx)}>
+                <Button key={"Button 2" + entry} className="float-right" variant="primary" onClick={() => handleMoveUp(idx)}>
                   <ArrowUpwardIcon />
                 </Button>
                 <p></p>
-                <Button className="float-right" variant="primary" onClick={() => handleMoveDown(idx)}>
+                <Button key={"Button 3" + entry} className="float-right" variant="primary" onClick={() => handleMoveDown(idx)}>
                   <ArrowDownwardIcon />
                 </Button>
               </td>

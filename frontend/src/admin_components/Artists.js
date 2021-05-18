@@ -149,6 +149,7 @@ function Artists({ data, creds }) {
                   active={a === currentArtist}
                   action
                   onClick={(_) => setArtistAndIndex(a, idx)}
+                  key={a + idx}
                 >
                   <div style={{ alignContent: "space-between" }}>
                     <>

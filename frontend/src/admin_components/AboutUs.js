@@ -12,7 +12,7 @@ import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
 import FileSelector from "./FileSelector";
 
-function WhatWeDo({ data, creds }) {
+function AboutUs({ data, creds }) {
   const [aboutUs, setAboutUs] = useState(data.about);
   const [showImageSelect, setShowImageSelect] = useState(false);
   let headers = new Headers();
@@ -176,10 +176,11 @@ function WhatWeDo({ data, creds }) {
                     <Button
                       variant="info"
                       onClick={(_) => setShowImageSelect(true)}
+                      key={prop + propIdx + "Button"}
                     >
                       Change
                     </Button>
-                    <Modal show={showImageSelect}>
+                    <Modal key={prop + propIdx} show={showImageSelect}>
                       <Modal.Header
                         closeButton
                         onClick={(_) => setShowImageSelect(false)}
@@ -217,6 +218,7 @@ function WhatWeDo({ data, creds }) {
                       onInput={(e) =>
                         handleUpdateProp(prop, e.target.value, idx)
                       }
+                      key={prop + "1"}
                     />
                   </td>
                 )
@@ -235,6 +237,7 @@ function WhatWeDo({ data, creds }) {
                 <Form.Control
                   defaultValue={""}
                   onInput={(e) => handleNewMember(prop, e.target.value)}
+                  key={prop + "1"}
                 />
               </td>
             ))}
@@ -262,4 +265,4 @@ function WhatWeDo({ data, creds }) {
   );
 }
 
-export default WhatWeDo;
+export default AboutUs;
