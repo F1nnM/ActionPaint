@@ -28,14 +28,14 @@ function AdminPanel({ switchToWeb }) {
       .then((data) => setData(data));
   }, []);
 
-  const discardChanges = useCallback(() => {
-    if (window.confirm("Do you want to revert all your changes?")) {
-      fetchContent();
-      reloadInterface();
-    }
-  }, [fetchContent, reloadInterface]);
-
   const reloadInterface = fetchContent;
+
+  const discardChanges = useCallback(() => {
+      if (window.confirm("Do you want to revert all your changes?")) {
+        fetchContent();
+        reloadInterface();
+      }
+    }, [fetchContent, reloadInterface]);
 
   useEffect(() => {
     fetchContent();
