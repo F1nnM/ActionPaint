@@ -67,7 +67,6 @@ function Website({ switchToAdmin }) {
 
   const [data, setData] = useState(null);
   const [policy, setPolicy] = useState(false);
-  const [policytext, setPolicytext] = useState("");
 
   function togglePopup() {
     setPolicy(!policy);
@@ -77,9 +76,6 @@ function Website({ switchToAdmin }) {
     fetch(process.env.REACT_APP_BACKEND + "content")
       .then((resp) => resp.json())
       .then((data) => setData(data));
-    fetch(process.env.PUBLIC_URL + "/privacyPolicy.txt")
-      .then((text) => text.text())
-      .then((text) => setPolicytext(text));
   }, []);
 
   if (!data) return <div>Loading...</div>;
@@ -130,7 +126,7 @@ function Website({ switchToAdmin }) {
         data={data}
       />
       {policy ? (
-        <PrivacyPolicy policy={policytext} togglePopup={togglePopup} />
+        <PrivacyPolicy policy={data.privacy_policy.text} togglePopup={togglePopup} />
       ) : null}
       <div className={styles.background}>
         <li />

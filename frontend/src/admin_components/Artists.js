@@ -1,4 +1,3 @@
-import styles from "./Artists.module.scss";
 import { Button, Col, Container, Form, Row, Card } from "react-bootstrap";
 import ListGroup from "react-bootstrap/ListGroup";
 import FileSelector from "./FileSelector";
@@ -7,10 +6,10 @@ import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
 // import FileSelector from "./FileSelector";
 
-function Artists({ data, creds }) {
+function Artists({ data, creds, discardChanges }) {
   const initialData = data.artists;
   const [aboutUs, setAboutUs] = useState(initialData);
-  const [showImageSelect, setShowImageSelect] = useState("false"); // needed later for modals
+  const [showImageSelect, setShowImageSelect] = useState(false); // needed later for modals
   const [currentArtist, setCurrentArtist] = useState(
     aboutUs.length > 0 ? aboutUs[0] : null
   );
@@ -21,21 +20,13 @@ function Artists({ data, creds }) {
   // could have it been solved like in AboutUs.js, but unneccesary processing time!
 
   const freshMember = (() => {
+    // same like in AboutUs
     var obj = {};
     allProps.forEach((p) => {
       obj[p] = "";
     });
     return obj;
   })();
-
-  const artistNames = aboutUs.map((a) => (
-    <>
-      <span class="mr-1">{a.firstName}</span>
-      <span>
-        <strong>{a.lastName}</strong>
-      </span>
-    </>
-  ));
 
   const [newMember, setNewMember] = useState(freshMember);
 
@@ -45,22 +36,9 @@ function Artists({ data, creds }) {
   );
   headers.append("Content-Type", "application/json");
 
-  function discardChanges() {
-    if (window.confirm("Do you want to revert all your changes?")) {
-      console.log(aboutUs);
-      console.log(initialData);
-      setAboutUs(initialData);
-      console.log(aboutUs);
-      setCurrentArtist(currentArtist);
-
-      setNewMember({
-        ...freshMember,
-      });
-    }
-  }
-
   function setArtistAndIndex(a, idx) {
     if (!a && !idx) {
+      // other mode of this func: when neither a oder index make new member
       setCurrentArtist(freshMember);
     } else {
       setCurrentArtist(a);
@@ -128,7 +106,7 @@ function Artists({ data, creds }) {
 
   return (
     <>
-      <Tab.Container id="list-group-tabs-example" defaultActiveKey={"#" + 0}>
+      <Tab.Container defaultActiveKey={"#" + 0}>
         <Row>
           <Col sm={2}>
             <ListGroup variant="flush">
@@ -153,7 +131,7 @@ function Artists({ data, creds }) {
                 >
                   <div style={{ alignContent: "space-between" }}>
                     <>
-                      <span class="mr-1">{a.firstName}</span>
+                      <span className="mr-1">{a.firstName}</span>
                       <span>
                         <strong>{a.lastName}</strong>
                       </span>
@@ -184,7 +162,7 @@ function Artists({ data, creds }) {
                           <Card.Title>
                             <Row>
                               <Col>
-                                <span class="mr-1">
+                                <span className="mr-1">
                                   <Form.Control
                                     defaultValue={currentArtist.firstName}
                                     onInput={(e) =>
@@ -281,7 +259,7 @@ function Artists({ data, creds }) {
                   >
                     Save changes
                   </Button>
-                  <Button variant="warning" onClick={(_) => discardChanges()}>
+                  <Button variant="warning" onClick={discardChanges}>
                     Discard all changes
                   </Button>
                 </>

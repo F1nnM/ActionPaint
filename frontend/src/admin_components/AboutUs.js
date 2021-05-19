@@ -12,7 +12,7 @@ import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
 import FileSelector from "./FileSelector";
 
-function AboutUs({ data, creds }) {
+function AboutUs({ data, creds, discardChanges }) {
   const [aboutUs, setAboutUs] = useState(data.about);
   const [showImageSelect, setShowImageSelect] = useState(false);
   let headers = new Headers();
@@ -28,33 +28,22 @@ function AboutUs({ data, creds }) {
     return props;
   })();
 
-  const freshMember = () => {
+  const freshMember = (() => {
+    // returns an object containing the union set of all properties of all already stored persons
     var obj = {};
     allProps.forEach((p) => {
       obj[p] = "";
     });
     return obj;
-  };
+  })();
 
-  const [newMember, setNewMember] = useState(freshMember());
+  const [newMember, setNewMember] = useState(freshMember);
 
   headers.append(
     "Authorization",
     "Basic " + btoa(creds.username + ":" + creds.password)
   );
   headers.append("Content-Type", "application/json");
-
-  function discardChanges() {
-    if (window.confirm("Do you want to revert all your changes?")) {
-      setAboutUs({
-        ...data.about,
-      });
-
-      setNewMember({
-        ...freshMember(),
-      });
-    }
-  }
 
   function handleUpdateTeamInfo(value) {
     aboutUs.info = value;
@@ -81,7 +70,7 @@ function AboutUs({ data, creds }) {
       ...aboutUs,
     });
     setNewMember({
-      ...freshMember(),
+      ...freshMember,
     });
   }
 
@@ -104,10 +93,8 @@ function AboutUs({ data, creds }) {
   }
 
   function selectImage(url, id) {
-    alert(url + id);
     setShowImageSelect(false);
-    var member = aboutUs.members.find((e) => e.id === id);
-    console.log(member);
+    var member = aboutUs.members.find((e) => e.id === id); // first find matching member the url is supposed to be attached to
     member.imageUrl = url;
     setAboutUs({
       ...aboutUs,
@@ -120,7 +107,7 @@ function AboutUs({ data, creds }) {
         <Row>
           <Col>
             <Form>
-              <Form.Group controlId="ControlTextarea1">
+              <Form.Group>
                 <Form.Label>Info</Form.Label>
                 <Form.Control
                   required
@@ -149,29 +136,10 @@ function AboutUs({ data, creds }) {
         <tbody>
           {aboutUs.members.map((entry, idx) => (
             <tr>
-              {/* <td width="200">
-                <Button variant="danger" onClick={() => handleDelete(idx)}>
-                  <DeleteIcon />
-                </Button>
-                <Button
-                  className="float-right"
-                  variant="primary"
-                  onClick={() => handleMoveUp(idx)}
-                >
-                  <ArrowUpwardIcon />
-                </Button>
-                <p></p>
-                <Button
-                  className="float-right"
-                  variant="primary"
-                  onClick={() => handleMoveDown(idx)}
-                >
-                  <ArrowDownwardIcon />
-                </Button>
-              </td> */}
               {allProps.map((prop, propIdx) =>
                 prop === "imageUrl" ? (
-                  <>
+                  /* when imageUrl, then show image selector */
+                  <td key={prop}>
                     <span>{entry[prop] + entry.id}</span>
                     <Button
                       variant="info"
@@ -210,8 +178,9 @@ function AboutUs({ data, creds }) {
                         </Button> */}
                       </Modal.Footer>
                     </Modal>
-                  </>
+                  </td>
                 ) : (
+                  /* and show a simple text field otherwise */
                   <td key={prop}>
                     <Form.Control
                       defaultValue={entry[prop]}
@@ -252,7 +221,7 @@ function AboutUs({ data, creds }) {
       </Table>
       <hr />
       <span className={"mr-4 " + styles.discardChanges}>
-        <Button variant="warning" onClick={() => discardChanges()}>
+        <Button variant="warning" onClick={discardChanges}>
           Discard Changes
         </Button>
       </span>

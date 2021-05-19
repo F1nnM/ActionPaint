@@ -1,8 +1,8 @@
 import styles from "./PrivacyPolicy.module.scss";
 import { Container, Button, Form } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-function PrivacyPolicy({ creds, data }) {
+function PrivacyPolicy({ data, creds, discardChanges }) {
   const [policy, setPolicy] = useState(data.privacy_policy.text);
 
   function handleUpdateValue(value) {
@@ -20,7 +20,7 @@ function PrivacyPolicy({ creds, data }) {
       method: "POST",
       headers,
       body: JSON.stringify({
-        text: JSON.stringify(policy),
+        content: JSON.stringify({text: policy}),
       })
     };
     fetch(url, options)
@@ -37,8 +37,11 @@ function PrivacyPolicy({ creds, data }) {
     {/* Create a editable textarea to change the privacy policy on the main page instantly after submitting */}
     <Container>
       <Form.Control className={styles.policyForm} as="textarea" defaultValue={policy} key={12345} onChange={e => handleUpdateValue(e.target.value)} />
-        <Button variant="success" onClick={() => handleUpdateSubmit()}>
+        <Button variant="success" className="mr-3 my-2" onClick={() => handleUpdateSubmit()}>
           Save Changes
+        </Button>
+        <Button variant="warning" className="my-2" onClick={discardChanges}>
+          Discard Changes
         </Button>
     </Container>
     </>

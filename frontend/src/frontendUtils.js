@@ -1,4 +1,5 @@
 exports.toPascalCaseWithWhiteSpace = (
+  // yeah, does what it says: converts any string into Pascal with whitespaces between, matching the regex
   str // ref: https://javascript.plainenglish.io/convert-string-to-different-case-styles-snake-kebab-camel-and-pascal-case-in-javascript-da724b7220d7
 ) =>
   str &&

@@ -174,10 +174,10 @@ app.post("/admin/update/:file", (req, res) => {
     fs.readFile("./mail.json", (err, data) => {
       if (err)
         return res.status(500).send(err)
-      let password = JSON.parse(data)["MAIL_PASS"];
+      let password = JSON.parse(data)["mailPass"];
       let newConfig = JSON.parse(req.body.content);
-      if (newConfig["MAIL_PASS"] === "****")
-        newConfig["MAIL_PASS"] = password;
+      if (newConfig["mailPass"] === "****")
+        newConfig["mailPass"] = password;
       fs.writeFile(
         "./mail.json",
         JSON.stringify(newConfig),
@@ -214,7 +214,7 @@ app.get("/admin/mailconfig", (req, res) => {
       return res.status(500).send(err)
     let config = JSON.parse(data);
     // Password is writeonly
-    config["MAIL_PASS"] = "****";
+    config["mailPass"] = "****";
     res.status(200).send(config);
   });
 });
@@ -240,5 +240,5 @@ app.post("/sendMessage", async (req, res) => {
 // start express
 //===========================================
 app.listen(port, "0.0.0.0", () => {
-  console.log(`ActionPaint backend listening at http://0.0.0.0:${port}`);
+  console.log(`Backend listening at http://0.0.0.0:${port}`);
 });

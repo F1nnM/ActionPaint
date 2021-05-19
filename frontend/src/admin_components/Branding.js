@@ -1,9 +1,9 @@
-import styles from "./Titlescreen.module.scss";
+import styles from "./Branding.module.scss";
 import { Table, Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import { toPascalCaseWithWhiteSpace } from "../frontendUtils";
 
-function Titlescreen({ data, creds }) {
+function Branding({ data, creds, discardChanges }) {
   const [brand] = useState(data.brand);
 
   function handleUpdateValue(value, entry) {
@@ -51,14 +51,14 @@ function Titlescreen({ data, creds }) {
         </thead>
         <tbody>
           {Object.keys(brand).map((entry) => (
-            <tr>
+            <tr key={entry}>
               <td width="20%">
                 <Form.Control
                   defaultValue={toPascalCaseWithWhiteSpace(entry)}
                   readOnly
                 />
               </td>
-              <td width>
+              <td>
                 <Form.Control
                   id={entry}
                   defaultValue={brand[entry]}
@@ -70,8 +70,11 @@ function Titlescreen({ data, creds }) {
           ))}
           <tr>
             <td className={styles.saveChanges}>
-              <Button variant="success" onClick={() => handleUpdateSubmit()}>
+              <Button variant="success" className="mr-3 mb-3" onClick={() => handleUpdateSubmit()}>
                 Save Changes
+              </Button>
+              <Button variant="warning" onClick={discardChanges}>
+                Discard Changes
               </Button>
             </td>
           </tr>
@@ -81,4 +84,4 @@ function Titlescreen({ data, creds }) {
   );
 }
 
-export default Titlescreen;
+export default Branding;
