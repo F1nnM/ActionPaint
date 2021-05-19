@@ -141,7 +141,11 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
     }).catch(err => alert(err))
       .then(data => {
         handleDelete(artist.imageUrl, 0);
-        handleUpdateWorker(filename);
+        if(index === 999){
+          handelUpdateTeam(filename);
+        }else{
+          handleUpdateWorker(filename);
+        }
         e.target.value = "";
       })
   }
@@ -149,7 +153,36 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
   function handleUpdateWorker(filename){
     data.members[index].imageUrl = filename;
 
-    setArtists(data);
+    setArtists({...data});
+   
+    const url = process.env.REACT_APP_BACKEND + "admin/update/about";
+
+    let headers = new Headers();
+    headers.append(
+      "Authorization",
+      "Basic " + btoa(creds.username + ":" + creds.password)
+    );
+    headers.append("Content-Type", "application/json");
+    const options = {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        content: JSON.stringify(artists),
+      }),
+    };
+    fetch(url, options)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  }
+
+  function handelUpdateTeam(filename){
+    data.imageUrl = filename;
+
+    setArtists({...data});
    
     const url = process.env.REACT_APP_BACKEND + "admin/update/about";
 
@@ -204,7 +237,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
           <img onClick={_=>onSelect(artist.imageUrl)} alt={artist.imageUrl} className={styles.image} width={100} height={100} src={process.env.REACT_APP_BACKEND + "images/" + type + "/" + artist.imageUrl} />
           <span>{artist.imageUrl}</span>
         </div>
-        :""
+        :"" 
       }
       <div className={styles.imageContainer + " " + styles.addBtn}>
         <input type="file" onChange={e => handleUpdate(e)} />

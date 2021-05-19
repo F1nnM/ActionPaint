@@ -120,6 +120,16 @@ function AboutUs({ data, creds, discardChanges }) {
               </Form.Group>
             </Form>
           </Col>
+          <Col>
+            <FileSelector
+              type="team"
+              creds={creds}
+              onSelect={(val) => selectImage(val, 500)}
+              artist={aboutUs}
+              data={aboutUs}
+              index={999}
+            />
+          </Col>
         </Row>
       </Container>
       <Table striped bordered hover>

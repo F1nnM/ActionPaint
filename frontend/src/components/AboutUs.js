@@ -12,7 +12,7 @@ function AboutUs({ data }) {
     <div>
       <Card className="bg-dark text-white">
         <Card.Img
-          src={process.env.REACT_APP_BACKEND + "images/team/team.jpg"}
+          src={process.env.REACT_APP_BACKEND + "images/team/" + team.imageUrl}
           alt="Our team"
         />
         <Card.ImgOverlay>
