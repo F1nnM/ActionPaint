@@ -160,6 +160,9 @@ function AboutUs({ data, creds, discardChanges }) {
                           type="team"
                           creds={creds}
                           onSelect={(val) => selectImage(val, entry.id)}
+                          artist={entry}
+                          data={aboutUs}
+                          index={idx}
                         />
                       </Modal.Body>
                       <Modal.Footer>
