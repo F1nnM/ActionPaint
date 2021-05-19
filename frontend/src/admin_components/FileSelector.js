@@ -8,6 +8,13 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
   const [artists, setArtists] = useState(data);
 
   function handleUpload(e) {
+    const files = e.target.files;
+    var NameArray = [];
+
+    for (var i = 0; i < files.length; i++){
+      NameArray.push(Date.now().toString() + "_" + files[i].name);
+    }
+
     let url = process.env.REACT_APP_BACKEND + "admin/upload_image/" + type;
 
     let headers = new Headers();
@@ -17,11 +24,9 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
       "Basic " + btoa(creds.username + ":" + creds.password),
     );
 
-    const files = e.target.files;
-
     var formData = new FormData();
     for (var i = 0; i < files.length; i++)
-      formData.append('images', files[i], files[i].name);
+      formData.append('images', files[i], NameArray[i]);
 
     fetch(url, {
       method: "POST",
@@ -29,14 +34,14 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
       body: formData
     }).catch(err => alert(err))
       .then(data => {
-        handleAddSlide(files);
+        handleAddSlide(NameArray);
         e.target.value = "";
       })
   }
 
-  function handleAddSlide(files){
-    for(var i = 0; i < files.length; i++){
-      data[index].images.push(files[i].name);
+  function handleAddSlide(NameArray){
+    for(var i = 0; i < NameArray.length; i++){
+      data[index].images.push(NameArray[i]);
     }
 
     setArtists([...data]);
