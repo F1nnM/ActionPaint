@@ -86,7 +86,6 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
       .then(data => {
         handelDeleteSlide(idx);
       })
-
   }
 
   function handelDeleteSlide(idx){
@@ -120,7 +119,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
   return (
     <Container className={styles.container}>
       
-      {
+      { artist.images ? 
         artist.images.map((src, idx) => {
           return (
             <div key={src} className={styles.imageContainer}>
@@ -130,6 +129,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
             </div>
           )
         })
+        :""
       }
       <div className={styles.imageContainer + " " + styles.addBtn}>
         <input type="file" onChange={e => handleUpload(e)} />

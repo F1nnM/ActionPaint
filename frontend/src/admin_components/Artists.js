@@ -4,7 +4,6 @@ import FileSelector from "./FileSelector";
 import Tab from "react-bootstrap/Tab";
 import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
-// import FileSelector from "./FileSelector";
 
 function Artists({ data, creds, discardChanges }) {
   const initialData = data.artists;
@@ -14,6 +13,7 @@ function Artists({ data, creds, discardChanges }) {
     aboutUs.length > 0 ? aboutUs[0] : null
   );
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [toBeDeleted, setToBeDeleted] = useState([]);
   let headers = new Headers();
 
   const allProps = ["firstName", "lastName", "images", "mail", "desc"];
@@ -60,9 +60,16 @@ function Artists({ data, creds, discardChanges }) {
 
   function handleDelete(idx, artName) {
     if (window.confirm("Do you really want to delete " + artName + "?")) {
+      var tmpToBeDeletedImages = [];
+
+      aboutUs[idx].images.forEach(element => {
+        tmpToBeDeletedImages.push(element);
+      });
+
       aboutUs.splice(idx);
       setAboutUs([...aboutUs]);
       setCurrentArtist(aboutUs.length > 0 ? aboutUs[0] : freshMember); // when deleting, directly change view to first artist or new member
+      setToBeDeleted(toBeDeleted.concat(tmpToBeDeletedImages));
     }
   }
 
@@ -83,7 +90,6 @@ function Artists({ data, creds, discardChanges }) {
         content: JSON.stringify(aboutUs),
       }),
     };
-    alert(JSON.stringify(aboutUs));
     fetch(url, options)
       .then((data) => {
         console.log(data);
@@ -91,17 +97,28 @@ function Artists({ data, creds, discardChanges }) {
       .catch((err) => {
         console.warn(err);
       });
+
+      toBeDeleted.forEach(element => {
+        handleDeleteImage(element);
+      });
   }
 
-  function selectImage(url, id) {
-    alert(url + id);
-    setShowImageSelect(false);
-    var member = aboutUs.find((e) => e.id === id);
-    console.log(member);
-    member.imageUrl = url;
-    setAboutUs({
-      ...aboutUs,
-    });
+  function handleDeleteImage(src) {
+    let url = process.env.REACT_APP_BACKEND + "admin/delete_image/artist/"+src;
+
+    let headers = new Headers();
+
+    headers.append(
+      "Authorization",
+      "Basic " + btoa(creds.username + ":" + creds.password),
+    );
+
+    fetch(url, {
+      method: "DELETE",
+      headers
+    }).catch(err => alert(err))
+      .then(data => {
+      })
   }
 
   return (
