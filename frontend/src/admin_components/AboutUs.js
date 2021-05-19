@@ -104,7 +104,7 @@ function AboutUs({ data, creds, discardChanges }) {
   return (
     <>
       <Container>
-        <Row>
+        <Row className="align-items-center">
           <Col>
             <Form>
               <Form.Group>
