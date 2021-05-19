@@ -124,7 +124,7 @@ function AboutUs({ data, creds, discardChanges }) {
             <FileSelector
               type="team"
               creds={creds}
-              onSelect={(val) => selectImage(val, 500)}
+              onSelect={(val) => selectImage(val, 999)}
               artist={aboutUs}
               data={aboutUs}
               index={999}
