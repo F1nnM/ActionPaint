@@ -3,32 +3,9 @@ import { Button, Container } from "react-bootstrap";
 
 import styles from "./FileSelector.module.scss"
 
-function FileSelector({ creds, type, onSelect }) {
+function FileSelector({ creds, type, onSelect, artist, data, index }) {
 
-  function loadImages() {
-    let url = process.env.REACT_APP_BACKEND + "admin/list_images";
-
-    let headers = new Headers();
-
-    headers.append(
-      "Authorization",
-      "Basic " + btoa(creds.username + ":" + creds.password)
-    );
-
-    fetch(url, {
-      method: "GET",
-      headers,
-    }).then(data => data.json())
-      .catch(err => alert(err))
-      .then(data => { setImageList(data[type]) })
-      .catch(err => alert(err));
-  }
-
-  const [imageList, setImageList] = useState([]);
-
-  useEffect(_ => {
-    loadImages();
-  }, []);
+  const [artists, setArtists] = useState(data);
 
   function handleUpload(e) {
     let url = process.env.REACT_APP_BACKEND + "admin/upload_image/" + type;
@@ -52,13 +29,42 @@ function FileSelector({ creds, type, onSelect }) {
       body: formData
     }).catch(err => alert(err))
       .then(data => {
+        handleAddSlide(files);
         e.target.value = "";
-        loadImages();
       })
-
   }
 
-  function handleDelete(src) {
+  function handleAddSlide(files){
+    for(var i = 0; i < files.length; i++){
+      data[index].images.push(files[i].name);
+    }
+
+    setArtists([...data]);
+   
+    const url = process.env.REACT_APP_BACKEND + "admin/update/artists";
+    let headers = new Headers();
+    headers.append(
+      "Authorization",
+      "Basic " + btoa(creds.username + ":" + creds.password)
+    );
+    headers.append("Content-Type", "application/json");
+    const options = {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        content: JSON.stringify(artists),
+      }),
+    };
+    fetch(url, options)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  }
+
+  function handleDelete(src, idx) {
     let url = process.env.REACT_APP_BACKEND + "admin/delete_image/" + type+ "/" +src;
 
     let headers = new Headers();
@@ -73,19 +79,48 @@ function FileSelector({ creds, type, onSelect }) {
       headers
     }).catch(err => alert(err))
       .then(data => {
-        loadImages();
+        handelDeleteSlide(idx);
       })
 
   }
 
+  function handelDeleteSlide(idx){
+
+    data[index].images.splice(idx, 1);
+    setArtists([...data]);
+   
+    const url = process.env.REACT_APP_BACKEND + "admin/update/artists";
+    let headers = new Headers();
+    headers.append(
+      "Authorization",
+      "Basic " + btoa(creds.username + ":" + creds.password)
+    );
+    headers.append("Content-Type", "application/json");
+    const options = {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        content: JSON.stringify(artists),
+      }),
+    };
+    fetch(url, options)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  }
+
   return (
     <Container className={styles.container}>
+      
       {
-        imageList.map(src => {
+        artist.images.map((src, idx) => {
           return (
             <div className={styles.imageContainer}>
               <img onClick={_=>onSelect(src)} alt={src} className={styles.image} width={100} height={100} src={process.env.REACT_APP_BACKEND + "images/" + type + "/" + src} />
-              <Button onClick={_=>handleDelete(src)} className={styles.deleteButton} variant="danger">-</Button>
+              <Button onClick={_=>handleDelete(src, idx)} className={styles.deleteButton} variant="danger">-</Button>
               <span>{src}</span>
             </div>
           )

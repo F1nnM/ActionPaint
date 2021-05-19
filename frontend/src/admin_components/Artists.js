@@ -234,6 +234,9 @@ function Artists({ data, creds }) {
                             type="artist"
                             creds={creds}
                             onSelect={(val) => alert(val)}
+                            artist={currentArtist}
+                            data={aboutUs}
+                            index={currentIndex}
                           />
                         </Card.Body>
 

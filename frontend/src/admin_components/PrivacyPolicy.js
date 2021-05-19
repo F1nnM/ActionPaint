@@ -2,7 +2,7 @@ import styles from "./PrivacyPolicy.module.scss";
 import { Container, Button, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
-function PrivacyPolicy({ creds }) {
+function PrivacyPolicy({ creds, data }) {
   const [policy, setPolicy] = useState(data.privacy_policy.text);
 
   function handleUpdateValue(value) {

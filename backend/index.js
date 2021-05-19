@@ -124,7 +124,7 @@ app.delete("/admin/delete_image/:imagetype/:image", (req, res) => {
   //make sure no relative paths are used to delete other files
   let filename = path.basename(req.params.image);
 
-  fs.unlink("./images/" + filedir + "/" + filename, (err) => {
+  fs.unlink("./images/" + req.params.imagetype + "/" + filename, (err) => {
     if (err)
       res.status(500).send(err);
     else
