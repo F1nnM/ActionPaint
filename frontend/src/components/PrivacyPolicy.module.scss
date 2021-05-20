@@ -16,8 +16,8 @@
     position: absolute;
     left: 20%;
     right: 20%;
-    top: 15%;
-    bottom: 20%;
+    top: 10%;
+    bottom: 10%;
     margin: auto;
     background: white;
 }
@@ -32,12 +32,18 @@
     z-index:5;
 }
 .TextWrapper{
-    height: 90%;
-    padding-top: 2%;
-    padding-left: 5%;
+    height: 85%;
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+    overflow-y: scroll;
+    border:solid black 1px !important;
 }
 
 .title{
     padding-top: 1%;
     text-align: center;
+}
+.text{
+    padding-left: 1%;
 }

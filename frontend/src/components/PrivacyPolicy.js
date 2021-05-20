@@ -1,5 +1,6 @@
 import styles from "./PrivacyPolicy.module.scss";
 import React from "react";
+import ReactMarkdown from "react-markdown";
 import { Button } from "react-bootstrap";
 
 
@@ -13,7 +14,7 @@ function PrivacyPolicy({policy, togglePopup}) {
         </Button>{" "}
         <h1 className={styles.title}>Privacy Policy</h1>
         <div className={styles.TextWrapper}>
-          <textarea readOnly className={styles.privacyText} defaultValue={policy}/>
+          <ReactMarkdown className={styles.text}>{policy}</ReactMarkdown>            
         </div>
       </div>
     </div>
