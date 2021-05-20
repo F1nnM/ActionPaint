@@ -40,9 +40,7 @@ function FAQ({ data, creds, discardChanges }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        content: JSON.stringify(faq),
-      })
+      body: JSON.stringify(faq)
     };
     fetch(url, options)
       .then((data) => {

@@ -23,9 +23,7 @@ function Sectiontitles({ data, creds, discardChanges, reloadInterface }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        content: JSON.stringify(titles),
-      }),
+      body: JSON.stringify(titles)
     };
     fetch(url, options)
       .then((data) => {

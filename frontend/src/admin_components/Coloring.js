@@ -32,9 +32,7 @@ function Coloring({ data, creds }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        content: JSON.stringify(style),
-      }),
+      body: JSON.stringify(style),
     };
     fetch(url, options)
       .then((data) => {

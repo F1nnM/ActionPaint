@@ -1,33 +1,10 @@
 import styles from "./EmailConfig.module.scss";
 import { Table, Button, Form } from "react-bootstrap";
-import { useState, useEffect } from "react";
 
-function EmailConfig({ creds, discardChanges }) {
-  const [email, setEmail] = useState({});
-
-  useEffect(() => {
-    let url = process.env.REACT_APP_BACKEND + "admin/mailconfig";
-    let headers = new Headers();
-
-    headers.append(
-      "Authorization",
-      "Basic " + btoa(creds.username + ":" + creds.password)
-    );
-
-    fetch(url, {
-      method: "GET",
-      headers,
-    })
-      .then((data) => data.json())
-      .catch((err) => alert(err))
-      .then((data) => {
-        setEmail(data);
-      })
-      .catch((err) => alert(err));
-  }, [creds]);
+function EmailConfig({ creds, discardChanges, emailData }) {
 
   function handleUpdateValue(value, entry) {
-    email[entry] = value;
+    emailData[entry] = value;
   }
 
   function handleUpdateSubmit() {
@@ -43,9 +20,7 @@ function EmailConfig({ creds, discardChanges }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        content: JSON.stringify(email),
-      }),
+      body: JSON.stringify(emailData),
     };
     fetch(url, options)
       .then((data) => {
@@ -56,6 +31,9 @@ function EmailConfig({ creds, discardChanges }) {
         console.warn(err);
       });
   }
+  
+  if(!emailData)
+    return <span>Email Data loading</span>
 
   return (
     <>
@@ -67,7 +45,7 @@ function EmailConfig({ creds, discardChanges }) {
           </tr>
         </thead>
         <tbody>
-          {Object.keys(email).map((entry) => (
+          {Object.keys(emailData).map((entry) => (
             /*  Iterate over mail.json and create a ReadOnly Field for the Key Element and a Editable Value Field for the Content.
                 The Password is a dummy Value and will be again overwritten by one after Submitting aswell */
             <tr key={entry}>
@@ -79,8 +57,8 @@ function EmailConfig({ creds, discardChanges }) {
                   id={entry}
                   type={entry === "mailPass" ? "password" : ""}
                   autocomplete={entry === "mailPass" ? "off" : "on"}
-                  defaultValue={email[entry]}
-                  key={email[entry]}
+                  defaultValue={emailData[entry]}
+                  key={emailData[entry]}
                   onChange={(e) => handleUpdateValue(e.target.value, entry)}
                 />
               </td>

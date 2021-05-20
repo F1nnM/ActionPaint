@@ -90,9 +90,7 @@ function Artists({ data, creds, discardChanges }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        content: JSON.stringify(aboutUs),
-      }),
+      body: JSON.stringify(aboutUs),
     };
     fetch(url, options)
       .then((data) => {

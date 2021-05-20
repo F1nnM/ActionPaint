@@ -14,6 +14,7 @@ import { useState, useEffect, useCallback } from "react";
 
 import styles from "./AdminPanel.module.css";
 import Logos from "./admin_components/Logos";
+import ImportExport from "./admin_components/ImportExport";
 
 function AdminPanel({ switchToWeb }) {
   const [credentials, setCredentials] = useState({});
@@ -21,12 +22,34 @@ function AdminPanel({ switchToWeb }) {
   const [passwordInput, setPasswordInput] = useState(null);
   const [data, setData] = useState(null);
   const [tabIndex, setTabIndex] = useState(0);
+  const [emailData, setEmailData] = useState({});
 
   const fetchContent = useCallback(() => {
     fetch(process.env.REACT_APP_BACKEND + "content")
       .then((resp) => resp.json())
       .then((data) => setData(data));
   }, []);
+
+  const fetchMailData = useCallback(() => {
+    let url = process.env.REACT_APP_BACKEND + "admin/mailconfig";
+    let headers = new Headers();
+
+    headers.append(
+      "Authorization",
+      "Basic " + btoa(credentials.username + ":" + credentials.password)
+    );
+
+    fetch(url, {
+      method: "GET",
+      headers,
+    })
+      .then((data) => data.json())
+      .catch((err) => alert(err))
+      .then((data) => {
+        setEmailData(data);
+      })
+      .catch((err) => alert(err));
+  }, [credentials]);
 
   const reloadInterface = fetchContent;
 
@@ -39,7 +62,8 @@ function AdminPanel({ switchToWeb }) {
 
   useEffect(() => {
     fetchContent();
-  }, [fetchContent]);
+    fetchMailData();
+  }, [fetchContent, fetchMailData]);
 
   function tryLogin(e) {
     e.preventDefault();
@@ -124,7 +148,7 @@ function AdminPanel({ switchToWeb }) {
     },
     {
       label: data.sections["Contact Us"] + " / Mail-Config",
-      component: <EmailConfig creds={credentials} discardChanges={discardChanges} />,
+      component: <EmailConfig creds={credentials} discardChanges={discardChanges} emailData={emailData}/>,
     },
     {
       label: "Logos",
@@ -145,6 +169,10 @@ function AdminPanel({ switchToWeb }) {
     {
       label: "Privacy Policy",
       component: <PrivacyPolicy data={data} creds={credentials} discardChanges={discardChanges}/>,
+    },
+    {
+      label: "Import / Export settings",
+      component: <ImportExport data={data} creds={credentials} emailData={emailData}/>,
     },
     {
       label: "Go back",

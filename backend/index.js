@@ -157,76 +157,58 @@ app.use(express.json());
 
 
 //===========================================
-// updating files
+// updating content / config
 //===========================================
 
-function writeFileAndEnd(path, data, res, relaodContent) {
-  fs.writeFile(
-    path,
-    data,
-    "utf-8",
-    (err) => {
-      if (err) res.status(500).send(err);
-      else {
-        res.status(200).send("File updated");
-        if (relaodContent)
-          content = utils.load_content();
-      }
-    }
-  );
-}
+
 
 app.post("/admin/update/:file", (req, res) => {
   let file = req.params.file;
-  let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail", "footer", "sections", "style", "brand", "privacy_policy"];
+  let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail", "sections", "style", "brand", "privacy_policy"];
 
   if (!possibleFiles.includes(file)) {
     res.status(400).send("Not a valid file");
     return;
   }
 
-  // if branding info is updated, update corresponding tags in index.html
-  if (file == "brand" && fs.existsSync("./built_frontend/index.html")) {
-    fs.readFile("./built_frontend/index.html", (err, data) => {
-      if (err)
-        return res.status(500).send(err);
-      let brand_data = JSON.parse(req.body.content);
-      let new_content = data.toString().replace(/(<title>).*(<\/title>)/gi,
-                                    `<title>${utils.escapeHtml(brand_data.title)}</title>`)
-                            .replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/>/gi,
-                                    `<meta name="description" content="${utils.escapeHtml(brand_data.slogan)}"/>`)
-      fs.writeFile("./built_frontend/index.html", new_content, (err) => {
-        if (err)
+  utils.updateContentFile(file, JSON.stringify(req.body), (err) => {
+    if (err)
+      return res.status(500).send(err);
+    content = utils.load_content();
+    res.status(200).send("Updated file.");
+  })
+
+});
+
+app.post("/admin/import", (req, res) => {
+  let required = ["about", "artists", "faq", "whatwedo", "mail", "sections", "style", "brand", "privacy_policy"];
+
+  let imported = req.body;
+
+  if (!utils.areArraysEqualSets(required, Object.keys(imported)))
+    return res.status(400).send("Make sure all of and only the following settings are in the file: " + required.join(", "));
+
+  let promises = [];
+  for (let file of required) {
+    const promise = new Promise((resolve, reject) => {
+      utils.updateContentFile(file, JSON.stringify(imported[file]), (err) => {
+        if (err) {
           res.status(500).send(err);
-        writeFileAndEnd("./content/brand.json", req.body.content, res, true)
-      })
-
-    });
-  } else if (file == "mail") {
-    // if the password is still **** then replace it with the password still saved in the file
-    fs.readFile("./mail.json", (err, data) => {
-      if (err)
-        return res.status(500).send(err)
-      let password = JSON.parse(data)["mailPass"];
-      let newConfig = JSON.parse(req.body.content);
-      if (newConfig["mailPass"] === "****")
-        newConfig["mailPass"] = password;
-      fs.writeFile(
-        "./mail.json",
-        JSON.stringify(newConfig),
-        "utf-8",
-        (err) => {
-          if (err) res.status(500).send(err);
-          else {
-            res.status(200).send("File updated");
-
-          }
+          reject()
+          return;
         }
-      );
+        resolve();
+      });
     });
+
+    promises.push(promise);
   }
-  else
-    writeFileAndEnd("./content/" + file + ".json", req.body.content, res, true);
+
+  Promise.all(promises).then(_ => {
+    content = utils.load_content();
+    res.status(200).send("Imported!");
+  });
+
 });
 
 

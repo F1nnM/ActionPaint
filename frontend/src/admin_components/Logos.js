@@ -90,7 +90,11 @@ function Logos({ creds, reloadInterface }) {
                 </object>
               }
             </div>
+            <div className="py-3">
+              <a href={process.env.REACT_APP_BACKEND + "images/" + logo.file} download={logo.file} target="_blank" rel="noreferrer">Download current file</a>
+            </div>
             <div>
+              <span>Upload new file:</span>
               <input accept={logo.type==="favicon" ? ".ico" : logo.tag === "img" ? ".png": ".svg"} type="file" className="w-100" onChange={e => handleUpload(e.target.files[0], logo.type, e.target)} />
             </div>
           </Col>

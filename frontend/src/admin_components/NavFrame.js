@@ -47,7 +47,7 @@ function NavFrame({ tabs, data, goBack, activeTab, onTabChange }) {
             </ListGroup>
           </Col>
           <Col md={10}>
-            <Tab.Content className="p-5">
+            <Tab.Content className={"p-5 overflow-auto "+styles.content}>
               {tabs.map((tab, index) => (
                 <Tab.Pane key={tab + index} eventKey={tab.label}>
                   {tab.component}

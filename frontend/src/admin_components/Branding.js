@@ -23,9 +23,7 @@ function Branding({ data, creds, discardChanges }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        content: JSON.stringify(brand),
-      }),
+      body: JSON.stringify(brand),
     };
     fetch(url, options)
       .then((data) => {

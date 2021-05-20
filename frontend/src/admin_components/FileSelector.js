@@ -56,9 +56,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        content: JSON.stringify(artists),
-      }),
+      body: JSON.stringify(artists)
     };
     fetch(url, options)
       .then((data) => {
@@ -105,9 +103,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        content: JSON.stringify(artists),
-      }),
+      body: JSON.stringify(artists),
     };
     fetch(url, options)
       .then((data) => {
@@ -166,9 +162,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        content: JSON.stringify(artists),
-      }),
+      body: JSON.stringify(artists),
     };
     fetch(url, options)
       .then((data) => {
@@ -195,9 +189,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        content: JSON.stringify(artists),
-      }),
+      body: JSON.stringify(artists)
     };
     fetch(url, options)
       .then((data) => {

@@ -40,9 +40,7 @@ function WhatWeDo({ data, creds }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        content: JSON.stringify(whatwedo),
-      })
+      body: JSON.stringify(whatwedo)
     };
     fetch(url, options)
       .then((data) => {
