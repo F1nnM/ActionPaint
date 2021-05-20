@@ -24,7 +24,7 @@ function AdminPanel({ switchToWeb }) {
   const [tabIndex, setTabIndex] = useState(0);
   const [emailData, setEmailData] = useState({});
 
-  const fetchContent = useCallback(() => {
+  const fetchPublicData = useCallback(() => {
     fetch(process.env.REACT_APP_BACKEND + "content")
       .then((resp) => resp.json())
       .then((data) => setData(data));
@@ -51,19 +51,24 @@ function AdminPanel({ switchToWeb }) {
       .catch((err) => alert(err));
   }, [credentials]);
 
+  const fetchContent = useCallback(() => {
+    fetchPublicData();
+    if (credentials.username && credentials.password)
+      fetchMailData();
+  }, [fetchPublicData, fetchMailData]);
+
   const reloadInterface = fetchContent;
 
   const discardChanges = useCallback(() => {
-      if (window.confirm("Do you want to revert all your changes?")) {
-        fetchContent();
-        reloadInterface();
-      }
-    }, [fetchContent, reloadInterface]);
+    if (window.confirm("Do you want to revert all your changes?")) {
+      fetchContent();
+      reloadInterface();
+    }
+  }, [fetchContent, reloadInterface]);
 
   useEffect(() => {
     fetchContent();
-    fetchMailData();
-  }, [fetchContent, fetchMailData]);
+  }, [fetchContent, credentials]);
 
   function tryLogin(e) {
     e.preventDefault();
@@ -132,7 +137,7 @@ function AdminPanel({ switchToWeb }) {
   const tabs = [
     {
       label: data.sections["Our Artists"],
-      component: <Artists data={data} creds={credentials} discardChanges={discardChanges}/>,
+      component: <Artists data={data} creds={credentials} discardChanges={discardChanges} />,
     },
     {
       label: data.sections["About Us"],
@@ -148,7 +153,7 @@ function AdminPanel({ switchToWeb }) {
     },
     {
       label: data.sections["Contact Us"] + " / Mail-Config",
-      component: <EmailConfig creds={credentials} discardChanges={discardChanges} emailData={emailData}/>,
+      component: <EmailConfig creds={credentials} discardChanges={discardChanges} emailData={emailData} />,
     },
     {
       label: "Logos",
@@ -168,11 +173,11 @@ function AdminPanel({ switchToWeb }) {
     },
     {
       label: "Privacy Policy",
-      component: <PrivacyPolicy data={data} creds={credentials} discardChanges={discardChanges}/>,
+      component: <PrivacyPolicy data={data} creds={credentials} discardChanges={discardChanges} />,
     },
     {
       label: "Import / Export settings",
-      component: <ImportExport data={data} creds={credentials} emailData={emailData}/>,
+      component: <ImportExport data={data} creds={credentials} emailData={emailData} />,
     },
     {
       label: "Go back",
@@ -180,7 +185,7 @@ function AdminPanel({ switchToWeb }) {
     },
   ];
 
-  return <NavFrame tabs={tabs} data={data} goBack={switchToWeb} activeTab={tabIndex} onTabChange={index=>setTabIndex(index)}></NavFrame>;
+  return <NavFrame tabs={tabs} data={data} goBack={switchToWeb} activeTab={tabIndex} onTabChange={index => setTabIndex(index)}></NavFrame>;
 }
 
 export default AdminPanel;
