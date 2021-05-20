@@ -11,7 +11,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
     const files = e.target.files;
     var NameArray = [];
 
-    for (var i = 0; i < files.length; i++){
+    for (let i = 0; i < files.length; i++){
       NameArray.push(Date.now().toString() + "_" + files[i].name);
     }
 
@@ -25,7 +25,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
     );
 
     var formData = new FormData();
-    for (var i = 0; i < files.length; i++)
+    for (let i = 0; i < files.length; i++)
       formData.append('images', files[i], NameArray[i]);
 
     fetch(url, {
