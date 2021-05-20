@@ -23,7 +23,11 @@ function Artists({ data, creds, discardChanges }) {
     // same like in AboutUs
     var obj = {};
     allProps.forEach((p) => {
-      obj[p] = "";
+      if(p === "images"){
+        obj[p] = [];
+      }else{
+        obj[p] = "";
+      }
     });
     return obj;
   })();
