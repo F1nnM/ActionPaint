@@ -48,3 +48,15 @@ function load_content() {
 }
 
 exports.load_content = load_content;
+
+// utility function to sanitize string for html injection
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+exports.escapeHtml = escapeHtml
