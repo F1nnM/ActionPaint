@@ -150,7 +150,7 @@ function AboutUs({ data, creds, discardChanges }) {
                 prop === "imageUrl" ? (
                   /* when imageUrl, then show image selector */
                   <td key={prop}>
-                    <span>{entry[prop] + entry.id}</span>
+                    <span>{entry[prop]}</span>
                     <Button
                       variant="info"
                       onClick={(_) => setShowImageSelect(true)}
@@ -158,7 +158,7 @@ function AboutUs({ data, creds, discardChanges }) {
                     >
                       Change
                     </Button>
-                    <Modal key={prop + propIdx} show={showImageSelect}>
+                    <Modal key={prop + propIdx} show={showImageSelect} onHide={() => setShowImageSelect(false)}>
                       <Modal.Header
                         closeButton
                         onClick={(_) => setShowImageSelect(false)}
