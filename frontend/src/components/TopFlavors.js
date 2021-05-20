@@ -13,7 +13,7 @@ function TopFlavors({ data }) {
               - Name
               - Description
               - Link to their Work (not yet implemented) */
-        <DrippingFrame key={artist + index+3}>
+        <DrippingFrame key={artist + index + 3}>
           <Card
             id={index + ": " + artist.firstName + " " + artist.lastName}
             className={styles.card}
@@ -28,7 +28,10 @@ function TopFlavors({ data }) {
                       className={styles.carousel}
                     >
                       {artist.images.map((image, idx) => (
-                        <Carousel.Item key={image + idx} className={styles.item}>
+                        <Carousel.Item
+                          key={image + idx}
+                          className={styles.item}
+                        >
                           <img
                             className={styles.image + " d-block w-100"}
                             alt={image + idx}
@@ -55,7 +58,11 @@ function TopFlavors({ data }) {
                   </Card.Title>
                   <Card.Text>{artist.desc}</Card.Text>
                   <Button
-                    className={index % 2 === 0 ? styles.blue : styles.orange}
+                    className={
+                      index % 2 === 0
+                        ? styles.bgAccent + " text-primary"
+                        : styles.textAccent + " bg-primary"
+                    }
                   >
                     Visit my work
                   </Button>
@@ -65,6 +72,21 @@ function TopFlavors({ data }) {
           </Card>
         </DrippingFrame>
       ))}
+      <svg height="0" width="0">
+        <defs>
+          <clipPath id="svgPath">
+            <path
+              fill="#FFFFFF"
+              stroke="#000000"
+              stroke-width="1"
+              stroke-miterlimit="10"
+              d="
+      M 180 10 C 290 10 450 50 420 0 C 390 20 450 20 420 250 C 410 270 350 270 260 270 L 40 270 C 0 270 0 260 0 170 C 0 0 0 0 180 10 
+              "
+            />
+          </clipPath>
+        </defs>
+      </svg>
     </>
   );
 }

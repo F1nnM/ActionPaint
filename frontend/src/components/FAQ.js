@@ -14,9 +14,21 @@ function FAQ({ data }) {
       {faq.map((questions, idx) => (
         <Card
           key={"Card" + idx}
-          bsPrefix={idx % 2 === 0 ? styles.orangeborder : styles.blueborder}
+          bsPrefix={
+            (idx % 2 === 0 ? styles.primaryBorder : styles.accentBorder) +
+            " mb-4 " +
+            styles.borderBottomOnly
+          }
         >
-          <Card.Header className={styles.cardheader}>
+          <Card.Header
+            className={
+              (idx % 2 === 0
+                ? "text-primary " + styles.bgAccent
+                : "bg-primary " + styles.textAccent) +
+              " " +
+              styles.cardheader
+            }
+          >
             <Accordion.Toggle
               className={styles.button}
               as={Card.Header}
@@ -24,9 +36,19 @@ function FAQ({ data }) {
             >
               <p style={{ cursor: "pointer" }}>
                 <HelpIcon
-                  className={idx % 2 === 0 ? styles.orange : styles.blue}
+                  className={
+                    idx % 2 === 0
+                      ? "text-primary " + styles.bgAccent
+                      : "text-primary"
+                  }
                 />
-                <span className={idx % 2 === 0 ? styles.orange : styles.blue}>
+                <span
+                  className={
+                    idx % 2 === 0
+                      ? "text-primary " + styles.bgAccent
+                      : "text-primary"
+                  }
+                >
                   {" "}
                   {questions.q}
                 </span>

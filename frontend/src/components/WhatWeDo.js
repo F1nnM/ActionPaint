@@ -6,7 +6,7 @@ import TimelineConnector from "@material-ui/lab/TimelineConnector";
 import TimelineContent from "@material-ui/lab/TimelineContent";
 import TimelineDot from "@material-ui/lab/TimelineDot";
 import TimelineOppositeContent from "@material-ui/lab/TimelineOppositeContent";
-import CheckIcon from '@material-ui/icons/Check';
+import CheckIcon from "@material-ui/icons/Check";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useState, useEffect } from "react";
@@ -18,7 +18,7 @@ function getWindowDimensions() {
   };
 }
 
-  /* Get current width and width after Resizing */
+/* Get current width and width after Resizing */
 function useWindowDimensions() {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
@@ -46,7 +46,6 @@ function WhatWeDo({ data }) {
 
     <Timeline key="Timeline" align={width > 800 ? "alternate" : "left"}>
       {whatwedo.map((description, idx) => (
-
         /* Iterate over whatwedo.json and create a Timeline Item based on the content */
 
         <TimelineItem key={"TimelineItem" + idx}>
@@ -58,8 +57,8 @@ function WhatWeDo({ data }) {
             <TimelineDot
               className={
                 idx % 2 === 0
-                  ? styles.primarytimelineicon
-                  : styles.secondarytimelineicon
+                  ? styles.bgAccent + " text-primary"
+                  : styles.textAccent + " bg-primary"
               }
             >
               <CheckIcon />

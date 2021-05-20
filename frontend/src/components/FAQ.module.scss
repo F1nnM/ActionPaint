@@ -1,30 +1,36 @@
-.orange{
-    color: var(--primaryColor);
+.bgAccent {
+  background-color: var(--accentColor);
 }
 
-.blue{
-    color: var(--accentColor);
+.textAccent {
+  color: var(--accentColor);
 }
 
-.orangeborder{
-   border: 1px solid var(--primaryColor);
-   margin-top:4px;
+.primaryBorder {
+  border: 1px solid var(--primaryColor);
+  padding-top: 4px;
 }
 
-.blueborder{
-    border: 1px solid var(--accentColor);
-    margin-top:4px;
+.accentBorder {
+  border: 1px solid var(--accentColor);
+  padding-top: 4px;
 }
 
-.button{
-    width: 100%;
-    background-color: white!important;
-    border: 0px !important;
-    text-align: left !important;    
+.borderBottomOnly {
+  border-width: 0 0 1px 0;
 }
-.answer{
-    margin-left:2%;
+
+.button {
+  width: 100%;
+  background-color: white !important;
+  border: 0px !important;
+  text-align: left !important;
 }
-.cardheader{
-    padding: 0% !important
+
+.answer {
+  margin-left: 2%;
+}
+
+.cardheader {
+  padding: 0% !important;
 }
