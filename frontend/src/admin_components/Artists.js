@@ -58,9 +58,9 @@ function Artists({ data, creds, discardChanges }) {
     }
   }
 
-  function handleNewMember(key, value) {
+  /*function handleNewMember(key, value) {
     newMember[key] = value;
-  }
+  }*/
 
   function handleDelete(idx, artName) {
     if (window.confirm("Do you really want to delete " + artName + "?")) {

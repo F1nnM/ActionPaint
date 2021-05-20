@@ -143,7 +143,7 @@ function AboutUs({ data, creds, discardChanges }) {
         </thead>
         <tbody>
           {aboutUs.members.map((entry, idx) => (
-            <tr>
+            <tr key={entry["name"]+idx}>
               {allProps.map((prop, propIdx) =>
                 prop === "imageUrl" ? (
                   /* when imageUrl, then show image selector */

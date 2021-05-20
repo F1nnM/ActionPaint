@@ -47,22 +47,20 @@ function Coloring({ data, creds }) {
     <>
       <Row>
         {Object.keys(style).map((entry) => (
-          <>
-            <Col md={6} lg={3}>
-              <Card>
-                <Card.Header>{toPascalCaseWithWhiteSpace(entry)}</Card.Header>
-                <Card.Body>
-                  <ChromePicker
-                    color={style[entry]}
-                    onChangeComplete={(color) =>
-                      colorDragComplete(color, entry)
-                    }
-                    onChange={(color) => handleUpdateValue(color.hex, entry)}
-                  />
-                </Card.Body>
-              </Card>
-            </Col>
-          </>
+          <Col md={6} lg={3} key={entry}>
+            <Card>
+              <Card.Header>{toPascalCaseWithWhiteSpace(entry)}</Card.Header>
+              <Card.Body>
+                <ChromePicker
+                  color={style[entry]}
+                  onChangeComplete={(color) =>
+                    colorDragComplete(color, entry)
+                  }
+                  onChange={(color) => handleUpdateValue(color.hex, entry)}
+                />
+              </Card.Body>
+            </Card>
+          </Col>
         ))}
       </Row>
 
