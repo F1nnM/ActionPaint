@@ -47,7 +47,7 @@ exports.load_content = () => {
 }
 
 // utility function to sanitize string for html injection
-exports.escapeHtml = (unsafe) => {
+escapeHtml = (unsafe) => {
   return unsafe
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -55,7 +55,6 @@ exports.escapeHtml = (unsafe) => {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 };
-
 
 exports.updateContentFile = (file, content, callback) => {
 
@@ -66,9 +65,9 @@ exports.updateContentFile = (file, content, callback) => {
         return callback(err);
       let brand_data = JSON.parse(content);
       let new_content = data.toString().replace(/(<title>).*(<\/title>)/gi,
-                                                `<title>${utils.escapeHtml(brand_data.title)}</title>`)
+                                                `<title>${escapeHtml(brand_data.title)}</title>`)
                                         .replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/>/gi,
-                                                `<meta name="description" content="${utils.escapeHtml(brand_data.slogan)}"/>`)
+                                                `<meta name="description" content="${escapeHtml(brand_data.slogan)}"/>`)
       fs.writeFile("./built_frontend/index.html", new_content, (err) => {
         if (err)
           return callback(err);
