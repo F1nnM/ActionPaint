@@ -3,7 +3,7 @@ import { Button, Container, Modal } from "react-bootstrap";
 
 import styles from "./FileSelector.module.scss"
 
-function FileSelector({ creds, type, artist, data, index }) {
+function FileSelector({ creds, type, artist, data, index, rerender }) {
 
   const [artists, setArtists] = useState(data);
   const [showImageSelect, setShowImageSelect] = useState(false);
@@ -173,6 +173,7 @@ function FileSelector({ creds, type, artist, data, index }) {
         if (toBeDeleted !== "") {
           handleDelete(toBeDeleted);
         }
+        rerender();
       })
       .catch((err) => {
         console.warn(err);
@@ -202,6 +203,7 @@ function FileSelector({ creds, type, artist, data, index }) {
       .then((data) => {
         console.log(data);
         handleDelete(toBeDeleted);
+        rerender();
       })
       .catch((err) => {
         console.warn(err);

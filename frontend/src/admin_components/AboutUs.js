@@ -14,7 +14,7 @@ import FileSelector from "./FileSelector";
 
 function AboutUs({ data, creds, discardChanges }) {
   const [aboutUs, setAboutUs] = useState(data.about);
-  const [showImageSelect, setShowImageSelect] = useState(false);
+  const [reRender, setReRender] = useState(false);
   let headers = new Headers();
 
   const allProps = ((_) => {
@@ -90,6 +90,10 @@ function AboutUs({ data, creds, discardChanges }) {
       });
   }
   
+  function rerenderFromChild(){
+    setReRender(!reRender);
+  }
+
   return (
     <>
       <Container>
@@ -116,6 +120,7 @@ function AboutUs({ data, creds, discardChanges }) {
               artist={aboutUs}
               data={aboutUs}
               index={999}
+              rerender={rerenderFromChild}
             />
           </Col>
         </Row>
@@ -145,6 +150,7 @@ function AboutUs({ data, creds, discardChanges }) {
                           artist={entry}
                           data={aboutUs}
                           index={idx}
+                          rerender={rerenderFromChild}
                         />
                   </td>
                 ) : (
