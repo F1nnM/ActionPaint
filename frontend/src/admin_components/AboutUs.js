@@ -89,16 +89,7 @@ function AboutUs({ data, creds, discardChanges }) {
         console.warn(err);
       });
   }
-
-  function selectImage(url, id) {
-    setShowImageSelect(false);
-    var member = aboutUs.members.find((e) => e.id === id); // first find matching member the url is supposed to be attached to
-    member.imageUrl = url;
-    setAboutUs({
-      ...aboutUs,
-    });
-  }
-
+  
   return (
     <>
       <Container>
@@ -122,7 +113,6 @@ function AboutUs({ data, creds, discardChanges }) {
             <FileSelector
               type="team"
               creds={creds}
-              onSelect={(val) => selectImage(val, 999)}
               artist={aboutUs}
               data={aboutUs}
               index={999}
@@ -152,7 +142,6 @@ function AboutUs({ data, creds, discardChanges }) {
                     <FileSelector
                           type="team"
                           creds={creds}
-                          onSelect={(val) => selectImage(val, entry.id)}
                           artist={entry}
                           data={aboutUs}
                           index={idx}

@@ -3,7 +3,7 @@ import { Button, Container, Modal } from "react-bootstrap";
 
 import styles from "./FileSelector.module.scss"
 
-function FileSelector({ creds, type, onSelect, artist, data, index }) {
+function FileSelector({ creds, type, artist, data, index }) {
 
   const [artists, setArtists] = useState(data);
   const [showImageSelect, setShowImageSelect] = useState(false);
@@ -216,7 +216,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
           artist.images.map((src, idx) => {
             return (
               <div key={src} className={styles.imageContainer}>
-                <img onClick={_ => onSelect(src)} alt={src} className={styles.image} width={100} height={100} src={process.env.REACT_APP_BACKEND + "images/" + type + "/" + src} />
+                <img alt={src} className={styles.image} width={100} height={100} src={process.env.REACT_APP_BACKEND + "images/" + type + "/" + src} />
                 <Button onClick={_ => handleDelete(src, idx)} className={styles.deleteButton} variant="danger">-</Button>
                 <span>{src}</span>
               </div>
@@ -250,7 +250,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
             <Container className={styles.container}>
               {artist.imageUrl ?
                 <div key={artist.imageUrl} className={styles.imageContainer}>
-                  <img onClick={_ => onSelect(artist.imageUrl)} alt={artist.imageUrl} className={styles.image} width={100} height={100} src={process.env.REACT_APP_BACKEND + "images/" + type + "/" + artist.imageUrl} />
+                  <img alt={artist.imageUrl} className={styles.image} width={100} height={100} src={process.env.REACT_APP_BACKEND + "images/" + type + "/" + artist.imageUrl} />
                   <span>{artist.imageUrl}</span>
                 </div>
                 : ""
@@ -283,7 +283,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
       <Container className={styles.container}>
         {artist.imageUrl ?
           <div key={artist.imageUrl} className={styles.imageContainer}>
-            <img onClick={_ => onSelect(artist.imageUrl)} alt={artist.imageUrl} className={styles.image} width={100} height={100} src={process.env.REACT_APP_BACKEND + "images/" + type + "/" + artist.imageUrl} />
+            <img alt={artist.imageUrl} className={styles.image} width={100} height={100} src={process.env.REACT_APP_BACKEND + "images/" + type + "/" + artist.imageUrl} />
             <span>{artist.imageUrl}</span>
           </div>
           : ""
