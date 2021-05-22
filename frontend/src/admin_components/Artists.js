@@ -83,6 +83,8 @@ function Artists({ data, creds, discardChanges }) {
     setNewMember({
       ...freshMember,
     });
+    setCurrentArtist(freshMember);
+    setCurrentIndex(aboutUs.length - 1);
   }
 
   function handleUpdateSubmit() {
