@@ -144,27 +144,12 @@ function AboutUs({ data, creds, discardChanges }) {
         <tbody>
           {aboutUs.members.map((entry, idx) => (
             <tr key={entry["name"]+idx}>
-              {allProps.map((prop, propIdx) =>
+              {allProps.map((prop) =>
                 prop === "imageUrl" ? (
                   /* when imageUrl, then show image selector */
                   <td key={prop}>
                     <span>{entry[prop]}</span>
-                    <Button
-                      variant="info"
-                      onClick={(_) => setShowImageSelect(true)}
-                      key={prop + propIdx + "Button"}
-                    >
-                      Change
-                    </Button>
-                    <Modal key={prop + propIdx} show={showImageSelect} onHide={() => setShowImageSelect(false)}>
-                      <Modal.Header
-                        closeButton
-                        onClick={(_) => setShowImageSelect(false)}
-                      >
-                        <Modal.Title>Choose an image</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <FileSelector
+                    <FileSelector
                           type="team"
                           creds={creds}
                           onSelect={(val) => selectImage(val, entry.id)}
@@ -172,23 +157,6 @@ function AboutUs({ data, creds, discardChanges }) {
                           data={aboutUs}
                           index={idx}
                         />
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <p>Click on an image to select</p>
-                        {/* <Button
-                          variant="secondary"
-                          onClick={(_) => setShowImageSelect(false)}
-                        >
-                          Cancel
-                        </Button>
-                        <Button
-                          variant="primary"
-                          onClick={(_) => setShowImageSelect(false)}
-                        >
-                          Save Changes
-                        </Button> */}
-                      </Modal.Footer>
-                    </Modal>
                   </td>
                 ) : (
                   /* and show a simple text field otherwise */
