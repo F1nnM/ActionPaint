@@ -83,12 +83,12 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
     }).catch(err => alert(err))
       .then(data => {
         if(type === "artist"){
-          handelDeleteSlide(idx);
+          handleDeleteSlide(idx);
         }
       })
   }
 
-  function handelDeleteSlide(idx){
+  function handleDeleteSlide(idx){
 
     data[index].images.splice(idx, 1);
     setArtists([...data]);
@@ -138,7 +138,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
       .then(data => {
         handleDelete(artist.imageUrl, 0);
         if(index === 999){
-          handelUpdateTeam(filename);
+          handleUpdateTeam(filename);
         }else{
           handleUpdateWorker(filename);
         }
@@ -147,6 +147,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
   }
 
   function handleUpdateWorker(filename){
+    var toBeDeleted = data.members[index].imageUrl;
     data.members[index].imageUrl = filename;
 
     setArtists({...data});
@@ -167,13 +168,15 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
     fetch(url, options)
       .then((data) => {
         console.log(data);
+        handleDelete(toBeDeleted);
       })
       .catch((err) => {
         console.warn(err);
       });
   }
 
-  function handelUpdateTeam(filename){
+  function handleUpdateTeam(filename){
+    var toBeDeleted = data.imageUrl;
     data.imageUrl = filename;
 
     setArtists({...data});
@@ -194,6 +197,7 @@ function FileSelector({ creds, type, onSelect, artist, data, index }) {
     fetch(url, options)
       .then((data) => {
         console.log(data);
+        handleDelete(toBeDeleted);
       })
       .catch((err) => {
         console.warn(err);

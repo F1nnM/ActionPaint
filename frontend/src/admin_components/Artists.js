@@ -105,6 +105,9 @@ function Artists({ data, creds, discardChanges }) {
       toBeDeleted.forEach(element => {
         handleDeleteImage(element);
       });
+
+      /* Force rerender on submit */
+      setAboutUs([...aboutUs]);
   }
 
   function handleDeleteImage(src) {
@@ -229,7 +232,9 @@ function Artists({ data, creds, discardChanges }) {
                         </Card.Header>
 
                         <Card.Body>
-                          <FileSelector
+                          {
+                            currentArtist === aboutUs[currentIndex] ?
+                            <FileSelector
                             type="artist"
                             creds={creds}
                             onSelect={(val) => alert(val)}
@@ -237,6 +242,8 @@ function Artists({ data, creds, discardChanges }) {
                             data={aboutUs}
                             index={currentIndex}
                           />
+                          :"Please submit the artist before uploading any pictures"
+                          }
                         </Card.Body>
 
                         <Card.Footer>
@@ -264,7 +271,7 @@ function Artists({ data, creds, discardChanges }) {
                                       currentIndex
                                     )
                                   }
-                                />
+                                />                  
                               </Col>
                             </Row>
                           </small>
