@@ -149,10 +149,10 @@ function FileSelector({ creds, type, artist, data, index, rerender }) {
   }
 
   function handleUpdateWorker(filename) {
-    var toBeDeleted = artist.imageUrl;
-    artist.imageUrl = filename;
+    var toBeDeleted = artists.members[index].imageUrl;
+    artists.members[index].imageUrl = filename;
 
-    setArtists({...data});
+    setArtists({...artists});
 
     const url = process.env.REACT_APP_BACKEND + "admin/update/about";
 
@@ -173,6 +173,7 @@ function FileSelector({ creds, type, artist, data, index, rerender }) {
           console.log(toBeDeleted);
           handleDelete(toBeDeleted, 0);
         }
+        setArtists({...artists});
         rerender();
       })
       .catch((err) => {
