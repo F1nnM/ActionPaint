@@ -202,26 +202,11 @@ function AboutUs({ data, creds, discardChanges }) {
               </td>
             </tr>
           ))}
-          <tr>
-            {allProps.map((prop) => (
-              <td key={prop}>
-                <Form.Control
-                  defaultValue={""}
-                  onInput={(e) => handleNewMember(prop, e.target.value)}
-                  key={prop + "1"}
-                />
-              </td>
-            ))}
-
-            <td>
-              <Button variant="success" onClick={() => handleAdd()}>
-                <Add />
-              </Button>
-            </td>
-          </tr>
         </tbody>
       </Table>
-      <hr />
+      <Button className={"float-right"} variant="success" onClick={() => handleAdd()}>
+        <Add />
+      </Button>
       <span className={"mr-4 " + styles.discardChanges}>
         <Button variant="warning" onClick={discardChanges}>
           Discard Changes
