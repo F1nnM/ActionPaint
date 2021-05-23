@@ -54,10 +54,6 @@ function AboutUs({ data, creds, discardChanges }) {
     aboutUs.members[idx][key] = value;
   }
 
-  function handleNewMember(key, value) {
-    newMember[key] = value;
-  }
-
   function handleDelete(idx) {
     if (window.confirm("Do you really want to delete this member?")) {
       var tmpToBeDeletedImages = [];
