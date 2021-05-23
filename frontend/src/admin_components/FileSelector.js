@@ -149,7 +149,7 @@ function FileSelector({ creds, type, artist, data, index, rerender }) {
   }
 
   function handleUpdateWorker(filename) {
-    var toBeDeleted = data.members[index].imageUrl;
+    var toBeDeleted = artist.imageUrl;
     artist.imageUrl = filename;
 
     setArtists({...data});
@@ -169,9 +169,9 @@ function FileSelector({ creds, type, artist, data, index, rerender }) {
     };
     fetch(url, options)
       .then((data) => {
-        console.log(data);
-        if (toBeDeleted !== "") {
-          handleDelete(toBeDeleted);
+        if (toBeDeleted) {
+          console.log(toBeDeleted);
+          handleDelete(toBeDeleted, 0);
         }
         rerender();
       })
