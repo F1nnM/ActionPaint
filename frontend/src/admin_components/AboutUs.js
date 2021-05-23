@@ -15,6 +15,7 @@ import FileSelector from "./FileSelector";
 function AboutUs({ data, creds, discardChanges }) {
   const [aboutUs, setAboutUs] = useState(data.about);
   const [reRender, setReRender] = useState(false);
+  const [toBeDeleted, setToBeDeleted] = useState([]);
   let headers = new Headers();
 
   const allProps = ((_) => {
@@ -58,10 +59,17 @@ function AboutUs({ data, creds, discardChanges }) {
   }
 
   function handleDelete(idx) {
-    aboutUs.members.splice(idx);
-    setAboutUs({
-      ...aboutUs,
-    });
+    if (window.confirm("Do you really want to delete this member?")) {
+      var tmpToBeDeletedImages = [];
+
+      tmpToBeDeletedImages.push(aboutUs.members[idx].imageUrl);
+
+      aboutUs.members.splice(idx, 1);
+      setAboutUs({
+        ...aboutUs,
+      });
+      setToBeDeleted(toBeDeleted.concat(tmpToBeDeletedImages));
+    }
   }
 
   function handleAdd() {
@@ -88,6 +96,26 @@ function AboutUs({ data, creds, discardChanges }) {
       .catch((err) => {
         console.warn(err);
       });
+      toBeDeleted.forEach(element => {
+        handleDeleteImage(element);
+      });
+  }
+  function handleDeleteImage(src) {
+    let url = process.env.REACT_APP_BACKEND + "admin/delete_image/team/"+src;
+
+    let headers = new Headers();
+
+    headers.append(
+      "Authorization",
+      "Basic " + btoa(creds.username + ":" + creds.password),
+    );
+
+    fetch(url, {
+      method: "DELETE",
+      headers
+    }).catch(err => alert(err))
+      .then(data => {
+      })
   }
   
   function rerenderFromChild(){

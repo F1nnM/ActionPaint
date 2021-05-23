@@ -70,7 +70,7 @@ function Artists({ data, creds, discardChanges }) {
         tmpToBeDeletedImages.push(element);
       });
 
-      aboutUs.splice(idx);
+      aboutUs.splice(idx, 1);
       setAboutUs([...aboutUs]);
       setCurrentArtist(aboutUs.length > 0 ? aboutUs[0] : freshMember); // when deleting, directly change view to first artist or new member
       setToBeDeleted(toBeDeleted.concat(tmpToBeDeletedImages));
