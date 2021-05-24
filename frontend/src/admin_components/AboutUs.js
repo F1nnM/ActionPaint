@@ -6,7 +6,6 @@ import {
   Container,
   Form,
   Row,
-  Modal,
 } from "react-bootstrap";
 import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
@@ -95,6 +94,7 @@ function AboutUs({ data, creds, discardChanges }) {
       toBeDeleted.forEach(element => {
         handleDeleteImage(element);
       });
+      setToBeDeleted([]);
   }
   function handleDeleteImage(src) {
     let url = process.env.REACT_APP_BACKEND + "admin/delete_image/team/"+src;

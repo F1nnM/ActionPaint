@@ -116,6 +116,7 @@ function FileSelector({ creds, type, artist, data, index, rerender }) {
   }
 
   function handleUpdate(e) {
+    var toBeDeleted = artists.members[index].imageUrl;
     const files = e.target.files;
     const filename = Date.now().toString() + files[0].name;
 
@@ -137,7 +138,9 @@ function FileSelector({ creds, type, artist, data, index, rerender }) {
       body: formData
     }).catch(err => alert(err))
       .then(data => {
-        handleDelete(artist.imageUrl, 0);
+        if(toBeDeleted){
+          handleDelete(toBeDeleted, 0);
+        }
         if (index === 999) {
           handleUpdateTeam(filename);
         } else {
@@ -169,8 +172,8 @@ function FileSelector({ creds, type, artist, data, index, rerender }) {
     };
     fetch(url, options)
       .then((data) => {
+        console.log(toBeDeleted);
         if (toBeDeleted) {
-          console.log(toBeDeleted);
           handleDelete(toBeDeleted, 0);
         }
         setArtists({...artists});

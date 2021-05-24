@@ -7,17 +7,16 @@ import { useState } from "react";
 
 function Artists({ data, creds, discardChanges }) {
   const initialData = data.artists;
-  const [aboutUs, setAboutUs] = useState(initialData);
-  const [showImageSelect, setShowImageSelect] = useState(false); // needed later for modals
+  const [artists, setArtists] = useState(initialData);
   const [currentArtist, setCurrentArtist] = useState(
-    aboutUs.length > 0 ? aboutUs[0] : null
+    artists.length > 0 ? artists[0] : null
   );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [toBeDeleted, setToBeDeleted] = useState([]);
   let headers = new Headers();
 
   const allProps = ["firstName", "lastName", "images", "mail", "desc"];
-  // could have it been solved like in AboutUs.js, but unneccesary processing time!
+  // could have been solved similar to AboutUs.js, but unneccesary processing time!
 
   const freshMember = (() => {
     // same like in AboutUs
@@ -42,7 +41,7 @@ function Artists({ data, creds, discardChanges }) {
 
   function setArtistAndIndex(a, idx) {
     if (!a && !idx) {
-      // other mode of this func: when neither a oder index make new member
+      // other mode of this func: when neither a or index define a new member
       setCurrentArtist(freshMember);
     } else {
       setCurrentArtist(a);
@@ -54,7 +53,7 @@ function Artists({ data, creds, discardChanges }) {
     if (idx === null) {
       newMember[key] = value;
     } else {
-      aboutUs[idx][key] = value;
+      artists[idx][key] = value;
     }
   }
 
@@ -66,25 +65,25 @@ function Artists({ data, creds, discardChanges }) {
     if (window.confirm("Do you really want to delete " + artName + "?")) {
       var tmpToBeDeletedImages = [];
 
-      aboutUs[idx].images.forEach(element => {
+      artists[idx].images.forEach(element => {
         tmpToBeDeletedImages.push(element);
       });
 
-      aboutUs.splice(idx, 1);
-      setAboutUs([...aboutUs]);
-      setCurrentArtist(aboutUs.length > 0 ? aboutUs[0] : freshMember); // when deleting, directly change view to first artist or new member
+      artists.splice(idx, 1);
+      setArtists([...artists]);
+      setCurrentArtist(artists.length > 0 ? artists[0] : freshMember); // when deleting, directly change view to first artist or new member
       setToBeDeleted(toBeDeleted.concat(tmpToBeDeletedImages));
     }
   }
 
   function handleAdd() {
-    aboutUs.push(newMember);
-    setAboutUs([...aboutUs]);
+    artists.push(newMember);
+    setArtists([...artists]);
     setNewMember({
       ...freshMember,
     });
     setCurrentArtist(freshMember);
-    setCurrentIndex(aboutUs.length - 1);
+    setCurrentIndex(artists.length - 1);
   }
 
   function handleUpdateSubmit() {
@@ -92,7 +91,7 @@ function Artists({ data, creds, discardChanges }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify(aboutUs),
+      body: JSON.stringify(artists),
     };
     fetch(url, options)
       .then((data) => {
@@ -107,7 +106,7 @@ function Artists({ data, creds, discardChanges }) {
       });
 
       /* Force rerender on submit */
-      setAboutUs([...aboutUs]);
+      setArtists([...artists]);
   }
 
   function handleDeleteImage(src) {
@@ -146,7 +145,7 @@ function Artists({ data, creds, discardChanges }) {
                   <Add />
                 </Button>
               </ListGroup.Item>
-              {aboutUs.map((a, idx) => (
+              {artists.map((a, idx) => (
                 <ListGroup.Item
                   active={a === currentArtist}
                   action
@@ -233,13 +232,13 @@ function Artists({ data, creds, discardChanges }) {
 
                         <Card.Body>
                           {
-                            currentArtist === aboutUs[currentIndex] ?
+                            currentArtist === artists[currentIndex] ?
                             <FileSelector
                             type="artist"
                             creds={creds}
                             onSelect={(val) => alert(val)}
                             artist={currentArtist}
-                            data={aboutUs}
+                            data={artists}
                             index={currentIndex}
                           />
                           :"Please submit the artist before uploading any pictures"
