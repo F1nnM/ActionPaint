@@ -55,7 +55,7 @@ function AdminPanel({ switchToWeb }) {
     fetchPublicData();
     if (credentials.username && credentials.password)
       fetchMailData();
-  }, [fetchPublicData, fetchMailData]);
+  }, [fetchPublicData, fetchMailData, credentials]);
 
   const reloadInterface = fetchContent;
 
