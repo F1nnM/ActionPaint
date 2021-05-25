@@ -116,10 +116,11 @@ function FileSelector({ creds, type, artist, data, index, rerender }) {
   }
 
   function handleUpdate(e) {
+    var toBeDeleted;
     if(index === 999){
-      var toBeDeleted = artist.imageUrl;
+      toBeDeleted = artist.imageUrl;
     }else{
-      var toBeDeleted = artists.members[index].imageUrl;
+      toBeDeleted = artists.members[index].imageUrl;
     }
 
     const files = e.target.files;

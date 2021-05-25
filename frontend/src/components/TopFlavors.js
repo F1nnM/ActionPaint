@@ -78,8 +78,8 @@ function TopFlavors({ data }) {
             <path
               fill="#FFFFFF"
               stroke="#000000"
-              stroke-width="1"
-              stroke-miterlimit="10"
+              strokeWidth="1"
+              strokeMiterlimit="10"
               d="
       M 180 10 C 290 10 450 50 420 0 C 390 20 450 20 420 250 C 410 270 350 270 260 270 L 40 270 C 0 270 0 260 0 170 C 0 0 0 0 180 10 
               "

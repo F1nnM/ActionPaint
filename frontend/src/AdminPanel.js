@@ -60,7 +60,7 @@ function AdminPanel({ switchToWeb }) {
 
   const reloadInterface = useCallback(() => {
     setInterfaceKey(Date.now());
-  });
+  }, []);
 
   const discardChanges = useCallback(() => {
     if (window.confirm("Do you want to revert all your changes?")) {
