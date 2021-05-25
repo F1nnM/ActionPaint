@@ -17,14 +17,14 @@
     transform: rotateY(180deg);
 }
 
-.drip:nth-last-of-type(2){
+.drip:nth-last-of-type(3){
     display: none;
 }
 
 .onceStart, .onceEnd {
     display: none;
 }
-.onceStart:first-of-type, .onceEnd:last-of-type {
+.onceStart:first-of-type, .onceEnd:nth-last-of-type(2) {
     display: initial;
 }
 
