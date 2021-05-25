@@ -23,6 +23,7 @@ function AdminPanel({ switchToWeb }) {
   const [data, setData] = useState(null);
   const [tabIndex, setTabIndex] = useState(0);
   const [emailData, setEmailData] = useState({});
+  const [interfaceKey, setInterfaceKey] = useState(Date.now());
 
   const fetchPublicData = useCallback(() => {
     fetch(process.env.REACT_APP_BACKEND + "content")
@@ -57,7 +58,9 @@ function AdminPanel({ switchToWeb }) {
       fetchMailData();
   }, [fetchPublicData, fetchMailData, credentials]);
 
-  const reloadInterface = fetchContent;
+  const reloadInterface = useCallback(() => {
+    setInterfaceKey(Date.now());
+  });
 
   const discardChanges = useCallback(() => {
     if (window.confirm("Do you want to revert all your changes?")) {
@@ -185,7 +188,7 @@ function AdminPanel({ switchToWeb }) {
     },
   ];
 
-  return <NavFrame tabs={tabs} data={data} goBack={switchToWeb} activeTab={tabIndex} onTabChange={index => setTabIndex(index)}></NavFrame>;
+  return <NavFrame key={interfaceKey} tabs={tabs} data={data} goBack={switchToWeb} activeTab={tabIndex} onTabChange={index => setTabIndex(index)}></NavFrame>;
 }
 
 export default AdminPanel;
