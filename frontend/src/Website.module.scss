@@ -22,7 +22,8 @@
         list-style: none;
         width: 20vw;
         height: 20vw;
-        background: var(--accentColor);
+        background: var(--primaryColor);
+        filter: brightness(200%) saturate(0.8) hue-rotate(20deg);
         animation: animate 25s linear infinite;
         border-radius: 100%;
         transform: translateY(100vh);
@@ -30,6 +31,7 @@
 
         &:nth-child(1),&:nth-child(3),&:nth-child(5),&:nth-child(7),&:nth-child(10) {
             background: var(--primaryColor);
+            filter: unset;
         }
         
         &:nth-child(1) {
