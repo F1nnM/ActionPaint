@@ -22,9 +22,9 @@ function Artists({ data, creds, discardChanges }) {
     // same like in AboutUs
     var obj = {};
     allProps.forEach((p) => {
-      if(p === "images"){
+      if (p === "images") {
         obj[p] = [];
-      }else{
+      } else {
         obj[p] = "";
       }
     });
@@ -65,7 +65,7 @@ function Artists({ data, creds, discardChanges }) {
     if (window.confirm("Do you really want to delete " + artName + "?")) {
       var tmpToBeDeletedImages = [];
 
-      artists[idx].images.forEach(element => {
+      artists[idx].images.forEach((element) => {
         tmpToBeDeletedImages.push(element);
       });
 
@@ -101,35 +101,37 @@ function Artists({ data, creds, discardChanges }) {
         console.warn(err);
       });
 
-      toBeDeleted.forEach(element => {
-        handleDeleteImage(element);
-      });
+    toBeDeleted.forEach((element) => {
+      handleDeleteImage(element);
+    });
 
-      /* Force rerender on submit */
-      setArtists([...artists]);
+    /* Force rerender on submit */
+    setArtists([...artists]);
   }
 
   function handleDeleteImage(src) {
-    let url = process.env.REACT_APP_BACKEND + "admin/delete_image/artist/"+src;
+    let url =
+      process.env.REACT_APP_BACKEND + "admin/delete_image/artist/" + src;
 
     let headers = new Headers();
 
     headers.append(
       "Authorization",
-      "Basic " + btoa(creds.username + ":" + creds.password),
+      "Basic " + btoa(creds.username + ":" + creds.password)
     );
 
     fetch(url, {
       method: "DELETE",
-      headers
-    }).catch(err => alert(err))
-      .then(data => {
-      })
+      headers,
+    })
+      .catch((err) => alert(err))
+      .then((data) => {});
   }
 
   return (
     <>
       <Tab.Container defaultActiveKey={"#" + 0}>
+        {/* should actually make sure that the first element is being shown by default */}
         <Row>
           <Col sm={2}>
             <ListGroup variant="flush">
@@ -150,9 +152,9 @@ function Artists({ data, creds, discardChanges }) {
                   active={a === currentArtist}
                   action
                   onClick={(_) => setArtistAndIndex(a, idx)}
-                  key={a + idx}
+                  key={idx}
                 >
-                  <div style={{ alignContent: "space-between" }}>
+                  <div>
                     <>
                       <span className="mr-1">{a.firstName}</span>
                       <span>
@@ -231,18 +233,18 @@ function Artists({ data, creds, discardChanges }) {
                         </Card.Header>
 
                         <Card.Body>
-                          {
-                            currentArtist === artists[currentIndex] ?
+                          {currentArtist === artists[currentIndex] ? (
                             <FileSelector
-                            type="artist"
-                            creds={creds}
-                            onSelect={(val) => alert(val)}
-                            artist={currentArtist}
-                            data={artists}
-                            index={currentIndex}
-                          />
-                          :"Please submit the artist before uploading any pictures"
-                          }
+                              type="artist"
+                              creds={creds}
+                              onSelect={(val) => alert(val)}
+                              artist={currentArtist}
+                              data={artists}
+                              index={currentIndex}
+                            />
+                          ) : (
+                            "Please submit the artist before uploading any pictures"
+                          )}
                         </Card.Body>
 
                         <Card.Footer>
@@ -270,7 +272,7 @@ function Artists({ data, creds, discardChanges }) {
                                       currentIndex
                                     )
                                   }
-                                />                  
+                                />
                               </Col>
                             </Row>
                           </small>
@@ -285,9 +287,6 @@ function Artists({ data, creds, discardChanges }) {
                     onClick={(_) => handleUpdateSubmit()}
                   >
                     Save changes
-                  </Button>
-                  <Button variant="warning" onClick={discardChanges}>
-                    Discard all changes
                   </Button>
                 </>
               </Container>

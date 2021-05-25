@@ -1,12 +1,5 @@
 import styles from "./WhatWeDo.module.scss";
-import {
-  Table,
-  Button,
-  Col,
-  Container,
-  Form,
-  Row,
-} from "react-bootstrap";
+import { Table, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
 import FileSelector from "./FileSelector";
@@ -91,30 +84,30 @@ function AboutUs({ data, creds, discardChanges }) {
       .catch((err) => {
         console.warn(err);
       });
-      toBeDeleted.forEach(element => {
-        handleDeleteImage(element);
-      });
-      setToBeDeleted([]);
+    toBeDeleted.forEach((element) => {
+      handleDeleteImage(element);
+    });
+    setToBeDeleted([]);
   }
   function handleDeleteImage(src) {
-    let url = process.env.REACT_APP_BACKEND + "admin/delete_image/team/"+src;
+    let url = process.env.REACT_APP_BACKEND + "admin/delete_image/team/" + src;
 
     let headers = new Headers();
 
     headers.append(
       "Authorization",
-      "Basic " + btoa(creds.username + ":" + creds.password),
+      "Basic " + btoa(creds.username + ":" + creds.password)
     );
 
     fetch(url, {
       method: "DELETE",
-      headers
-    }).catch(err => alert(err))
-      .then(data => {
-      })
+      headers,
+    })
+      .catch((err) => alert(err))
+      .then((data) => {});
   }
-  
-  function rerenderFromChild(){
+
+  function rerenderFromChild() {
     setReRender(!reRender);
   }
 
@@ -162,20 +155,20 @@ function AboutUs({ data, creds, discardChanges }) {
         </thead>
         <tbody>
           {aboutUs.members.map((entry, idx) => (
-            <tr key={entry["name"]+idx}>
+            <tr key={entry["name"] + idx}>
               {allProps.map((prop) =>
                 prop === "imageUrl" ? (
                   /* when imageUrl, then show image selector */
                   <td key={prop}>
                     <span>{entry[prop]}</span>
                     <FileSelector
-                          type="team"
-                          creds={creds}
-                          artist={entry}
-                          data={aboutUs}
-                          index={idx}
-                          rerender={rerenderFromChild}
-                        />
+                      type="team"
+                      creds={creds}
+                      artist={entry}
+                      data={aboutUs}
+                      index={idx}
+                      rerender={rerenderFromChild}
+                    />
                   </td>
                 ) : (
                   /* and show a simple text field otherwise */
@@ -200,14 +193,14 @@ function AboutUs({ data, creds, discardChanges }) {
           ))}
         </tbody>
       </Table>
-      <Button className={"float-right"} variant="success" onClick={() => handleAdd()}>
+      <Button
+        className={"float-right"}
+        variant="success"
+        onClick={() => handleAdd()}
+      >
         <Add />
       </Button>
-      <span className={"mr-4 " + styles.discardChanges}>
-        <Button variant="warning" onClick={discardChanges}>
-          Discard Changes
-        </Button>
-      </span>
+      <span className={"mr-4 " + styles.discardChanges}></span>
       <span className={styles.saveChanges}>
         <Button variant="success" onClick={() => handleUpdateSubmit()}>
           Save Changes

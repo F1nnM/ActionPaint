@@ -17,7 +17,7 @@ function FAQ({ data }) {
           bsPrefix={
             (idx % 2 === 0 ? styles.primaryBorder : styles.accentBorder) +
             " mb-4 " +
-            styles.borderBottomOnly
+            styles.FAQBorder
           }
         >
           <Card.Header
