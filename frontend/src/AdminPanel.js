@@ -131,6 +131,9 @@ function AdminPanel({ switchToWeb }) {
               <Button variant="primary" type="submit" onClick={tryLogin}>
                 Log In
               </Button>
+              <Button variant="danger" className={styles.exitButton} onClick={switchToWeb}>
+                Go Back
+              </Button>
             </Form>
           </Col>
         </Row>

@@ -1,3 +1,7 @@
 .height100 {
     height: 100vh;
 }
+
+.exitButton{
+    margin-top: 8% !important;
+}
