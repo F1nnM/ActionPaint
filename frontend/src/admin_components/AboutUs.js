@@ -156,33 +156,59 @@ function AboutUs({ data, creds, discardChanges }) {
         <tbody>
           {aboutUs.members.map((entry, idx) => (
             <tr key={entry["name"] + idx}>
-              {allProps.map((prop) =>
-                prop === "imageUrl" ? (
-                  /* when imageUrl, then show image selector */
-                  <td key={prop}>
-                    <span>{entry[prop]}</span>
-                    <FileSelector
-                      type="team"
-                      creds={creds}
-                      artist={entry}
-                      data={aboutUs}
-                      index={idx}
-                      rerender={rerenderFromChild}
-                    />
-                  </td>
-                ) : (
+              {allProps.map((prop) => {
+                switch (prop.toLowerCase()) {
+                  case "imageurl":
+                    return (
+                      <>
+                        {/* when imageUrl, then show image selector */}
+                        <td key={prop}>
+                          <span>{entry[prop]}</span>
+                          <FileSelector
+                            type="team"
+                            creds={creds}
+                            artist={entry}
+                            data={aboutUs}
+                            index={idx}
+                            rerender={rerenderFromChild}
+                          />
+                        </td>
+                      </>
+                    );
+                  case "info":
+                    return (
+                      <>
+                        <td key={prop}>
+                          <Form.Control
+                            rows={5}
+                            cols={50}
+                            as="textarea"
+                            defaultValue={entry[prop]}
+                            onInput={(e) =>
+                              handleUpdateProp(prop, e.target.value, idx)
+                            }
+                            key={prop + "1"}
+                          />
+                        </td>
+                      </>
+                    );
                   /* and show a simple text field otherwise */
-                  <td key={prop}>
-                    <Form.Control
-                      defaultValue={entry[prop]}
-                      onInput={(e) =>
-                        handleUpdateProp(prop, e.target.value, idx)
-                      }
-                      key={prop + "1"}
-                    />
-                  </td>
-                )
-              )}
+                  default:
+                    return (
+                      <>
+                        <td key={prop}>
+                          <Form.Control
+                            defaultValue={entry[prop]}
+                            onInput={(e) =>
+                              handleUpdateProp(prop, e.target.value, idx)
+                            }
+                            key={prop + "1"}
+                          />
+                        </td>
+                      </>
+                    );
+                }
+              })}
 
               <td>
                 <Button variant="danger" onClick={() => handleDelete(idx)}>
