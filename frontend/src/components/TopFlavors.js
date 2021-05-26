@@ -87,6 +87,9 @@ function TopFlavors({ data }) {
           </clipPath>
         </defs>
       </svg>
+      <br />
+      <br />
+      <br />
     </>
   );
 }

@@ -12,10 +12,11 @@ function AboutUs({ data }) {
     <div>
       <Card className="bg-dark text-white">
         <Card.Img
+          className={styles.teamimage}
           src={process.env.REACT_APP_BACKEND + "images/team/" + team.imageUrl}
           alt="Our team"
         />
-        <Card.ImgOverlay>
+        <Card.ImgOverlay className={styles.teamoverlay}>
           <Card.Title>Meet our team</Card.Title>
           <Card.Text>{team.info || "No info stored yet"}</Card.Text>
         </Card.ImgOverlay>
