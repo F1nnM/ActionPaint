@@ -11,14 +11,12 @@
 
       #letters {
          transform-origin: 50% 50%;
-         transform: perspective(250px) rotateX(var(--degX)) rotateY(var(--degY));
-         transform-style: preserve-3d;
+         transform: rotateX(var(--degX)) rotateY(var(--degY));
       }
 
       #border {
          transform-origin: 50% 50%;
-         transform: perspective(250px) rotateX(var(--degX));
-         transform-style: preserve-3d;
+         transform: rotateX(var(--degX));
       }
    </style>
   <g id="logo">
