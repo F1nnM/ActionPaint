@@ -89,6 +89,7 @@
 }
 
 .curvedDripNavbar{
+    pointer-events: none;
     visibility: hidden;
     z-index: 2; 
     width: 100vw;
