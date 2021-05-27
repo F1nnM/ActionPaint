@@ -22,6 +22,7 @@ if (process.env.ALLOW_CORS) {
   app.use(
     cors({
       origin: "*",
+      methods: ['GET', 'POST', 'DELETE']
     })
   );
 }
