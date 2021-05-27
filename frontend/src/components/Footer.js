@@ -11,9 +11,9 @@ import Business from "@material-ui/icons/Business";
 import LocationOn from "@material-ui/icons/LocationOn";
 import React from "react";
 
-function Footer({ togglePopup, switchToAdmin, data: all_data}) {
+function Footer({ showPrivacyPolicyPopup, switchToAdmin, data}) {
 
-  const data = all_data["brand"];
+  const brand_data = data["brand"];
 
   return (
     <React.Fragment>
@@ -41,27 +41,27 @@ function Footer({ togglePopup, switchToAdmin, data: all_data}) {
             <address className="mt-3">
               <p>
                 <Business className="mr-3" />
-                {data.companyName}
+                {brand_data.companyName}
               </p>
               <p>
                 <LocationOn className="mr-3" />
                 <a
-                  href={data.mapsLink}
+                  href={brand_data.mapsLink}
                   className={styles.colorReset}
                 >
-                  {data.location}
+                  {brand_data.location}
                 </a>
               </p>
               <p>
                 <ContactMail className="mr-3" />
-                <a href={"mailto:"+data.mail} className={styles.colorReset}>
-                  {data.mail}
+                <a href={"mailto:"+brand_data.mail} className={styles.colorReset}>
+                  {brand_data.mail}
                 </a>
               </p>
               <p>
                 <Phone className="mr-3" />
-                <a href={"tel:"+data.telephone} className={styles.colorReset}>
-                  {data.telephone}
+                <a href={"tel:"+brand_data.telephone} className={styles.colorReset}>
+                  {brand_data.telephone}
                 </a>
               </p>
             </address>
@@ -73,7 +73,7 @@ function Footer({ togglePopup, switchToAdmin, data: all_data}) {
             <p className="mt-3">
               We don't collect any data from you, unless you reach out to us.
               For details click{" "}
-              <a className={styles.colorReset} href="#0" onClick={() => togglePopup()}>here</a>
+              <a className={styles.colorReset} href="#0" onClick={() => showPrivacyPolicyPopup()}>here</a>
               .
             </p>
           </Col>
@@ -82,17 +82,17 @@ function Footer({ togglePopup, switchToAdmin, data: all_data}) {
               <span className="text-uppercase">Social</span>
               <Row>
                 <Col lg className="mt-3">
-                  <a href={"https://twitter.com/"+data.twitter} className={styles.colorReset} target="_blank" rel="noreferrer">
+                  <a href={"https://twitter.com/"+brand_data.twitter} className={styles.colorReset} target="_blank" rel="noreferrer">
                     <Twitter />
                   </a>
                 </Col>
                 <Col lg className="mt-3">
-                  <a href={"https://instagram.com/"+data.instagram} className={styles.colorReset} target="_blank" rel="noreferrer">
+                  <a href={"https://instagram.com/"+brand_data.instagram} className={styles.colorReset} target="_blank" rel="noreferrer">
                     <Instagram />
                   </a>
                 </Col>
                 <Col lg className="mt-3">
-                  <a href={"https://linkedin.com/"+data.linkedin} className={styles.colorReset} target="_blank" rel="noreferrer">
+                  <a href={"https://linkedin.com/"+brand_data.linkedin} className={styles.colorReset} target="_blank" rel="noreferrer">
                     <LinkedIn />
                   </a>
                 </Col>
@@ -104,7 +104,7 @@ function Footer({ togglePopup, switchToAdmin, data: all_data}) {
 
         <Row className="py-5">
           <Col className="text-center">
-            <span>&copy; {data.copyright}</span>
+            <span>&copy; {brand_data.copyright}</span>
           </Col>
         </Row>
         <Row>
