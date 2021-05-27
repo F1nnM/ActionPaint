@@ -3,8 +3,7 @@
    viewBox="0 0 71.120002 71.120002"
    xmlns="http://www.w3.org/2000/svg">
    <style>
-      #logo {
-         perspective: 1000px;
+      #logo {  
          --degX: 0;
          --degY: 0;
          transition: none;
