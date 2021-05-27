@@ -13,7 +13,7 @@ function NavbarFunc({ hideNavbar, data }) {
         Embed clickable logo and title to return to the titlescreen.
           */}
       <Navbar
-        expand={hideNavbar ? !hideNavbar : "sm"}
+        expand={hideNavbar ? false : "sm"}
         fixed="top"
         className={hideNavbar ? "" : styles.navbar}
       >
@@ -28,12 +28,12 @@ function NavbarFunc({ hideNavbar, data }) {
           <Navbar.Brand className={styles.brand}>
           <object
             type="image/svg+xml"
-            data={process.env.REACT_APP_BACKEND + "images/logo_static.svg"}
+            data={`${process.env.REACT_APP_BACKEND}images/logo_static.svg`}
             width="30"
             height="30"
             className="d-inline-block align-top"
             alt="Navbar Logo">
-            <img src={process.env.REACT_APP_BACKEND + "images/logo_static.svg"} alt="Logo"/>
+            <img src={`${process.env.REACT_APP_BACKEND}images/logo_static.svg`} alt="Logo"/>
           </object>
           {' '}
           {data.brand.title}
@@ -43,7 +43,7 @@ function NavbarFunc({ hideNavbar, data }) {
         {/* Enable toggle and style the hamburger menu and the link elements while being collapsed (including mobile)*/}
 
         <Navbar.Toggle className={styles.hamburger} />
-        <Navbar.Collapse className={!hideNavbar ? styles.smallCollapse : styles.collapseabletext}>
+        <Navbar.Collapse className={hideNavbar ? styles.collapseabletext: styles.smallCollapse}>
           <Nav>
             <NavDropdown title={data.sections["Our Artists"]}>
 
@@ -52,7 +52,7 @@ function NavbarFunc({ hideNavbar, data }) {
               {artists.map((artist, index) => (
                 <NavDropdown.Item key={artist.firstName + artist.lastName}>
                   <Link
-                    to={index + ": " + artist.firstName + " " + artist.lastName}
+                    to={`${index}: ${artist.firstName} ${artist.lastName}`}
                     key={"Link" + index}
                     activeClass="active"
                     spy={true}
@@ -114,7 +114,7 @@ function NavbarFunc({ hideNavbar, data }) {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <svg viewBox="0 0 2.6470001 3.97" className={styles.dropletShadow + " " + styles.droplet + " " + (!hideNavbar ? styles.dripanimation : "")}>
+      <svg viewBox="0 0 2.6470001 3.97" className={`${styles.dropletShadow} ${styles.droplet} ${hideNavbar ? "" :styles.dripanimation}`}>
         {/* This is the droplet shadow */}
         <g transform="translate(0,-19.03)">
           <path
@@ -122,7 +122,7 @@ function NavbarFunc({ hideNavbar, data }) {
             d="M 2.645834,21.677083 C 2.645834,22.40771 2.053544,23 1.322917,23 0.59229,23 0,22.40771 0,21.677083 c 0,-0.730627 0.529167,-1.5875 1.5875,-2.645833 0.264584,1.852083 1.058334,1.915206 1.058334,2.645833 z" />
         </g>
       </svg>
-      <svg viewBox="0 0 2.6470001 3.97" className={styles.droplet + " " + (!hideNavbar ? styles.dripanimation : "")}>
+      <svg viewBox="0 0 2.6470001 3.97" className={`${styles.droplet} ${hideNavbar ? "" : styles.dripanimation}`}>
         {/* This is the droplet itself */}
         <g transform="translate(0,-19.03)">
           <path
@@ -130,7 +130,7 @@ function NavbarFunc({ hideNavbar, data }) {
             d="M 2.645834,21.677083 C 2.645834,22.40771 2.053544,23 1.322917,23 0.59229,23 0,22.40771 0,21.677083 c 0,-0.730627 0.529167,-1.5875 1.5875,-2.645833 0.264584,1.852083 1.058334,1.915206 1.058334,2.645833 z" />
         </g>
       </svg>
-      {!hideNavbar && (
+      {hideNavbar || (
         <svg viewBox="0 0 100 6" className={styles.curvedBaseNavbar}>
         {/* This is the base body of the navbarextension */}
         <g transform="scale(0.05555556,0.49937021)">
@@ -138,7 +138,7 @@ function NavbarFunc({ hideNavbar, data }) {
         </g>
       </svg>
       )}
-      {!hideNavbar && (
+      {hideNavbar || (
        <svg viewBox="0 0 200 14" className={styles.curvedDripNavbar}>
        {/* This is the body of the navbar with the building body of the droplet*/}
        <g>
