@@ -17,7 +17,8 @@ import TitleScreen from "./components/TitleScreen";
 import { useInView } from "react-intersection-observer";
 import React, { useEffect, useState } from "react";
 
-var sections = [
+// array of the sections and their components to be rendered
+const sections = [
   /* {
     title: "Example Section",
     component: <ExampleSection />,
@@ -52,24 +53,29 @@ var sections = [
   },
 ];
 
+// if in dev mode, add the playground component to the sections array
 if (process.env.NODE_ENV === "development")
-  // if in dev mode, add the playground component
   sections.unshift({
     id: "playground",
     component: <PlaygroundComponent />,
   });
 
 function Website({ switchToAdmin }) {
+
+  // used to check scroll state to collapse/expand the navbar
+  // ref - react reference to the element to be checked for visibility (will be the TitleScreen)
+  // inView - reactive boolean
   const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0.9,
   });
 
+  // initialze reactive state variables
   const [data, setData] = useState(null);
-  const [policy, setPolicy] = useState(false);
+  const [policyPopupVisible, setPolicyPopupVisible] = useState(false);
 
   function togglePopup() {
-    setPolicy(!policy);
+    setPolicyPopupVisible(!policyPopupVisible);
   }
 
   useEffect(() => {
@@ -91,7 +97,7 @@ function Website({ switchToAdmin }) {
 
   return (
     <Container fluid className={styles.app + " px-0"} style={cssVars}>
-      {/* Navbar component goes here */}
+
       <Navbar tmpinView={inView} data={data} />
 
       <Row className="mb-5">
@@ -100,34 +106,31 @@ function Website({ switchToAdmin }) {
         </Col>
       </Row>
 
-      {/* Each section: */}
       <Row>
         <Col>
+          {(process.env.NODE_ENV === "development") && (
+            <SectionFrame title="Playground"/>
+          )}
           {sections.map((section) => (
-            <SectionFrame
-              title={
-                section.id !== "playground"
-                  ? data["sections"][section.id]
-                  : section.id
+            <SectionFrame title={data["sections"][section.id]} id={section.id} key={data["sections"][section.id]}>
+              {
+                // We need to clone the elements in order to pass the data prop
+                React.cloneElement(section.component, { data: data })
               }
-              ID={section.id}
-              key={
-                section.id !== "playground" ? data["sections"][section.id] : -1
-              }
-            >
-              {React.cloneElement(section.component, { data: data })}
             </SectionFrame>
           ))}
         </Col>
       </Row>
       <Footer
-        togglePopup={togglePopup}
+        showPrivacyPolicyPopup={()=>setPolicyPopupVisible(true)}
         switchToAdmin={switchToAdmin}
         data={data}
       />
-      {policy ? (
-        <PrivacyPolicy policy={data.privacy_policy.text} togglePopup={togglePopup} />
-      ) : null}
+      {policyPopupVisible && <PrivacyPolicy policy={data.privacy_policy.text} hidePopup={()=>setPolicyPopupVisible(false)} />}
+
+      {
+        // each <li /> is one bubble in the background 
+      }
       <div className={styles.background}>
         <li />
         <li />
