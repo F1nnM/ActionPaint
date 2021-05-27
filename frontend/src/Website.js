@@ -100,7 +100,7 @@ function Website({ switchToAdmin }) {
 
       <Row className="mb-5">
         <Col>
-          <TitleScreen ref={ref} tmpinView={inView} data={data} />
+          <TitleScreen ref={ref} hideScrollNotification={inView} data={data} />
         </Col>
       </Row>
 
