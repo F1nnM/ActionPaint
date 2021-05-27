@@ -14,7 +14,7 @@ function AboutUs({ data, creds, reloadInterface }) {
 
   const allProps = Object.keys(aboutUs.members[0]);
 
-  const generateFreshMember = _ => Object.fromEntries(allProps.map(prop => [prop, null]));
+  const generateFreshMember = () => Object.fromEntries(allProps.map(prop => [prop, null]));
 
   let headers = new Headers();
   headers.append(
@@ -36,6 +36,10 @@ function AboutUs({ data, creds, reloadInterface }) {
       let newMembers = [...aboutUs.members];
 
       newMembers.splice(index, 1);
+
+      if (newMembers.length === 0)
+        newMembers.push(generateFreshMember());
+
       setAboutUs({ ...aboutUs, members: newMembers });
     }
   }
