@@ -147,7 +147,7 @@ function AdminPanel({ switchToWeb }) {
     },
     {
       label: data.sections["About Us"],
-      component: <AboutUs data={data} creds={credentials} discardChanges={discardChanges} />,
+      component: <AboutUs data={data} creds={credentials} reloadInterface={reloadInterface}/>,
     },
     {
       label: data.sections["What We Do"],
