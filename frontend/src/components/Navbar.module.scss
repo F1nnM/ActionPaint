@@ -79,6 +79,7 @@
 }
 
 .curvedBaseNavbar{
+    pointer-events: none;
     z-index: 2; 
     fill: var(--primaryColor);
     position: fixed !important;
