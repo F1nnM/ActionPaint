@@ -3,7 +3,7 @@
    viewBox="0 0 71.120002 71.120002"
    xmlns="http://www.w3.org/2000/svg">
    <style>
-      #logo {  
+      #logo {
          --degX: 0;
          --degY: 0;
          transition: none;
@@ -12,11 +12,13 @@
       #letters {
          transform-origin: 50% 50%;
          transform: perspective(250px) rotateX(var(--degX)) rotateY(var(--degY));
+         transform-style: preserve-3d;
       }
 
       #border {
          transform-origin: 50% 50%;
          transform: perspective(250px) rotateX(var(--degX));
+         transform-style: preserve-3d;
       }
    </style>
   <g id="logo">
