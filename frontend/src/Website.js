@@ -74,18 +74,18 @@ function Website({ switchToAdmin }) {
   const [data, setData] = useState(null);
   const [policyPopupVisible, setPolicyPopupVisible] = useState(false);
 
-  function togglePopup() {
-    setPolicyPopupVisible(!policyPopupVisible);
-  }
-
+  // useEffect with empty dependency array only runs once, equivalent to componentDidMount on class components
+  // load data from the backend, parse and update state
   useEffect(() => {
     fetch(process.env.REACT_APP_BACKEND + "content")
       .then((resp) => resp.json())
       .then((data) => setData(data));
   }, []);
 
+  // as long as the data has not been loaded display nothing.
   if (!data) return <div>Loading...</div>;
 
+  // define a style object for the css variables. CSS variables are inherited from parent elements 
   const cssVars = {
     "--primaryColor": data["style"]["primaryColor"],
     "--accentColor": data["style"]["accentColor"],
@@ -93,12 +93,10 @@ function Website({ switchToAdmin }) {
     "--background": data["style"]["background"],
   };
 
-  document.title = data.brand.title;
-
   return (
     <Container fluid className={styles.app + " px-0"} style={cssVars}>
 
-      <Navbar tmpinView={inView} data={data} />
+      <Navbar hideNavbar={inView} data={data} />
 
       <Row className="mb-5">
         <Col>

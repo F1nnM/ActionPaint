@@ -3,7 +3,7 @@ import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import PersonIcon from "@material-ui/icons/Person";
 import { Link } from "react-scroll";
 
-function NavbarFunc({ tmpinView: hideNavbar, data }) {
+function NavbarFunc({ hideNavbar, data }) {
   var Scrollspeed = 500;  
   const artists = data.artists;
 
@@ -43,18 +43,16 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
         {/* Enable toggle and style the hamburger menu and the link elements while being collapsed (including mobile)*/}
 
         <Navbar.Toggle className={styles.hamburger} />
-        <Navbar.Collapse
-          className={!hideNavbar ? styles.smallCollapse : styles.collapseabletext}
-        >
+        <Navbar.Collapse className={!hideNavbar ? styles.smallCollapse : styles.collapseabletext}>
           <Nav>
             <NavDropdown title={data.sections["Our Artists"]}>
 
               {/* Iterate over all artists and create a corresponding dropdown item with a link to its component */}
 
-              {artists.map((ar, index) => (
-                <NavDropdown.Item key={ar.firstName + ar.lastName}>
+              {artists.map((artist, index) => (
+                <NavDropdown.Item key={artist.firstName + artist.lastName}>
                   <Link
-                    to={index + ": " + ar.firstName + " " + ar.lastName}
+                    to={index + ": " + artist.firstName + " " + artist.lastName}
                     key={"Link" + index}
                     activeClass="active"
                     spy={true}
@@ -64,7 +62,7 @@ function NavbarFunc({ tmpinView: hideNavbar, data }) {
                   >
                     <NavDropdown.ItemText className={styles.dropitem}>
                       <PersonIcon />
-                      {ar.firstName} {ar.lastName}
+                      {artist.firstName} {artist.lastName}
                     </NavDropdown.ItemText>
                   </Link>
                 </NavDropdown.Item>
