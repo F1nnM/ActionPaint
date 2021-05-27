@@ -1,7 +1,6 @@
-import styles from "./Contact.module.scss";
 import { useState } from "react";
 
-function Contact(props) {
+function Contact() {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [message, setMessage] = useState("");
@@ -9,7 +8,7 @@ function Contact(props) {
   const send = (e) => {
     e.preventDefault();
 
-    const url = process.env.REACT_APP_BACKEND + "sendMessage";
+    const url = `${process.env.REACT_APP_BACKEND}sendMessage`;
     const options = {
       method: "POST",
       body: JSON.stringify({
@@ -35,15 +34,12 @@ function Contact(props) {
   return (
     <form id="contact-form" onSubmit={send} method="POST">
       <div className="form-group">
-        <label htmlFor="name" className={styles.lorem}>
-          Name
-        </label>
+        <label htmlFor="name">Name</label>
         <input
           type="text"
           className="form-control"
           id="name"
           required
-          value={name}
           onChange={(e) => {
             setName(e.target.value);
           }}
@@ -57,7 +53,6 @@ function Contact(props) {
           id="email"
           required
           aria-describedby="emailHelp"
-          value={mail}
           onChange={(e) => {
             setMail(e.target.value);
           }}
@@ -70,7 +65,6 @@ function Contact(props) {
           rows="5"
           required
           id="message"
-          value={message}
           onChange={(e) => {
             setMessage(e.target.value);
           }}
