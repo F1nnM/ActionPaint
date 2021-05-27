@@ -57,7 +57,7 @@ function TopFlavors({ data }) {
                     {artist.firstName} {artist.lastName}
                   </Card.Title>
                   <Card.Text>{artist.desc}</Card.Text>
-                  <a href={"https://www.instagram.com/" + artist.instagram}>
+                  <a href={"https://www.instagram.com/" + artist.instagram +"/"}>
                   <Button
                     className={
                       index % 2 === 0
