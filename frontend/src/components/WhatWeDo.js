@@ -10,49 +10,31 @@ import CheckIcon from "@material-ui/icons/Check";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useState, useEffect } from "react";
+import { debounce } from "@material-ui/core";
 
-function getWindowDimensions() {
-  const { innerWidth: width } = window;
-  return {
-    width,
-  };
-}
-
-/* Get current width and width after Resizing */
-function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(
-    getWindowDimensions()
-  );
+function WhatWeDo({ data }) {
+  const [ width, setWidth ] = useState(window.innerWidth);
 
   useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
+    const handleResize = () => {
+      debounce(setWidth(window.innerWidth));
     }
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [setWidth]);
 
-  return windowDimensions;
-}
-
-function WhatWeDo({ data }) {
-  const { width } = useWindowDimensions();
-
-  const whatwedo = data.whatwedo;
+  const whatwedo = data["whatwedo"];
 
   return (
-    /* Create a Timeline which alternates in Position (only if width > 800 for Spacing Reasons on Mobile) and Color */
+    // Create a Timeline which alternates in Position (only if width > 800 for Spacing Reasons on Mobile) and Color
 
     <Timeline key="Timeline" align={width > 800 ? "alternate" : "left"}>
       {whatwedo.map((description, idx) => (
-        /* Iterate over whatwedo.json and create a Timeline Item based on the content */
 
+        // Iterate over whatwedo.json and create a Timeline Item based on the content 
         <TimelineItem key={"TimelineItem" + idx}>
-          <TimelineOppositeContent
-            className={styles.oppositecontent}
-            style={{ flex: 0 }}
-          ></TimelineOppositeContent>
+          <TimelineOppositeContent className={styles.oppositecontent} />
           <TimelineSeparator>
             <TimelineDot
               className={
@@ -63,7 +45,7 @@ function WhatWeDo({ data }) {
             >
               <CheckIcon />
             </TimelineDot>
-            <TimelineConnector />
+            {whatwedo.length===(idx+1) || <TimelineConnector />}
           </TimelineSeparator>
           <TimelineContent>
             <Paper
@@ -74,9 +56,7 @@ function WhatWeDo({ data }) {
                   : styles.secondarytimeline
               }
             >
-              <Typography variant="h6" component="h1">
-                {description.Title}
-              </Typography>
+              <Typography variant="h6" component="h1">{description.Title}</Typography>
               <Typography>{description.Description}</Typography>
             </Paper>
           </TimelineContent>
