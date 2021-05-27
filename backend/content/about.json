@@ -1,1 +1,31 @@
-{"imageUrl":"1622021712841untitled.png","info":"Modern artists and a modern agency....sounds like just another slogan of an agency. But we're an agency living and working in the 22th decade: we know how to bring our artists and customers together, all around the globe. We know how to make events, bring people in touch, even 100% virtually. We understand to make global brands, bring colors, culture, arts in common to the world and make it a bit better our way. Come and proove that....join our world. You're welcome.","members":[{"id":1,"name":"Fabian","age":20,"info":"I´m a 20 year old aspiring software engineer with a passion for developing innovative programs and learning new skills","githubName":"Fabi281","twitterName":"","imageUrl":"1622016930753Passfoto[3171].jpg"},{"id":2,"name":"Finn","age":"19","info":"Heyho, I'm a young fullstack developer, always looking for a challenge.","imageUrl":"162196893811420190909z255_Melzer_Finn.jpg","githubName":"F1nnM"},{"name":"Bernd","age":"22","info":"Hi! I'm a young developer as well, but not full stack: my interests go not that deep, but wider: I have many interests (design, UX, philosophy, psychology, sports, music etc). Yeah well....that's me.","githubName":"der-bernd","twitterName":"","imageUrl":"1622020370438Bernd Mayinger.jpg"}]}
+{
+    "imageUrl": "1622021712841untitled.png",
+    "info": "Modern artists and a modern agency....sounds like just another slogan of an agency. But we're an agency living and working in the 22th decade: we know how to bring our artists and customers together, all around the globe. We know how to make events, bring people in touch, even 100% virtually. We understand to make global brands, bring colors, culture, arts in common to the world and make it a bit better our way. Come and proove that....join our world. You're welcome.",
+    "members": [
+        {
+            "id": 1,
+            "name": "Fabian",
+            "age": 20,
+            "info": "Hey! I´m a 20 year old aspiring software engineer with a passion for developing innovative programs and learning new skills",
+            "githubName": "Fabi281",
+            "twitterName": "",
+            "imageUrl": "1622016930753Passfoto[3171].jpg"
+        },
+        {
+            "id": 2,
+            "name": "Finn",
+            "age": "19",
+            "info": "Heyho, I'm a young fullstack developer, always looking for a challenge.",
+            "imageUrl": "162196893811420190909z255_Melzer_Finn.jpg",
+            "githubName": "F1nnM"
+        },
+        {
+            "name": "Bernd",
+            "age": "22",
+            "info": "Hi! I'm a young developer as well, but not full stack: my interests go not that deep, but wider: I have many interests (design, UX, philosophy, psychology, sports, music etc). Yeah well....that's me.",
+            "githubName": "der-bernd",
+            "twitterName": "",
+            "imageUrl": "1622020370438Bernd Mayinger.jpg"
+        }
+    ]
+}

@@ -79,6 +79,7 @@
 }
 
 .curvedBaseNavbar{
+    pointer-events: none;
     z-index: 2; 
     fill: var(--primaryColor);
     position: fixed !important;
@@ -88,6 +89,7 @@
 }
 
 .curvedDripNavbar{
+    pointer-events: none;
     visibility: hidden;
     z-index: 2; 
     width: 100vw;

@@ -1,1 +1,40 @@
-[{"firstName":"Oliver","lastName":"Polaschek","mail":"polaschek@cool.com","images":["oliver_polaschek_2.jpg"],"instagram":"da.bernd","desc":"Hey there! I'm Oliver Polaschek, a free painter from Poland. Some years ago I got independent and since then express myself in paintings, inspired by big minds like van Gogh. Tell me what you think about my work!"},{"firstName":"Sandra","lastName":"Heller","mail":"sandra.heller@makemyself.com","images":["1622127046293_pexels-ali-pazani-2787341.jpg","1622127050423_pexels-dazzle-jam-1414991.jpg","1622127059187_pexels-elijah-o'donnell-2734422.jpg","1622127063839_pexels-gabb-tapique-3155588.jpg","1622127080138_pexels-sergey-katyshkin-7196642.jpg","1622127112446_pexels-shiny-diamond-3762408.jpg"],"desc":"Hey there! I am Sandra, and the lips of my models are my canvas. I create miracles on them, paint colors matching their character, expand their personality and create a wonderful result with worldwide individuality. Each painting is unique and that's also what I love about this job: I'm forced to re-invent design each time. It helps me and my art to stay young. Text me if you wanna experience this feeling as well!"},{"firstName":"Simon","lastName":"Zola","mail":"sandra.heller@makemyself.com","images":["simon_zola_1.jpg","1622127145276_pexels-aleksandar-pasaric-3138807.jpg","1622127150655_pexels-alexander-krivitskiy-1544526.jpg","1622127154717_pexels-drigo-diniz-3230131.jpg","1622127159113_pexels-julia-kuzenkov-2996171.jpg","1622127162741_pexels-mariana-montrazi-7366464.jpg"],"desc":"I love people, the less clothes, the besser. I'm completely open-minded, let impress me by bodies and create paintings of them....though paintings isn't the right word for it. Each picture is a world by itself. Let me show you my worlds, or even come to create some by your own! Feel Free!"}]
+[
+    {
+        "firstName": "Oliver",
+        "lastName": "Polaschek",
+        "mail": "polaschek@cool.com",
+        "images": [
+            "oliver_polaschek_2.jpg"
+        ],
+        "instagram": "da.bernd",
+        "desc": "Hey there! I'm Oliver Polaschek, a free painter from Poland. Some years ago I got independent and since then express myself in paintings, inspired by big minds like van Gogh. Tell me what you think about my work!"
+    },
+    {
+        "firstName": "Sandra",
+        "lastName": "Heller",
+        "mail": "sandra.heller@makemyself.com",
+        "images": [
+            "1622127046293_pexels-ali-pazani-2787341.jpg",
+            "1622127050423_pexels-dazzle-jam-1414991.jpg",
+            "1622127059187_pexels-elijah-o'donnell-2734422.jpg",
+            "1622127063839_pexels-gabb-tapique-3155588.jpg",
+            "1622127080138_pexels-sergey-katyshkin-7196642.jpg",
+            "1622127112446_pexels-shiny-diamond-3762408.jpg"
+        ],
+        "desc": "Hey there! I am Sandra, and the lips of my models are my canvas. I create miracles on them, paint colors matching their character, expand their personality and create a wonderful result with worldwide individuality. Each painting is unique and that's also what I love about this job: I'm forced to re-invent design each time. It helps me and my art to stay young. Text me if you wanna experience this feeling as well!"
+    },
+    {
+        "firstName": "Simon",
+        "lastName": "Zola",
+        "mail": "sandra.heller@makemyself.com",
+        "images": [
+            "simon_zola_1.jpg",
+            "1622127145276_pexels-aleksandar-pasaric-3138807.jpg",
+            "1622127150655_pexels-alexander-krivitskiy-1544526.jpg",
+            "1622127154717_pexels-drigo-diniz-3230131.jpg",
+            "1622127159113_pexels-julia-kuzenkov-2996171.jpg",
+            "1622127162741_pexels-mariana-montrazi-7366464.jpg"
+        ],
+        "desc": "I love people, the less clothes, the besser. I'm completely open-minded, let impress me by bodies and create paintings of them....though paintings isn't the right word for it. Each picture is a world by itself. Let me show you my worlds, or even come to create some by your own! Feel Free!"
+    }
+]

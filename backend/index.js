@@ -15,6 +15,7 @@ const fs = require("fs");
 
 //===========================================
 // CORS stuff
+// needed for local development, where the ports don't match
 //===========================================
 if (process.env.ALLOW_CORS) {
   const cors = require("cors");
@@ -37,6 +38,7 @@ app.use(express.static("built_frontend"));
 // serve images
 app.use("/images", express.static("images"));
 
+// serve content JSON
 var content = utils.load_content();
 app.get("/content", (req, res) => {
   res.json(content);
@@ -45,18 +47,36 @@ app.get("/content", (req, res) => {
 
 
 //===========================================
+// send message endpoint
+//===========================================
+
+app.post("/sendMessage", async (req, res) => {
+  utils.sendMail(req.body.email, req.body.name, req.body.message)
+    .then(_ => {
+      res.status(200).send("Message delivered");
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    })
+});
+
+
+
+//===========================================
 // Auth for admin section
 //===========================================
 
+// use basic HTTP auth headers for authorization
 const basicAuth = require("express-basic-auth");
 app.use(
   "/admin",
   basicAuth({
+    // load admin user from environment variables
     users: { [process.env.ADMIN_USER]: process.env.ADMIN_PASS }
   })
 );
 
-// endpoint to check login
+// endpoint to check login, will simply return 200 OK on correct credentials
 app.get("/admin", (req, res) => res.status(200).end());
 
 
@@ -65,13 +85,16 @@ app.get("/admin", (req, res) => res.status(200).end());
 // file upload handling
 //===========================================
 
-// generate which folder to save a image to
+// generate destiantion path to save a image to
+// saves logos in the toplevel /images/ and others in ther respective sub-folders
 function destination(req, file, callback) {
   if (["favicon", "logo_animated", "logo_static", "logo192", "logo512"].includes(req.params.imagetype))
     return callback(null, './images/')
   callback(null, `./images/${req.params.imagetype}/`);
 }
+
 // generate a filename for the image
+// Uses the original filename, unless it's a specific logo file, which are statically referenced
 function filename(req, file, callback) {
   let filename;
   switch (req.params.imagetype) {
@@ -114,14 +137,14 @@ var upload = multer({
   fileFilter,
 });
 
-// define endpoint for uploading images, multer middleware, 200 return code
+// define endpoint for uploading images, multer middleware to handle the upload, 200 return code
 app.post("/admin/upload_image/:imagetype", upload.array("images"), (req, res) =>
   res.status(200).end()
 );
 
 app.delete("/admin/delete_image/:imagetype/:image", (req, res) => {
 
-  //make sure no relative paths are used to delete other files
+  // make sure no relative paths are used to delete other files
   let filename = path.basename(req.params.image);
 
   fs.unlink("./images/" + req.params.imagetype + "/" + filename, (err) => {
@@ -132,17 +155,6 @@ app.delete("/admin/delete_image/:imagetype/:image", (req, res) => {
   });
 });
 
-app.get("/admin/list_images", (req, res) => {
-  let files = {};
-  try {
-    files["artist"] = fs.readdirSync("./images/artist");
-    files["team"] = fs.readdirSync("./images/team");
-  } catch (e) {
-    res.status(500).send(e);
-  }
-
-  res.status(200).send(files);
-});
 
 
 //===========================================
@@ -152,17 +164,19 @@ app.get("/admin/list_images", (req, res) => {
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded({ extended: false }));
 
-// Parse JSON bodies (as sent by API clients)
+// Parse JSON bodies (as sent by API clients, such as POSTMAN or the JS Fetch API)
 app.use(express.json());
+
 
 
 //===========================================
 // updating content / config
 //===========================================
 
-
-
 app.post("/admin/update/:file", (req, res) => {
+
+  // verify the file to update
+
   let file = req.params.file;
   let possibleFiles = ["about", "artists", "faq", "whatwedo", "mail", "sections", "style", "brand", "privacy_policy"];
 
@@ -171,6 +185,7 @@ app.post("/admin/update/:file", (req, res) => {
     return;
   }
 
+  // write the requests body into the file
   utils.updateContentFile(file, JSON.stringify(req.body), (err) => {
     if (err)
       return res.status(500).send(err);
@@ -180,14 +195,20 @@ app.post("/admin/update/:file", (req, res) => {
 
 });
 
+
+// endpoint to bulk import all settings from one singular uploaded file
 app.post("/admin/import", (req, res) => {
+
+  // the required settings
   let required = ["about", "artists", "faq", "whatwedo", "mail", "sections", "style", "brand", "privacy_policy"];
 
   let imported = req.body;
 
+  // Only the required settings may appear in the imported file, and all required settings must appear 
   if (!utils.areArraysEqualSets(required, Object.keys(imported)))
     return res.status(400).send("Make sure all of and only the following settings are in the file: " + required.join(", "));
 
+  // use an array of promises to make sure all files have been written successfully before sending a 200
   let promises = [];
   for (let file of required) {
     const promise = new Promise((resolve, reject) => {
@@ -211,7 +232,7 @@ app.post("/admin/import", (req, res) => {
 
 });
 
-
+// endpoint to retrieve the mail config. The password should not be exposed, hence gets replaced here.
 app.get("/admin/mailconfig", (req, res) => {
   fs.readFile("./mail.json", (err, data) => {
     if (err)
@@ -223,21 +244,6 @@ app.get("/admin/mailconfig", (req, res) => {
   });
 });
 
-
-//===========================================
-// send message endpoint
-//===========================================
-
-app.post("/sendMessage", async (req, res) => {
-  utils.sendMail(req.body.email, req.body.name, req.body.message)
-    .then(_ => {
-      res.status(200).send("Message delivered");
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-      return;
-    })
-});
 
 
 //===========================================
