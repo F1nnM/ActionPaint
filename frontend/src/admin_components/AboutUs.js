@@ -14,7 +14,11 @@ function AboutUs({ data, creds, reloadInterface }) {
 
   const allProps = Object.keys(aboutUs.members[0]);
 
-  const generateFreshMember = () => Object.fromEntries(allProps.map(prop => [prop, null]));
+  const generateFreshMember = () => {
+    let obj = Object.fromEntries(allProps.map(prop => [prop, null]));
+    obj["isNew"] = true;
+    return obj;
+  };
 
   let headers = new Headers();
   headers.append(
@@ -49,14 +53,26 @@ function AboutUs({ data, creds, reloadInterface }) {
   }
 
   function handleUpdateSubmit() {
+
+    // strip members of their isNew tag
+    let strippedMembers = aboutUs.members.map(member => {
+      let strippedMember = { ...member };
+      if (strippedMember.isNew) {
+        delete strippedMember["isNew"];
+        strippedMember.images = [];
+      }
+      return strippedMember;
+    })
+
     const url = `${process.env.REACT_APP_BACKEND}admin/update/about`;
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify(aboutUs),
+      body: JSON.stringify({...aboutUs, members: strippedMembers}),
     };
     fetch(url, options)
       .then(() => {
+        setAboutUs({...aboutUs, members: strippedMembers})
         alert("Saved successfully.")
       })
       .catch((err) => {
@@ -121,24 +137,30 @@ function AboutUs({ data, creds, reloadInterface }) {
               </tr>
             </thead>
             <tbody>
-              {aboutUs.members.map((entry, idx) => (
-                <tr key={entry["name"] + idx}>
+              {aboutUs.members.map((member, idx) => (
+                <tr key={member["name"] + idx}>
                   {allProps.map((prop) => {
                     switch (prop.toLowerCase()) {
                       case "imageurl":
                         // when imageUrl, then show image selector 
                         return (
-                            <td key={prop}>
-                              <span>{entry[prop]}</span>
-                              <FileSelector
-                                type="team"
-                                creds={creds}
-                                artist={entry}
-                                data={aboutUs}
-                                index={idx}
-                                rerender={reloadInterface}
-                              />
-                            </td>
+                          <td key={prop}>
+                            {member["isNew"]
+                              ? <span>Please submit new members first, before uploading images</span>
+                              : (
+                                <>
+                                  <span>{member[prop]}</span>
+                                  <FileSelector
+                                    type="team"
+                                    creds={creds}
+                                    artist={member}
+                                    data={aboutUs}
+                                    index={idx}
+                                    rerender={reloadInterface}
+                                  />
+                                </>
+                              )}
+                          </td>
                         );
                       case "info":
                         return (
@@ -147,7 +169,7 @@ function AboutUs({ data, creds, reloadInterface }) {
                               rows={5}
                               cols={50}
                               as="textarea"
-                              defaultValue={entry[prop]}
+                              defaultValue={member[prop]}
                               onBlur={(e) =>
                                 handleUpdateProp(prop, e.target.value, idx)
                               }
@@ -160,7 +182,7 @@ function AboutUs({ data, creds, reloadInterface }) {
                         return (
                           <td key={prop}>
                             <Form.Control
-                              defaultValue={entry[prop]}
+                              defaultValue={member[prop]}
                               onBlur={(e) =>
                                 handleUpdateProp(prop, e.target.value, idx)
                               }
@@ -195,7 +217,7 @@ function AboutUs({ data, creds, reloadInterface }) {
           <span className={`mr-4 ${styles.discardChanges}`}></span>
           <span className={styles.saveChanges}>
             <Button variant="success" onClick={handleUpdateSubmit}>
-            Save Changes
+              Save Changes
         </Button>
           </span>
         </Col>
