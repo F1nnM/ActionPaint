@@ -1,9 +1,10 @@
 import styles from "./WhatWeDo.module.scss";
-import { Table, Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Table, Button, Form } from "react-bootstrap";
 import { useState } from "react";
-import DeleteIcon from '@material-ui/icons/Delete';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import DeleteIcon from "@material-ui/icons/Delete";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import Add from "@material-ui/icons/Add";
 
 function WhatWeDo({ data, creds }) {
   const [whatwedo, setWhatWeDo] = useState(data.whatwedo);
@@ -11,12 +12,14 @@ function WhatWeDo({ data, creds }) {
   const [answerInput, SetAnswerInput] = useState(null);
   let headers = new Headers();
 
-  headers.append('Authorization', 'Basic ' + btoa(creds.username + ":" + creds.password));
-  headers.append("Content-Type", "application/json",)
-
+  headers.append(
+    "Authorization",
+    "Basic " + btoa(creds.username + ":" + creds.password)
+  );
+  headers.append("Content-Type", "application/json");
 
   function handleAdd() {
-    const obj = { "Title": questionInput, "Description": answerInput };
+    const obj = { Title: questionInput, Description: answerInput };
     setWhatWeDo([...whatwedo, obj]);
   }
 
@@ -40,7 +43,7 @@ function WhatWeDo({ data, creds }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify(whatwedo)
+      body: JSON.stringify(whatwedo),
     };
     fetch(url, options)
       .then((data) => {
@@ -58,7 +61,6 @@ function WhatWeDo({ data, creds }) {
     data[idx - 1] = tmp;
 
     setWhatWeDo([...data]);
-
   }
 
   function handleMoveDown(idx) {
@@ -68,19 +70,18 @@ function WhatWeDo({ data, creds }) {
     data[idx + 1] = tmp;
 
     setWhatWeDo([...data]);
-
   }
 
   return (
     <>
-    {/* Create a fully editable Table with all titles and descriptions in the whatwedo.json which will be updated on the main page instantly after submitting
+      {/* Create a fully editable Table with all titles and descriptions in the whatwedo.json which will be updated on the main page instantly after submitting
         It is possible to:
           - Add a new element
           - Change the index of existing ones
           - Change the content of existing ones 
           - Delete elements
           */}
-      <Table striped bordered hover>
+      <Table bordered hover>
         <thead>
           <tr>
             <th></th>
@@ -90,51 +91,85 @@ function WhatWeDo({ data, creds }) {
         </thead>
         <tbody>
           {whatwedo.map((entry, idx) => (
-            <tr key={entry.Title+entry.Description}>
+            <tr key={entry.Title + entry.Description}>
               <td width="200">
-                <Button key={"Button 1" + entry} variant="danger" onClick={() => handleDelete(idx)}>
+                <Button
+                  key={"Button 1" + entry}
+                  variant="danger"
+                  onClick={() => handleDelete(idx)}
+                >
                   <DeleteIcon />
                 </Button>
-                <Button key={"Button 2" + entry} className="float-right" variant="primary" onClick={() => handleMoveUp(idx)}>
+                <Button
+                  key={"Button 2" + entry}
+                  className="float-right"
+                  variant="primary"
+                  onClick={() => handleMoveUp(idx)}
+                >
                   <ArrowUpwardIcon />
                 </Button>
                 <p></p>
-                <Button key={"Button 3" + entry} className="float-right" variant="primary" onClick={() => handleMoveDown(idx)}>
+                <Button
+                  key={"Button 3" + entry}
+                  className="float-right"
+                  variant="primary"
+                  onClick={() => handleMoveDown(idx)}
+                >
                   <ArrowDownwardIcon />
                 </Button>
               </td>
-              <td><Form.Control as="textarea" defaultValue={entry.Title} key={entry.Title} onInput={e => handleUpdateQuestion(e.target.value, idx)} /></td>
-              <td><Form.Control as="textarea" defaultValue={entry.Description} key={entry.Description} onInput={e => handleUpdateAnswer(e.target.value, idx)} /></td>
+              <td>
+                <Form.Control
+                  as="textarea"
+                  defaultValue={entry.Title}
+                  key={entry.Title}
+                  onInput={(e) => handleUpdateQuestion(e.target.value, idx)}
+                />
+              </td>
+              <td>
+                <Form.Control
+                  as="textarea"
+                  defaultValue={entry.Description}
+                  key={entry.Description}
+                  onInput={(e) => handleUpdateAnswer(e.target.value, idx)}
+                />
+              </td>
             </tr>
           ))}
           <tr>
-            <td className={styles.saveChanges}>
-              <Button variant="success" onClick={() => handleUpdateSubmit()}>
-                Save Changes
-          </Button>
+            <td width="200">
+              <Button variant="success" onClick={handleAdd}>
+                <Add />
+              </Button>
+            </td>
+            <td>
+              <Form.Control
+                required
+                size="lg"
+                as="textarea"
+                placeholder="Title"
+                onInput={(e) => setQuestionInput(e.target.value)}
+              />
+            </td>
+            <td>
+              <Form.Control
+                required
+                size="lg"
+                as="textarea"
+                placeholder="Description"
+                onInput={(e) => SetAnswerInput(e.target.value)}
+              />
             </td>
           </tr>
         </tbody>
       </Table>
-      <Container>
-        <Row>
-          <Col>
-            <Form>
-              <Form.Group>
-                <Form.Label>Title</Form.Label>
-                <Form.Control required size="lg" as="textarea" placeholder="Title" onInput={e => setQuestionInput(e.target.value)} />
-              </Form.Group>
-              <Form.Group controlId="ControlTextarea1">
-                <Form.Label>Description</Form.Label>
-                <Form.Control required size="lg" as="textarea" placeholder="Description" onInput={e => SetAnswerInput(e.target.value)} />
-              </Form.Group>
-              <Button variant="primary" onClick={handleAdd}>
-                Add
-          </Button>
-            </Form>
-          </Col>
-        </Row>
-      </Container>
+      <Button
+        variant="success"
+        className={styles.saveChanges}
+        onClick={() => handleUpdateSubmit()}
+      >
+        Save Changes
+      </Button>
     </>
   );
 }

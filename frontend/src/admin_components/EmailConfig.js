@@ -2,7 +2,6 @@ import styles from "./EmailConfig.module.scss";
 import { Table, Button, Form } from "react-bootstrap";
 
 function EmailConfig({ creds, discardChanges, emailData }) {
-
   function handleUpdateValue(value, entry) {
     emailData[entry] = value;
   }
@@ -31,13 +30,12 @@ function EmailConfig({ creds, discardChanges, emailData }) {
         console.warn(err);
       });
   }
-  
-  if(!emailData)
-    return <span>Email Data loading</span>
+
+  if (!emailData) return <span>Email Data loading</span>;
 
   return (
     <>
-      <Table striped bordered hover>
+      <Table bordered hover>
         <thead>
           <tr>
             <th>Key</th>
@@ -64,22 +62,22 @@ function EmailConfig({ creds, discardChanges, emailData }) {
               </td>
             </tr>
           ))}
-          <tr>
-            <td className={styles.saveChanges}>
-              <Button
-                variant="success"
-                className="mr-3"
-                onClick={() => handleUpdateSubmit()}
-              >
-                Save Changes
-              </Button>
-              <Button variant="warning" onClick={discardChanges}>
-                Discard Changes
-              </Button>
-            </td>
-          </tr>
         </tbody>
-      </Table>
+      </Table>{" "}
+      <Button
+        variant="success"
+        className="mr-3"
+        onClick={() => handleUpdateSubmit()}
+      >
+        Save Changes
+      </Button>
+      <Button
+        className={styles.discardChanges}
+        variant="outline-danger"
+        onClick={discardChanges}
+      >
+        Discard Changes
+      </Button>
     </>
   );
 }

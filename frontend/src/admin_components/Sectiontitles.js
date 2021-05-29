@@ -23,7 +23,7 @@ function Sectiontitles({ data, creds, discardChanges, reloadInterface }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify(titles)
+      body: JSON.stringify(titles),
     };
     fetch(url, options)
       .then((data) => {
@@ -41,7 +41,8 @@ function Sectiontitles({ data, creds, discardChanges, reloadInterface }) {
         - The Navbar
         - The Component itself */
   return (
-      <Table striped bordered hover>
+    <>
+      <Table bordered hover>
         <thead>
           <tr>
             <th>Section</th>
@@ -67,18 +68,23 @@ function Sectiontitles({ data, creds, discardChanges, reloadInterface }) {
               </td>
             </tr>
           ))}
-          <tr>
-            <td className={styles.saveChanges}>
-              <Button variant="success" className="mr-3 my-2" onClick={() => handleUpdateSubmit()}>
-                Save Changes
-              </Button>
-              <Button variant="warning" className="my-2" onClick={discardChanges}>
-                Discard Changes
-              </Button>
-            </td>
-          </tr>
         </tbody>
       </Table>
+      <Button
+        variant="success"
+        className="mr-3"
+        onClick={() => handleUpdateSubmit()}
+      >
+        Save Changes
+      </Button>
+      <Button
+        variant="outline-danger"
+        className={styles.discardChanges}
+        onClick={discardChanges}
+      >
+        Discard Changes
+      </Button>
+    </>
   );
 }
 

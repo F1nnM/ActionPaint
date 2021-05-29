@@ -54,16 +54,12 @@ function PrivacyPolicy({ data, creds, discardChanges }) {
               <Card.Footer>
                 <Button
                   variant="success"
-                  className="mr-3 my-2"
+                  className="mr-3"
                   onClick={() => handleUpdateSubmit()}
                 >
                   Save Changes
                 </Button>
-                <Button
-                  variant="warning"
-                  className="my-2"
-                  onClick={discardChanges}
-                >
+                <Button variant="outline-danger" onClick={discardChanges}>
                   Discard Changes
                 </Button>
               </Card.Footer>
