@@ -36,11 +36,11 @@ function Branding({ data, creds, discardChanges }) {
 
   return (
     <>
-    {/* Create a table with all branding information by iterating over brand.json 
+      {/* Create a table with all branding information by iterating over brand.json 
         the changes will applied instantly on main page 
         */}
 
-      <Table striped bordered hover>
+      <Table bordered hover>
         <thead>
           <tr>
             <th>Key</th>
@@ -66,18 +66,18 @@ function Branding({ data, creds, discardChanges }) {
               </td>
             </tr>
           ))}
-          <tr>
-            <td className={styles.saveChanges}>
-              <Button variant="success" className="mr-3 mb-3" onClick={() => handleUpdateSubmit()}>
-                Save Changes
-              </Button>
-              <Button variant="warning" onClick={discardChanges}>
-                Discard Changes
-              </Button>
-            </td>
-          </tr>
         </tbody>
       </Table>
+      <Button
+        variant="success"
+        className="mr-2"
+        onClick={() => handleUpdateSubmit()}
+      >
+        Save Changes
+      </Button>
+      <Button variant="outline-danger" onClick={discardChanges}>
+        Discard Changes
+      </Button>
     </>
   );
 }

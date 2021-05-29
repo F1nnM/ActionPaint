@@ -1,6 +1,21 @@
-.saveChanges{
-    background-color: white;
+.saveChanges {
+  background-color: white;
 }
-.policyForm{
+.policyForm {
+  height: 80vh !important;
+}
+
+.policyEditor {
+  .preview {
     height: 80vh !important;
+  }
+
+  .editor {
+    height: 71vh;
+  }
+
+  .preview {
+    font-size: 0.6em;
+    overflow-y: scroll;
+  }
 }
