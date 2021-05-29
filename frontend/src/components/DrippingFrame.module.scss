@@ -22,6 +22,7 @@
 }
 
 .onceStart, .onceEnd {
+    margin-bottom: -3px;
     display: none;
 }
 .onceStart:first-of-type, .onceEnd:nth-last-of-type(2) {

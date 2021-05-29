@@ -11,52 +11,44 @@ function FAQ({ data }) {
           Header/Toggle = Question
           Body/Collapse = Answer     
           */}
-      {faq.map((questions, idx) => (
+      {faq.map((question, index) => (
         <Card
-          key={"Card" + idx}
-          bsPrefix={
-            (idx % 2 === 0 ? styles.primaryBorder : styles.accentBorder) +
-            " mb-4 " +
-            styles.FAQBorder
-          }
+          key={`Card${index}`}
+          bsPrefix={ `${styles.FAQBorder} mb-4 ${index % 2 === 0 ? styles.primaryBorder : styles.accentBorder}`}
         >
           <Card.Header
             className={
-              (idx % 2 === 0
-                ? "text-primary " + styles.bgAccent
-                : "bg-primary " + styles.textAccent) +
-              " " +
-              styles.cardheader
+              `${styles.cardheader} ${(index % 2 === 0 ? `text-primary ${styles.bgAccent}` : `bg-primary ${styles.textAccent}`)}`
             }
           >
             <Accordion.Toggle
               className={styles.button}
               as={Card.Header}
-              eventKey={idx + 1}
+              eventKey={index + 1}
             >
               <p style={{ cursor: "pointer" }}>
                 <HelpIcon
                   className={
-                    idx % 2 === 0
-                      ? "text-primary " + styles.bgAccent
+                    index % 2 === 0
+                      ? `text-primary ${styles.bgAccent}`
                       : "text-primary"
                   }
                 />
                 <span
                   className={
-                    idx % 2 === 0
-                      ? "text-primary " + styles.bgAccent
+                    index % 2 === 0
+                      ? `text-primary ${styles.bgAccent}`
                       : "text-primary"
                   }
                 >
                   {" "}
-                  {questions.q}
+                  {question.q}
                 </span>
               </p>
             </Accordion.Toggle>
           </Card.Header>
-          <Accordion.Collapse eventKey={idx + 1}>
-            <Card.Body className={styles.answer}>{questions.a}</Card.Body>
+          <Accordion.Collapse eventKey={index + 1}>
+            <Card.Body className={styles.answer}>{question.a}</Card.Body>
           </Accordion.Collapse>
         </Card>
       ))}

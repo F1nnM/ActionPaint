@@ -148,6 +148,9 @@ app.delete("/admin/delete_image/:imagetype/:image", (req, res) => {
   // make sure no relative paths are used to delete other files
   let filename = path.basename(req.params.image);
 
+  if(!validTypes.includes(req.params.imagetype))
+    return res.status(400).send("Invalid imagetype supplied!")
+
   fs.unlink("./images/" + req.params.imagetype + "/" + filename, (err) => {
     if (err)
       res.status(500).send(err);

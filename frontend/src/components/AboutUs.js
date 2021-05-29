@@ -13,7 +13,7 @@ function AboutUs({ data }) {
       <Card className="bg-dark text-white">
         <Card.Img
           className={styles.teamimage}
-          src={process.env.REACT_APP_BACKEND + "images/team/" + team.imageUrl}
+          src={`${process.env.REACT_APP_BACKEND}images/team/${team.imageUrl}`}
           alt="Our team"
         />
         <Card.ImgOverlay className={styles.teamoverlay}>
@@ -37,12 +37,7 @@ function AboutUs({ data }) {
               }}
               variant="top"
               className={styles.imageFit}
-              src={
-                process.env.REACT_APP_BACKEND +
-                "images/team/" +
-                (member.imageUrl || "default.jpg")
-                /* could not load image via import because in public folder */
-              }
+              src={`${process.env.REACT_APP_BACKEND}images/team/${member.imageUrl || "default.jpg"}`}
             />
             <Card.Body>
               <Card.Title>{member.name}</Card.Title>
@@ -52,7 +47,7 @@ function AboutUs({ data }) {
               <div>
                 {member.githubName && (
                   <a
-                    href={"https://github.com/" + member.githubName}
+                    href={`https://github.com/${member.githubName}`}
                     role="button"
                   >
                     <GitHub />
@@ -60,7 +55,7 @@ function AboutUs({ data }) {
                 )}
                 {member.instaName && (
                   <a
-                    href={"https://instagram.com/" + member.instaName}
+                    href={`https://instagram.com/${member.instaName}`}
                     role="button"
                   >
                     <Instagram />
@@ -68,7 +63,7 @@ function AboutUs({ data }) {
                 )}
                 {member.twitterName && (
                   <a
-                    href={"https://twitter.com/" + member.twitterName}
+                    href={`https://twitter.com/${member.twitterName}`}
                     role="button"
                   >
                     <Twitter />

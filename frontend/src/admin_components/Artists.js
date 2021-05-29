@@ -5,296 +5,253 @@ import Tab from "react-bootstrap/Tab";
 import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
 
-function Artists({ data, creds, discardChanges }) {
+function Artists({ data, creds }) {
   const initialData = data.artists;
-  const [artists, setArtists] = useState(initialData);
-  const [currentArtist, setCurrentArtist] = useState(
-    artists.length > 0 ? artists[0] : null
-  );
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [artistData, setArtistData] = useState({ artists: initialData, selectedArtistIndex: 0 });
   const [toBeDeleted, setToBeDeleted] = useState([]);
-  let headers = new Headers();
 
-  const allProps = ["firstName", "lastName", "images", "mail", "desc"];
-  // could have been solved similar to AboutUs.js, but unneccesary processing time!
+  const allProps = [...Object.keys(artistData.artists[0])];
 
-  const freshMember = (() => {
-    // same like in AboutUs
-    var obj = {};
-    allProps.forEach((p) => {
-      if (p === "images") {
-        obj[p] = [];
-      } else {
-        obj[p] = "";
-      }
-    });
+  const generateFreshArtist = () => {
+    let obj = Object.fromEntries(allProps.map(prop => [prop, null]));
+    obj["isNew"] = true;
     return obj;
-  })();
+  }
 
-  const [newMember, setNewMember] = useState(freshMember);
 
+  let headers = new Headers();
   headers.append(
     "Authorization",
     "Basic " + btoa(creds.username + ":" + creds.password)
   );
   headers.append("Content-Type", "application/json");
 
-  function setArtistAndIndex(a, idx) {
-    if (!a && !idx) {
-      // other mode of this func: when neither a or index define a new member
-      setCurrentArtist(freshMember);
-    } else {
-      setCurrentArtist(a);
-      setCurrentIndex(idx);
-    }
+  function handleUpdateProp(key, value, index) {
+    let newArtists = [...artistData.artists]
+    newArtists[index][key] = value;
+    setArtistData({ ...artistData, artists: newArtists });
   }
 
-  function handleUpdateProp(key, value, idx) {
-    if (idx === null) {
-      newMember[key] = value;
-    } else {
-      artists[idx][key] = value;
-    }
-  }
-
-  /*function handleNewMember(key, value) {
-    newMember[key] = value;
-  }*/
-
-  function handleDelete(idx, artName) {
+  function handleDelete(e, index, artName) {
+    e.stopPropagation()
     if (window.confirm("Do you really want to delete " + artName + "?")) {
-      var tmpToBeDeletedImages = [];
+      if (artistData.artists[index].images)
+        setToBeDeleted([...toBeDeleted, ...artistData.artists[index].images])
 
-      artists[idx].images.forEach((element) => {
-        tmpToBeDeletedImages.push(element);
-      });
+      let newArtists = [...artistData.artists]
+      newArtists.splice(index, 1);
 
-      artists.splice(idx, 1);
-      setArtists([...artists]);
-      setCurrentArtist(artists.length > 0 ? artists[0] : freshMember); // when deleting, directly change view to first artist or new member
-      setToBeDeleted(toBeDeleted.concat(tmpToBeDeletedImages));
+      if (newArtists.length === 0)
+        newArtists.push(generateFreshArtist());
+
+      setArtistData({ artists: newArtists, selectedArtistIndex: 0 })
     }
   }
 
   function handleAdd() {
-    artists.push(newMember);
-    setArtists([...artists]);
-    setNewMember({
-      ...freshMember,
-    });
-    setCurrentArtist(freshMember);
-    setCurrentIndex(artists.length - 1);
+    setArtistData({ artists: [...artistData.artists, generateFreshArtist()], selectedArtistIndex: artistData.artists.length })
   }
 
   function handleUpdateSubmit() {
+
+    // strip artists of their isNew tag
+    let strippedArtists = artistData.artists.map(artist => {
+      let strippedArtist = { ...artist };
+      if (strippedArtist.isNew) {
+        delete strippedArtist["isNew"];
+        strippedArtist.images = [];
+      }
+      return strippedArtist;
+    })
+
     const url = process.env.REACT_APP_BACKEND + "admin/update/artists";
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify(artists),
+      body: JSON.stringify(strippedArtists),
     };
     fetch(url, options)
-      .then((data) => {
-        console.log(data);
+      .then(()=> {
+        setArtistData({artists: strippedArtists, selectedArtistIndex: 0});
       })
       .catch((err) => {
-        console.warn(err);
+        alert(`An error occured: ${err}`);
       });
 
     toBeDeleted.forEach((element) => {
       handleDeleteImage(element);
     });
 
-    /* Force rerender on submit */
-    setArtists([...artists]);
   }
 
   function handleDeleteImage(src) {
     let url =
       process.env.REACT_APP_BACKEND + "admin/delete_image/artist/" + src;
 
-    let headers = new Headers();
-
-    headers.append(
-      "Authorization",
-      "Basic " + btoa(creds.username + ":" + creds.password)
-    );
-
     fetch(url, {
       method: "DELETE",
       headers,
     })
-      .catch((err) => alert(err))
-      .then((data) => {});
+      .catch((err) => alert(err));
   }
 
   return (
-    <>
-      <Tab.Container defaultActiveKey={"#" + 0}>
-        {/* should actually make sure that the first element is being shown by default */}
-        <Row>
-          <Col sm={2}>
-            <ListGroup variant="flush">
+    <Tab.Container defaultActiveKey={"#" + 0}>
+      <Row>
+        <Col sm={2}>
+          <ListGroup variant="flush">
+            {artistData.artists.map((a, index) => (
               <ListGroup.Item
+                active={a === artistData.selectedArtistIndex}
                 action
-                onClick={(_) => setArtistAndIndex(null, null)}
+                onClick={() => setArtistData({ ...artistData, selectedArtistIndex: index })}
+                key={index}
               >
-                <Button
-                  variant="outline-success"
-                  size="sm"
-                  onClick={(_) => handleAdd()}
-                >
-                  <Add />
-                </Button>
-              </ListGroup.Item>
-              {artists.map((a, idx) => (
-                <ListGroup.Item
-                  active={a === currentArtist}
-                  action
-                  onClick={(_) => setArtistAndIndex(a, idx)}
-                  key={idx}
-                >
-                  <div>
-                    <>
-                      <span className="mr-1">{a.firstName}</span>
-                      <span>
-                        <strong>{a.lastName}</strong>
-                      </span>
-                    </>
-                    <>
-                      <Button
-                        variant="outline-danger"
-                        size="xs"
-                        className="ml-3"
-                        onClick={(_) => handleDelete(idx, a.firstName)}
-                      >
-                        <Delete />
-                      </Button>
-                    </>
-                  </div>
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
-          </Col>
-          <Col>
-            <Tab.Content>
-              <Container>
-                <>
-                  <Row key={currentArtist.lastName}>
-                    <Col>
-                      <Card>
-                        <Card.Header>
-                          <Card.Title>
-                            <Row>
-                              <Col>
-                                <span className="mr-1">
-                                  <Form.Control
-                                    defaultValue={currentArtist.firstName}
-                                    onInput={(e) =>
-                                      handleUpdateProp(
-                                        "firstName",
-                                        e.target.value,
-                                        currentIndex
-                                      )
-                                    }
-                                  />
-                                </span>
-                              </Col>
-                              <Col>
-                                <span>
-                                  <Form.Control
-                                    defaultValue={currentArtist.lastName}
-                                    onInput={(e) =>
-                                      handleUpdateProp(
-                                        "lastName",
-                                        e.target.value,
-                                        currentIndex
-                                      )
-                                    }
-                                  />
-                                </span>
-                              </Col>
-                            </Row>
-                          </Card.Title>
-                          <Card.Text>
-                            <Form.Control
-                              defaultValue={currentArtist.desc}
-                              as="textarea"
-                              rows={4}
-                              onInput={(e) =>
-                                handleUpdateProp(
-                                  "desc",
-                                  e.target.value,
-                                  currentIndex
-                                )
-                              }
-                            />
-                          </Card.Text>
-                        </Card.Header>
-
-                        <Card.Body>
-                          {currentArtist === artists[currentIndex] ? (
-                            <FileSelector
-                              type="artist"
-                              creds={creds}
-                              onSelect={(val) => alert(val)}
-                              artist={currentArtist}
-                              data={artists}
-                              index={currentIndex}
-                            />
-                          ) : (
-                            "Please submit the artist before uploading any pictures"
-                          )}
-                        </Card.Body>
-
-                        <Card.Footer>
-                          <small className="text-muted">
-                            <Row>
-                              <Col>
-                                <Form.Control
-                                  defaultValue={currentArtist.mail}
-                                  onInput={(e) =>
-                                    handleUpdateProp(
-                                      "mail",
-                                      e.target.value,
-                                      currentIndex
-                                    )
-                                  }
-                                />
-                              </Col>
-                              <Col>
-                                <Form.Control
-                                  defaultValue={currentArtist.instagram}
-                                  onInput={(e) =>
-                                    handleUpdateProp(
-                                      "instagram",
-                                      e.target.value,
-                                      currentIndex
-                                    )
-                                  }
-                                />
-                              </Col>
-                            </Row>
-                          </small>
-                        </Card.Footer>
-                      </Card>
-                    </Col>
-                  </Row>
-                  <hr />
+                <div>
+                  <span className="mr-1">{a.firstName}</span>
+                  <span>
+                    <strong>{a.lastName}</strong>
+                  </span>
                   <Button
-                    variant="success"
-                    className="mr-4"
-                    onClick={(_) => handleUpdateSubmit()}
+                    variant="outline-danger"
+                    size="xs"
+                    className="ml-3"
+                    onClick={(e) => handleDelete(e, index, a.firstName)}
                   >
-                    Save changes
+                    <Delete />
                   </Button>
-                </>
-              </Container>
-            </Tab.Content>
-          </Col>
-        </Row>
-      </Tab.Container>
-    </>
+                </div>
+              </ListGroup.Item>
+            ))}
+            <ListGroup.Item>
+              <Button
+                variant="outline-success"
+                size="sm"
+                onClick={() => handleAdd()}
+              >
+                <Add />
+              </Button>
+            </ListGroup.Item>
+          </ListGroup>
+        </Col>
+        <Col>
+          <Tab.Content>
+            <Container>
+              {artistData.artists[artistData.selectedArtistIndex] &&
+                <Row key={artistData.artists[artistData.selectedArtistIndex].lastName}>
+                  <Col>
+                    <Card>
+                      <Card.Header>
+                        <Card.Title>
+                          <Row>
+                            <Col>
+                              <span className="mr-1">
+                                <Form.Control
+                                  defaultValue={artistData.artists[artistData.selectedArtistIndex].firstName}
+                                  onBlur={(e) =>
+                                    handleUpdateProp(
+                                      "firstName",
+                                      e.target.value,
+                                      artistData.selectedArtistIndex
+                                    )
+                                  }
+                                />
+                              </span>
+                            </Col>
+                            <Col>
+                              <span>
+                                <Form.Control
+                                  defaultValue={artistData.artists[artistData.selectedArtistIndex].lastName}
+                                  onBlur={(e) =>
+                                    handleUpdateProp(
+                                      "lastName",
+                                      e.target.value,
+                                      artistData.selectedArtistIndex
+                                    )
+                                  }
+                                />
+                              </span>
+                            </Col>
+                          </Row>
+                        </Card.Title>
+                        <Card.Text>
+                          <Form.Control
+                            defaultValue={artistData.artists[artistData.selectedArtistIndex].desc}
+                            as="textarea"
+                            rows={4}
+                            onBlur={(e) =>
+                              handleUpdateProp(
+                                "desc",
+                                e.target.value,
+                                artistData.selectedArtistIndex
+                              )
+                            }
+                          />
+                        </Card.Text>
+                      </Card.Header>
+
+                      <Card.Body>
+                        {artistData.artists[artistData.selectedArtistIndex].isNew ? (
+                          "Please submit the artist before uploading any pictures"
+                        ) : (
+                          <FileSelector
+                            type="artist"
+                            creds={creds}
+                            onSelect={(val) => alert(val)}
+                            artist={artistData.artists[artistData.selectedArtistIndex]}
+                            data={artistData.artists}
+                            index={artistData.selectedArtistIndex}
+                          />
+                        )}
+                      </Card.Body>
+
+                      <Card.Footer>
+                        <small className="text-muted">
+                          <Row>
+                            <Col>
+                              <Form.Control
+                                defaultValue={artistData.artists[artistData.selectedArtistIndex].mail}
+                                onBlur={(e) =>
+                                  handleUpdateProp(
+                                    "mail",
+                                    e.target.value,
+                                    artistData.selectedArtistIndex
+                                  )
+                                }
+                              />
+                            </Col>
+                            <Col>
+                              <Form.Control
+                                defaultValue={artistData.artists[artistData.selectedArtistIndex].instagram}
+                                onBlur={(e) =>
+                                  handleUpdateProp(
+                                    "instagram",
+                                    e.target.value,
+                                    artistData.selectedArtistIndex
+                                  )
+                                }
+                              />
+                            </Col>
+                          </Row>
+                        </small>
+                      </Card.Footer>
+                    </Card>
+                  </Col>
+                </Row>
+              }
+            </Container>
+          </Tab.Content>
+        </Col>
+      </Row>
+      <hr />
+      <Button
+        variant="success"
+        className="mr-4"
+        onClick={(_) => handleUpdateSubmit()}
+      >
+        Save changes
+        </Button>
+    </Tab.Container>
   );
 }
 

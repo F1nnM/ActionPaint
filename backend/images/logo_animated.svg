@@ -4,7 +4,6 @@
    xmlns="http://www.w3.org/2000/svg">
    <style>
       #logo {
-         perspective: 1000px;
          --degX: 0;
          --degY: 0;
          transition: none;
@@ -12,12 +11,12 @@
 
       #letters {
          transform-origin: 50% 50%;
-         transform: perspective(250px) rotateX(var(--degX)) rotateY(var(--degY));
+         transform: rotateX(var(--degX)) rotateY(var(--degY));
       }
 
       #border {
          transform-origin: 50% 50%;
-         transform: perspective(250px) rotateX(var(--degX));
+         transform: rotateX(var(--degX));
       }
    </style>
   <g id="logo">

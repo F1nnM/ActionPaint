@@ -143,11 +143,11 @@ function AdminPanel({ switchToWeb }) {
   const tabs = [
     {
       label: data.sections["Our Artists"],
-      component: <Artists data={data} creds={credentials} discardChanges={discardChanges} />,
+      component: <Artists data={data} creds={credentials}/>,
     },
     {
       label: data.sections["About Us"],
-      component: <AboutUs data={data} creds={credentials} discardChanges={discardChanges} />,
+      component: <AboutUs data={data} creds={credentials} reloadInterface={reloadInterface}/>,
     },
     {
       label: data.sections["What We Do"],
