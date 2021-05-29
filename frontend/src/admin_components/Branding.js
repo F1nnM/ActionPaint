@@ -70,7 +70,7 @@ function Branding({ data, creds, discardChanges }) {
       </Table>
       <Button
         variant="success"
-        className="mr-2"
+        className={"mr-2 " + styles.saveChanges}
         onClick={() => handleUpdateSubmit()}
       >
         Save Changes

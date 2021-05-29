@@ -1,5 +1,5 @@
 import styles from "./FAQ.module.scss";
-import { Table, Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Table, Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
@@ -161,23 +161,9 @@ function FAQ({ data, creds, discardChanges }) {
           </tr>
         </tbody>
       </Table>
-      {/* <Container>
-        <Row>
-          <Col>
-            <Form>
-              <Form.Group>
-                <Form.Label>Question</Form.Label>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Answer</Form.Label>
-              </Form.Group>
-            </Form>
-          </Col>
-        </Row>
-      </Container> */}
       <Button
         variant="success"
-        className="mr-3"
+        className={"mr-3 " + styles.saveChanges}
         onClick={() => handleUpdateSubmit()}
       >
         Save Changes
