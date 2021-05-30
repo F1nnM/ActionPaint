@@ -7,9 +7,10 @@
     position: absolute;
     transform: rotate(-90deg);
     font-weight: bold;
-    font-size: 0.8em;
+    font-size: 0.65em;
     padding-top: 30px;
     transform-origin: center;
+    text-align: center; // note: only affects label at custom styled button, because label in auto-styled button inherits this property
     top: 0;
     right: 0;
     width: 100%;
@@ -20,7 +21,7 @@
 
 .uploadButton {
   cursor: pointer;
-  padding: 10px;
+  padding: 5px 10px;
   border: 1px solid black;
   border-radius: 0.25rem;
   transition: all 0.15s ease-in-out;

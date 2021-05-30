@@ -80,7 +80,7 @@ function ImportExport({ data, creds, emailData }) {
             <Card.Body>
               <label
                 for="file_input"
-                className={styles.fileButton + " " + styles.uploadButton}
+                className={styles.uploadButton + " " + styles.fileButton}
               >
                 <PublishIcon />
               </label>
