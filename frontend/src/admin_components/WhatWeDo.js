@@ -6,7 +6,7 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import Add from "@material-ui/icons/Add";
 
-function WhatWeDo({ data, creds }) {
+function WhatWeDo({ data, creds, discardChanges }) {
   const [whatwedo, setWhatWeDo] = useState(data.whatwedo);
   const [questionInput, setQuestionInput] = useState(null);
   const [answerInput, SetAnswerInput] = useState(null);
@@ -165,10 +165,13 @@ function WhatWeDo({ data, creds }) {
       </Table>
       <Button
         variant="success"
-        className={styles.saveChanges}
+        className={"mr-3 " + styles.saveChanges}
         onClick={() => handleUpdateSubmit()}
       >
         Save Changes
+      </Button>
+      <Button variant="outline-danger" onClick={discardChanges}>
+        Discard Changes
       </Button>
     </>
   );
