@@ -2,8 +2,7 @@
   padding-right: 30px !important;
 
   position: relative;
-  &:after {
-    content: ".JSON";
+  & .fileType {
     position: absolute;
     transform: rotate(-90deg);
     font-weight: bold;

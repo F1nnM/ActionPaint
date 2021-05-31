@@ -1,7 +1,5 @@
-import { Button, Row, Card, Col } from "react-bootstrap";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import PublishIcon from "@material-ui/icons/Publish";
-import styles from "./ImportExport.module.scss";
+import { Row, Card, Col } from "react-bootstrap";
+import { DownloadButton, UploadButton } from "./FileButton";
 
 function ImportExport({ data, creds, emailData }) {
   async function downloadData() {
@@ -64,13 +62,7 @@ function ImportExport({ data, creds, emailData }) {
           <Card>
             <Card.Header as="h5">Export</Card.Header>
             <Card.Body>
-              <Button
-                variant="outline-dark"
-                className={styles.fileButton}
-                onClick={(_) => downloadData()}
-              >
-                <GetAppIcon />
-              </Button>
+              <DownloadButton onClick={downloadData} fileType=".JSON"/>
             </Card.Body>
           </Card>
         </Col>
@@ -78,20 +70,7 @@ function ImportExport({ data, creds, emailData }) {
           <Card>
             <Card.Header as="h5">Import</Card.Header>
             <Card.Body>
-              <label
-                for="file_input"
-                className={styles.uploadButton + " " + styles.fileButton}
-              >
-                <PublishIcon />
-              </label>
-
-              <input
-                id="file_input"
-                className={styles.hideImport}
-                type="file"
-                accept=".json"
-                onChange={(e) => handleUpload(e)}
-              />
+              <UploadButton handleUpload={handleUpload} fileType=".JSON" name="export"/>
             </Card.Body>
           </Card>
         </Col>

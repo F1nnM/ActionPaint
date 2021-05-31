@@ -1,16 +1,12 @@
-import styles from "./WhatWeDo.module.scss";
-import { Table, Button, Col, Container, Form, Row } from "react-bootstrap";
+import styles from "./AboutUs.module.scss";
+import { Table, Button, Col, Container, Form, Row, Card } from "react-bootstrap";
 import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
-import FileSelector from "./FileSelector";
+import { UploadButton } from "./FileButton";
 
 function AboutUs({ data, creds, reloadInterface }) {
   const [aboutUs, setAboutUs] = useState(data.about);
   const [toBeDeleted, setToBeDeleted] = useState([]);
-
-  // scrape all possible props of a member without duplicates
-  // const allProps = [...new Set(...aboutUs.members.map(member => Object.keys(member)))];
-  // not required, as all members contain all data
 
   const allProps = Object.keys(aboutUs.members[0]);
 
@@ -68,11 +64,11 @@ function AboutUs({ data, creds, reloadInterface }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({...aboutUs, members: strippedMembers}),
+      body: JSON.stringify({ ...aboutUs, members: strippedMembers }),
     };
     fetch(url, options)
       .then(() => {
-        setAboutUs({...aboutUs, members: strippedMembers})
+        setAboutUs({ ...aboutUs, members: strippedMembers })
         alert("Saved successfully.")
       })
       .catch((err) => {
@@ -94,33 +90,83 @@ function AboutUs({ data, creds, reloadInterface }) {
       .catch((err) => alert(`An error occured: ${err}`))
   }
 
+  function handleBannerUpload(e) {
+
+    let url = `${process.env.REACT_APP_BACKEND}admin/upload_image/team`;
+
+    let fileName = "team_banner.png";
+
+    var formData = new FormData();
+    formData.append('images', e.target.files[0], fileName);
+
+    fetch(url, {
+      method: "POST",
+      headers,
+      body: formData
+    })
+      .then(async res => {
+        if (!res.ok)
+          throw await res.text();
+        e.target.value = "";
+      })
+      .catch(err => alert(`An error occured: ${err}`));
+  }
+
+  function handleMemberImageUpload(e) {
+    let url = `${process.env.REACT_APP_BACKEND}admin/upload_image/team`;
+
+    let fileName = Date.now().toString() + e.target.files[0].name;
+
+    var formData = new FormData();
+    formData.append('images', e.target.files[0], fileName);
+
+    fetch(url, {
+      method: "POST",
+      headers,
+      body: formData
+    })
+      .then(async res => {
+        if (!res.ok)
+          throw await res.text();
+        e.target.value = "";
+      })
+      .catch(err => alert(`An error occured: ${err}`));
+  }
+
   return (
     <Container fluid>
-      <Row className="align-items-center">
+      <Row>
         <Col>
           <Form>
             <Form.Group>
-              <Form.Label>Info</Form.Label>
-              <Form.Control
-                required
-                as="textarea"
-                rows={10}
-                placeholder="Description"
-                defaultValue={aboutUs.info}
-                onInput={(e) => setAboutUs({ ...aboutUs, info: e.target.value })}
-              />
+              <Card>
+                <Card.Header>
+                  <Form.Label className="mb-0">Info</Form.Label>
+                </Card.Header>
+                <Card.Body>
+                  <Form.Control
+                    required
+                    as="textarea"
+                    rows={10}
+                    placeholder="Description"
+                    defaultValue={aboutUs.info}
+                    onInput={(e) => setAboutUs({ ...aboutUs, info: e.target.value })}
+                  />
+                </Card.Body>
+              </Card>
             </Form.Group>
           </Form>
         </Col>
         <Col>
-          <FileSelector
-            type="team"
-            creds={creds}
-            artist={aboutUs}
-            data={aboutUs}
-            index={999}
-            rerender={reloadInterface}
-          />
+          <Card>
+            <Card.Header>
+              Banner image
+            </Card.Header>
+            <Card.Body className="d-flex justify-content-around align-items-center">
+              <img alt="Team banner preview" className={styles.bannerImage} src={`${process.env.REACT_APP_BACKEND}images/team/${aboutUs.imageUrl}`} />
+              <UploadButton fileType=".PNG" handleUpload={handleBannerUpload} name="teamBanner" />
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
       <Row>
@@ -137,8 +183,8 @@ function AboutUs({ data, creds, reloadInterface }) {
               </tr>
             </thead>
             <tbody>
-              {aboutUs.members.map((member, idx) => (
-                <tr key={member["name"] + idx}>
+              {aboutUs.members.map((member, index) => (
+                <tr key={member["name"] + index}>
                   {allProps.map((prop) => {
                     switch (prop.toLowerCase()) {
                       case "imageurl":
@@ -148,17 +194,13 @@ function AboutUs({ data, creds, reloadInterface }) {
                             {member["isNew"]
                               ? <span>Please submit new members first, before uploading images</span>
                               : (
-                                <>
-                                  <span>{member[prop]}</span>
-                                  <FileSelector
-                                    type="team"
-                                    creds={creds}
-                                    artist={member}
-                                    data={aboutUs}
-                                    index={idx}
-                                    rerender={reloadInterface}
-                                  />
-                                </>
+                                <div className="d-flex align-items-center">
+                                  <img
+                                    alt="Member preview"
+                                    className={`${styles.teamImage} mr-3`}
+                                    src={`${process.env.REACT_APP_BACKEND}images/team/${member[prop]}`} />
+                                  <UploadButton handleUpload={handleMemberImageUpload} fileType=".JPG" name={`member${index}`}/>
+                                </div>
                               )}
                           </td>
                         );
@@ -171,7 +213,7 @@ function AboutUs({ data, creds, reloadInterface }) {
                               as="textarea"
                               defaultValue={member[prop]}
                               onBlur={(e) =>
-                                handleUpdateProp(prop, e.target.value, idx)
+                                handleUpdateProp(prop, e.target.value, index)
                               }
                               key={prop}
                             />
@@ -184,7 +226,7 @@ function AboutUs({ data, creds, reloadInterface }) {
                             <Form.Control
                               defaultValue={member[prop]}
                               onBlur={(e) =>
-                                handleUpdateProp(prop, e.target.value, idx)
+                                handleUpdateProp(prop, e.target.value, index)
                               }
                               key={prop}
                             />
@@ -194,7 +236,7 @@ function AboutUs({ data, creds, reloadInterface }) {
                   })}
 
                   <td>
-                    <Button variant="danger" onClick={() => handleDelete(idx)}>
+                    <Button variant="danger" onClick={() => handleDelete(index)}>
                       <Delete />
                     </Button>
                   </td>

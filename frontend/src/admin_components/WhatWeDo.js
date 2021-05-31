@@ -1,4 +1,3 @@
-import styles from "./WhatWeDo.module.scss";
 import { Table, Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -165,7 +164,7 @@ function WhatWeDo({ data, creds, discardChanges }) {
       </Table>
       <Button
         variant="success"
-        className={"mr-3 " + styles.saveChanges}
+        className="mr-3"
         onClick={() => handleUpdateSubmit()}
       >
         Save Changes

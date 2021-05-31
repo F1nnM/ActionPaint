@@ -139,16 +139,18 @@ var upload = multer({
 });
 
 // define endpoint for uploading images, multer middleware to handle the upload, 200 return code
-app.post("/admin/upload_image/:imagetype", upload.array("images"), (req, res) =>
+app.post("/admin/upload_image/:imagetype", upload.array("images"), (req, res) => {
+  if (!validTypes.includes(req.params.imagetype))
+    return res.status(400).send("Invalid file type!")
   res.status(200).end()
-);
+});
 
 app.delete("/admin/delete_image/:imagetype/:image", (req, res) => {
 
   // make sure no relative paths are used to delete other files
   let filename = path.basename(req.params.image);
 
-  if(!validTypes.includes(req.params.imagetype))
+  if (!validTypes.includes(req.params.imagetype))
     return res.status(400).send("Invalid imagetype supplied!")
 
   fs.unlink("./images/" + req.params.imagetype + "/" + filename, (err) => {

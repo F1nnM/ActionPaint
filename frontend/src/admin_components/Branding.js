@@ -1,4 +1,3 @@
-import styles from "./Branding.module.scss";
 import { Table, Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import { toPascalCaseWithWhiteSpace } from "../frontendUtils";
@@ -70,7 +69,7 @@ function Branding({ data, creds, discardChanges }) {
       </Table>
       <Button
         variant="success"
-        className={"mr-2 " + styles.saveChanges}
+        className="mr-2"
         onClick={() => handleUpdateSubmit()}
       >
         Save Changes
