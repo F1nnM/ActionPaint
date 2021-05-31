@@ -4,8 +4,8 @@ import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
 import { UploadButton } from "./FileButton";
 
-function AboutUs({ data, creds, reloadInterface }) {
-  const [aboutUs, setAboutUs] = useState(data.about);
+function AboutUs({ data, creds }) {
+  const [aboutUs, setAboutUs] = useState(JSON.parse(JSON.stringify(data.about)));
   const [toBeDeleted, setToBeDeleted] = useState([]);
 
   const allProps = Object.keys(aboutUs.members[0]);
@@ -16,12 +16,17 @@ function AboutUs({ data, creds, reloadInterface }) {
     return obj;
   };
 
-  let headers = new Headers();
-  headers.append(
+  let headersJSON = new Headers();
+  let headersImage = new Headers();
+  headersJSON.append(
     "Authorization",
     "Basic " + btoa(creds.username + ":" + creds.password)
   );
-  headers.append("Content-Type", "application/json");
+  headersImage.append(
+    "Authorization",
+    "Basic " + btoa(creds.username + ":" + creds.password)
+  );
+  headersJSON.append("Content-Type", "application/json");
 
   function handleUpdateProp(key, value, index) {
     let new_members = [...aboutUs.members];
@@ -60,24 +65,32 @@ function AboutUs({ data, creds, reloadInterface }) {
       return strippedMember;
     })
 
+    let newAboutUs = { ...aboutUs, members: strippedMembers };
+
+    submitAboutUs(newAboutUs);
+
+    setAboutUs(newAboutUs);
+
+    toBeDeleted.forEach((element) => {
+      handleDeleteImage(element);
+    });
+    setToBeDeleted([]);
+  }
+
+  function submitAboutUs(dataToSubmit) {
     const url = `${process.env.REACT_APP_BACKEND}admin/update/about`;
     const options = {
       method: "POST",
-      headers,
-      body: JSON.stringify({ ...aboutUs, members: strippedMembers }),
+      headers: headersJSON,
+      body: JSON.stringify(dataToSubmit),
     };
     fetch(url, options)
       .then(() => {
-        setAboutUs({ ...aboutUs, members: strippedMembers })
         alert("Saved successfully.")
       })
       .catch((err) => {
         alert(`An error occured: ${err}`);
       });
-    toBeDeleted.forEach((element) => {
-      handleDeleteImage(element);
-    });
-    setToBeDeleted([]);
   }
 
   function handleDeleteImage(src) {
@@ -85,7 +98,7 @@ function AboutUs({ data, creds, reloadInterface }) {
 
     fetch(url, {
       method: "DELETE",
-      headers,
+      headers: headersJSON,
     })
       .catch((err) => alert(`An error occured: ${err}`))
   }
@@ -101,7 +114,7 @@ function AboutUs({ data, creds, reloadInterface }) {
 
     fetch(url, {
       method: "POST",
-      headers,
+      headers: headersImage,
       body: formData
     })
       .then(async res => {
@@ -112,7 +125,10 @@ function AboutUs({ data, creds, reloadInterface }) {
       .catch(err => alert(`An error occured: ${err}`));
   }
 
-  function handleMemberImageUpload(e) {
+  function handleMemberImageUpload(e, index) {
+
+    handleDeleteImage(data.about.members[index].imageUrl);
+
     let url = `${process.env.REACT_APP_BACKEND}admin/upload_image/team`;
 
     let fileName = Date.now().toString() + e.target.files[0].name;
@@ -122,13 +138,23 @@ function AboutUs({ data, creds, reloadInterface }) {
 
     fetch(url, {
       method: "POST",
-      headers,
+      headers: headersImage,
       body: formData
     })
       .then(async res => {
         if (!res.ok)
           throw await res.text();
         e.target.value = "";
+
+        // update local, possibly modified state
+        let newMembersLocal = [...aboutUs.members];
+        newMembersLocal[index].imageUrl = fileName;
+        setAboutUs({ ...aboutUs, members: newMembersLocal });
+
+        //update remote state without local modifications
+        let newMembersRemote = [...data.about.members];
+        newMembersRemote[index].imageUrl = fileName;
+        submitAboutUs({...data.aboutUs, members: newMembersRemote})
       })
       .catch(err => alert(`An error occured: ${err}`));
   }
@@ -199,7 +225,7 @@ function AboutUs({ data, creds, reloadInterface }) {
                                     alt="Member preview"
                                     className={`${styles.teamImage} mr-3`}
                                     src={`${process.env.REACT_APP_BACKEND}images/team/${member[prop]}`} />
-                                  <UploadButton handleUpload={handleMemberImageUpload} fileType=".JPG" name={`member${index}`}/>
+                                  <UploadButton handleUpload={(e) => handleMemberImageUpload(e, index)} fileType=".JPG" name={`member${index}`} />
                                 </div>
                               )}
                           </td>
