@@ -60,7 +60,7 @@ function AboutUs({ data, creds }) {
       let strippedMember = { ...member };
       if (strippedMember.isNew) {
         delete strippedMember["isNew"];
-        strippedMember.images = [];
+        strippedMember.imageUrl = "default.jpg"
       }
       return strippedMember;
     })
