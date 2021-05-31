@@ -69,8 +69,6 @@ function AboutUs({ data, creds }) {
 
     submitAboutUs(newAboutUs);
 
-    setAboutUs(newAboutUs);
-
     toBeDeleted.forEach((element) => {
       handleDeleteImage(element);
     });
@@ -86,6 +84,7 @@ function AboutUs({ data, creds }) {
     };
     fetch(url, options)
       .then(() => {
+        setAboutUs(dataToSubmit);
         alert("Saved successfully.")
       })
       .catch((err) => {
@@ -127,7 +126,7 @@ function AboutUs({ data, creds }) {
 
   function handleMemberImageUpload(e, index) {
 
-    handleDeleteImage(data.about.members[index].imageUrl);
+    handleDeleteImage(aboutUs.members[index].imageUrl);
 
     let url = `${process.env.REACT_APP_BACKEND}admin/upload_image/team`;
 
@@ -147,14 +146,9 @@ function AboutUs({ data, creds }) {
         e.target.value = "";
 
         // update local, possibly modified state
-        let newMembersLocal = [...aboutUs.members];
-        newMembersLocal[index].imageUrl = fileName;
-        setAboutUs({ ...aboutUs, members: newMembersLocal });
-
-        //update remote state without local modifications
-        let newMembersRemote = [...data.about.members];
-        newMembersRemote[index].imageUrl = fileName;
-        submitAboutUs({...data.aboutUs, members: newMembersRemote})
+        let newMembers = [...aboutUs.members];
+        newMembers[index].imageUrl = fileName;
+        submitAboutUs({...data.aboutUs, members: newMembers})
       })
       .catch(err => alert(`An error occured: ${err}`));
   }
@@ -197,6 +191,7 @@ function AboutUs({ data, creds }) {
       </Row>
       <Row>
         <Col>
+        <div className="mb-3"><b>Caution</b>: Modifiying the images will persist all other modifications to the team details.</div>
           <Table striped bordered hover>
             <thead>
               <tr>

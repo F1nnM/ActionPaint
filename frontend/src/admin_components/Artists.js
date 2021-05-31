@@ -1,9 +1,11 @@
 import { Button, Col, Container, Form, Row, Card } from "react-bootstrap";
 import ListGroup from "react-bootstrap/ListGroup";
-import FileSelector from "./FileSelector";
 import Tab from "react-bootstrap/Tab";
 import { Delete, Add } from "@material-ui/icons";
 import { useState } from "react";
+import styles from "./Artists.module.scss"
+
+import { UploadButton } from "./FileButton";
 
 function Artists({ data, creds }) {
   const initialData = data.artists;
@@ -19,12 +21,17 @@ function Artists({ data, creds }) {
   }
 
 
-  let headers = new Headers();
-  headers.append(
+  let headersJSON = new Headers();
+  headersJSON.append(
     "Authorization",
     "Basic " + btoa(creds.username + ":" + creds.password)
   );
-  headers.append("Content-Type", "application/json");
+  headersJSON.append("Content-Type", "application/json");
+  let headersImage = new Headers();
+  headersImage.append(
+    "Authorization",
+    "Basic " + btoa(creds.username + ":" + creds.password)
+  );
 
   function handleUpdateProp(key, value, index) {
     let newArtists = [...artistData.artists]
@@ -64,24 +71,27 @@ function Artists({ data, creds }) {
       return strippedArtist;
     })
 
-    const url = process.env.REACT_APP_BACKEND + "admin/update/artists";
-    const options = {
-      method: "POST",
-      headers,
-      body: JSON.stringify(strippedArtists),
-    };
-    fetch(url, options)
-      .then(()=> {
-        setArtistData({artists: strippedArtists, selectedArtistIndex: 0});
-      })
-      .catch((err) => {
-        alert(`An error occured: ${err}`);
-      });
+    submitArtistData(strippedArtists);
 
     toBeDeleted.forEach((element) => {
       handleDeleteImage(element);
     });
+  }
 
+  function submitArtistData(data) {
+    const url = process.env.REACT_APP_BACKEND + "admin/update/artists";
+    const options = {
+      method: "POST",
+      headers: headersJSON,
+      body: JSON.stringify(data),
+    };
+    fetch(url, options)
+      .then(() => {
+        setArtistData({ ...artistData, artists: data, selectedArtistIndex: (artistData.selectedArtistIndex < data.length ? artistData : 0) });
+      })
+      .catch((err) => {
+        alert(`An error occured: ${err}`);
+      });
   }
 
   function handleDeleteImage(src) {
@@ -90,9 +100,45 @@ function Artists({ data, creds }) {
 
     fetch(url, {
       method: "DELETE",
-      headers,
+      headers: headersJSON,
     })
       .catch((err) => alert(err));
+  }
+
+  function handleArtistImageUpload(e, index) {
+    let url = `${process.env.REACT_APP_BACKEND}admin/upload_image/artist`;
+
+    let fileName = Date.now().toString() + e.target.files[0].name;
+
+    var formData = new FormData();
+    formData.append('images', e.target.files[0], fileName);
+
+    fetch(url, {
+      method: "POST",
+      headers: headersImage,
+      body: formData
+    })
+      .then(async res => {
+        if (!res.ok)
+          throw await res.text();
+        e.target.value = "";
+
+        let newArtists = [...artistData.artists];
+        let newArtistImages = [...newArtists[index].images, fileName];
+
+        newArtists[index].images = newArtistImages;
+
+        submitArtistData([...newArtists])
+      })
+      .catch(err => alert(`An error occured: ${err}`));
+  }
+
+  function handleArtistImageDelete (src, index) {
+    handleDeleteImage(src);
+    let newArtists = [...artistData.artists];
+    newArtists[index].images = newArtists[index].images.filter( img => img !== src);
+    console.log(newArtists[index].images);
+    submitArtistData(newArtists)
   }
 
   return (
@@ -191,17 +237,25 @@ function Artists({ data, creds }) {
                       </Card.Header>
 
                       <Card.Body>
+                        <div className="mb-3"><b>Caution</b>: Modifiying the images will persist all other modifications to the artist details.</div>
                         {artistData.artists[artistData.selectedArtistIndex].isNew ? (
                           "Please submit the artist before uploading any pictures"
                         ) : (
-                          <FileSelector
-                            type="artist"
-                            creds={creds}
-                            onSelect={(val) => alert(val)}
-                            artist={artistData.artists[artistData.selectedArtistIndex]}
-                            data={artistData.artists}
-                            index={artistData.selectedArtistIndex}
-                          />
+                          <Container className={styles.imageList}>
+                            {artistData.artists[artistData.selectedArtistIndex].images ?
+                              artistData.artists[artistData.selectedArtistIndex].images.map((src, idx) => {
+                                return (
+                                  <div key={src} className={styles.imageContainer}>
+                                    <img alt={src} className={styles.artistImage} src={`${process.env.REACT_APP_BACKEND}images/artist/${src}`} />
+                                    <Button onClick={_ => handleArtistImageDelete(src, artistData.selectedArtistIndex)} className={styles.deleteButton} variant="danger">-</Button>
+                                    <span>{src}</span>
+                                  </div>
+                                )
+                              })
+                              : ""
+                            }
+                            <UploadButton fileType=".jpg" handleUpload={(e) => handleArtistImageUpload(e, artistData.selectedArtistIndex)} name={`artistImage${artistData.selectedArtistIndex}`}  />
+                          </Container>
                         )}
                       </Card.Body>
 
