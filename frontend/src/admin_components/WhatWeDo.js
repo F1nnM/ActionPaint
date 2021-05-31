@@ -46,10 +46,10 @@ function WhatWeDo({ data, creds, discardChanges }) {
     };
     fetch(url, options)
       .then((data) => {
-        console.log(data);
+        alert("Saved succesfully!")
       })
       .catch((err) => {
-        console.warn(err);
+        alert(`An error occured: ${err}`)
       });
   }
 

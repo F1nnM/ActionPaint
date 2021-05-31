@@ -6,10 +6,6 @@ import ReactMarkdown from "react-markdown";
 function PrivacyPolicy({ data, creds, discardChanges }) {
   const [policy, setPolicy] = useState(data.privacy_policy.text);
 
-  function handleUpdateValue(value) {
-    setPolicy(value);
-  }
-
   function handleUpdateSubmit() {
     const url = process.env.REACT_APP_BACKEND + "admin/update/privacy_policy";
     let headers = new Headers();
@@ -27,10 +23,10 @@ function PrivacyPolicy({ data, creds, discardChanges }) {
     };
     fetch(url, options)
       .then((data) => {
-        console.log(data);
+        alert("Saved successfully!");
       })
       .catch((err) => {
-        console.warn(err);
+        alert(`An error occured: ${err}`);
       });
   }
 
@@ -48,7 +44,7 @@ function PrivacyPolicy({ data, creds, discardChanges }) {
                   as="textarea"
                   defaultValue={policy}
                   key={12345}
-                  onChange={(e) => handleUpdateValue(e.target.value)}
+                  onChange={(e) => setPolicy(e.target.value)}
                 />
               </Card.Body>
               <Card.Footer>

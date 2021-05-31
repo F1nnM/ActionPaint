@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./Logos.module.scss";
 
-function Logos({ creds, reloadInterface }) {
+function Logos({ creds }) {
 
   const [imageKey, setImageKey] = useState(Date.now());
 
@@ -45,8 +45,6 @@ function Logos({ creds, reloadInterface }) {
 
   function handleUpload(file, type, target) {
 
-    console.log(file)
-
     let url = process.env.REACT_APP_BACKEND + "admin/upload_image/" + type;
 
     let headers = new Headers();
@@ -82,16 +80,16 @@ function Logos({ creds, reloadInterface }) {
             </div>
             <div>
               {logo.tag === "img" &&
-                <img key={imageKey} alt={logo} className={styles.image + " my-3"} src={process.env.REACT_APP_BACKEND + "images/" + logo.file + "?" + imageKey} />
+                <img key={imageKey} alt={logo} className={`${styles.image} my-3`} src={`${process.env.REACT_APP_BACKEND}images/${logo.file}?${imageKey}`} />
               }
               {logo.tag === "object" &&
-                <object key={imageKey} className={styles.image + " my-3"} type="image/svg+xml" data={process.env.REACT_APP_BACKEND + "images/" + logo.file + "?" + imageKey}>
-                  <img key={imageKey} src={process.env.REACT_APP_BACKEND + "images/" + logo.file + "?" + imageKey} alt="Logo" />
+                <object key={imageKey} className={`${styles.image} my-3`} type="image/svg+xml" data={`${process.env.REACT_APP_BACKEND}images/${logo.file}?${imageKey}`}>
+                  <img key={imageKey} src={`${process.env.REACT_APP_BACKEND}images/${logo.file}?${imageKey}`} alt="Logo" />
                 </object>
               }
             </div>
             <div className="py-3">
-              <a href={process.env.REACT_APP_BACKEND + "images/" + logo.file} download={logo.file} target="_blank" rel="noreferrer">Download current file</a>
+              <a href={`${process.env.REACT_APP_BACKEND}images/${logo.file}`} download={logo.file} target="_blank" rel="noreferrer">Download current file</a>
             </div>
             <div>
               <span>Upload new file:</span>
