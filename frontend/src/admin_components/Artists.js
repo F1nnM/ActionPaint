@@ -87,7 +87,7 @@ function Artists({ data, creds }) {
     };
     fetch(url, options)
       .then(() => {
-        setArtistData({ ...artistData, artists: data, selectedArtistIndex: (artistData.selectedArtistIndex < data.length ? artistData : 0) });
+        setArtistData({ ...artistData, artists: data, selectedArtistIndex: (artistData.selectedArtistIndex < data.length ? artistData.selectedArtistIndex : 0) });
       })
       .catch((err) => {
         alert(`An error occured: ${err}`);
