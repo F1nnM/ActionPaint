@@ -145,10 +145,9 @@ function AboutUs({ data, creds }) {
           throw await res.text();
         e.target.value = "";
 
-        // update local, possibly modified state
         let newMembers = [...aboutUs.members];
         newMembers[index].imageUrl = fileName;
-        submitAboutUs({...data.aboutUs, members: newMembers})
+        submitAboutUs({...aboutUs, members: newMembers})
       })
       .catch(err => alert(`An error occured: ${err}`));
   }
@@ -183,7 +182,7 @@ function AboutUs({ data, creds }) {
               Banner image
             </Card.Header>
             <Card.Body className="d-flex justify-content-around align-items-center">
-              <img alt="Team banner preview" className={styles.bannerImage} src={`${process.env.REACT_APP_BACKEND}images/team/${aboutUs.imageUrl}`} />
+              <img alt="Team banner preview" className={styles.bannerImage} src={`${process.env.REACT_APP_BACKEND}images/team/${aboutUs.imageUrl}?${Date.now()}`} />
               <UploadButton fileType=".PNG" handleUpload={handleBannerUpload} name="teamBanner" />
             </Card.Body>
           </Card>
@@ -219,7 +218,7 @@ function AboutUs({ data, creds }) {
                                   <img
                                     alt="Member preview"
                                     className={`${styles.teamImage} mr-3`}
-                                    src={`${process.env.REACT_APP_BACKEND}images/team/${member[prop]}`} />
+                                    src={`${process.env.REACT_APP_BACKEND}images/team/${member[prop]}?${Date.now()}`} />
                                   <UploadButton handleUpload={(e) => handleMemberImageUpload(e, index)} fileType=".JPG" name={`member${index}`} />
                                 </div>
                               )}
