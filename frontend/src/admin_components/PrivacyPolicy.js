@@ -27,10 +27,10 @@ function PrivacyPolicy({ data, creds, discardChanges }) {
     };
     fetch(url, options)
       .then((data) => {
-        console.log(data);
+        alert("Saved successfully!");
       })
       .catch((err) => {
-        console.warn(err);
+        alert(`An error occured: ${err}`);
       });
   }
 

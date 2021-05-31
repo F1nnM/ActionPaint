@@ -137,7 +137,6 @@ function Artists({ data, creds }) {
     handleDeleteImage(src);
     let newArtists = [...artistData.artists];
     newArtists[index].images = newArtists[index].images.filter( img => img !== src);
-    console.log(newArtists[index].images);
     submitArtistData(newArtists)
   }
 

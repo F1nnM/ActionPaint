@@ -22,12 +22,10 @@ function Contact() {
     };
     fetch(url, options)
       .then((data) => {
-        console.log(data);
-        alert(data);
+        alert("Sent successfully.")
       })
       .catch((err) => {
-        console.warn(err);
-        alert(err);
+        alert(`An error occured: ${err}`);
       });
   };
 

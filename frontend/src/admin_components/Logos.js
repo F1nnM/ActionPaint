@@ -45,8 +45,6 @@ function Logos({ creds, reloadInterface }) {
 
   function handleUpload(file, type, target) {
 
-    console.log(file)
-
     let url = process.env.REACT_APP_BACKEND + "admin/upload_image/" + type;
 
     let headers = new Headers();
