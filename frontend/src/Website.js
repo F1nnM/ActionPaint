@@ -41,13 +41,6 @@ const sections = [
   },
 ];
 
-// if in dev mode, add the playground component to the sections array
-if (process.env.NODE_ENV === "development")
-  sections.unshift({
-    id: "playground",
-    component: <PlaygroundComponent />,
-  });
-
 function Website({ switchToAdmin }) {
   // used to check scroll state to collapse/expand the navbar
   // ref - react reference to the element to be checked for visibility (will be the TitleScreen)
