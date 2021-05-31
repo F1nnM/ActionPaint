@@ -93,6 +93,8 @@ function AboutUs({ data, creds }) {
   }
 
   function handleDeleteImage(src) {
+    if(src === "default.jpg")
+      return
     let url = `${process.env.REACT_APP_BACKEND}admin/delete_image/team/${src}`;
 
     fetch(url, {
