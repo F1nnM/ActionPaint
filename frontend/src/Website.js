@@ -61,7 +61,6 @@ if (process.env.NODE_ENV === "development")
   });
 
 function Website({ switchToAdmin }) {
-
   // used to check scroll state to collapse/expand the navbar
   // ref - react reference to the element to be checked for visibility (will be the TitleScreen)
   // inView - reactive boolean
@@ -85,17 +84,18 @@ function Website({ switchToAdmin }) {
   // as long as the data has not been loaded display nothing.
   if (!data) return <div>Loading...</div>;
 
-  // define a style object for the css variables. CSS variables are inherited from parent elements 
+  // define a style object for the css variables. CSS variables are inherited from parent elements
   const cssVars = {
     "--primaryColor": data["style"]["primaryColor"],
     "--accentColor": data["style"]["accentColor"],
+    "--textPrimary": data["style"]["textColorPrimary"],
+    "--textAccent": data["style"]["textColorAccent"],
     "--initialBackground": data["style"]["initialBackground"],
     "--background": data["style"]["background"],
   };
 
   return (
     <Container fluid className={styles.app + " px-0"} style={cssVars}>
-
       <Navbar hideNavbar={inView} data={data} />
 
       <Row className="mb-5">
@@ -106,11 +106,15 @@ function Website({ switchToAdmin }) {
 
       <Row>
         <Col>
-          {(process.env.NODE_ENV === "development") && (
-            <SectionFrame title="Playground"/>
+          {process.env.NODE_ENV === "development" && (
+            <SectionFrame title="Playground" />
           )}
           {sections.map((section) => (
-            <SectionFrame title={data["sections"][section.id]} id={section.id} key={data["sections"][section.id]}>
+            <SectionFrame
+              title={data["sections"][section.id]}
+              id={section.id}
+              key={data["sections"][section.id]}
+            >
               {
                 // We need to clone the elements in order to pass the data prop
                 React.cloneElement(section.component, { data: data })
@@ -120,14 +124,19 @@ function Website({ switchToAdmin }) {
         </Col>
       </Row>
       <Footer
-        showPrivacyPolicyPopup={()=>setPolicyPopupVisible(true)}
+        showPrivacyPolicyPopup={() => setPolicyPopupVisible(true)}
         switchToAdmin={switchToAdmin}
         data={data}
       />
-      {policyPopupVisible && <PrivacyPolicy policy={data.privacy_policy.text} hidePopup={()=>setPolicyPopupVisible(false)} />}
+      {policyPopupVisible && (
+        <PrivacyPolicy
+          policy={data.privacy_policy.text}
+          hidePopup={() => setPolicyPopupVisible(false)}
+        />
+      )}
 
       {
-        // each <li /> is one bubble in the background 
+        // each <li /> is one bubble in the background
       }
       <div className={styles.background}>
         <li />
