@@ -1,38 +1,38 @@
-.navbar{
+.navbar {
     z-index: 16 !important;
-    background-color: var(--primaryColor) !important;  
+    background-color: var(--primaryColor) !important;
     animation: fadeIn ease-in-out 1s;
     height: 55px !important;
     align-items: stretch !important;
 }
 
-.navbaralt{
+.navbaralt {
     visibility: hidden;
     position: fixed;
 }
 
-.hamburger{
-    background-color: var(--primaryColor) !important;  
+.hamburger {
+    background-color: var(--primaryColor) !important;
     animation: fadeIn ease-in-out 1s;
 }
 
-.collapseabletext{
+.collapseabletext {
     background-color: var(--primaryColor) !important;
     text-align: center;
     max-width: 175px !important;
     min-width: 175px !important;
-    margin-right:90% !important;
+    margin-right: 90% !important;
     border-radius: 5%;
 }
 
-.smallCollapse{
+.smallCollapse {
     width: 100vw;
     background-color: var(--primaryColor) !important;
     text-align: center;
     border-radius: 12%;
 }
 
-.dropitem{
+.dropitem {
     width: 175px;
     padding-top: 5px !important;
     padding-bottom: 5px !important;
@@ -40,47 +40,47 @@
     text-align: left;
 }
 
-.brand:hover{
-    color:black !important;
+.brand:hover {
+    color: black !important;
     cursor: pointer;
 }
 
-.brand{
-    color:rgb(30,30,30) !important;
+.brand {
+    color: rgb(30, 30, 30) !important;
 }
 
-.navitem{
+.navitem {
     cursor: pointer;
 }
 
-.navitem:hover{
+.navitem:hover {
     text-decoration-color: black !important;
 }
 
-.droplet{
-    z-index: 2;    
+.droplet {
+    z-index: 2;
     position: fixed !important;
-    top:-5vh;
+    top: -5vh;
     right: 6%;
     fill: var(--primaryColor);
     height: 5vw;
     max-height: 5vh;
 }
 
-.dropletShadow{
+.dropletShadow {
     z-index: 2;
     filter: blur(1vw);
     fill: black;
 }
 
-.dripanimation{
+.dripanimation {
     animation: drop 32s cubic-bezier(0.5, 0, 0.75, 0) infinite;
     animation-delay: 3s;
 }
 
-.curvedBaseNavbar{
+.curvedBaseNavbar {
     pointer-events: none;
-    z-index: 2; 
+    z-index: 2;
     fill: var(--primaryColor);
     position: fixed !important;
     top: 55px;
@@ -88,10 +88,10 @@
     animation: fadeIn ease-in-out 1s;
 }
 
-.curvedDripNavbar{
+.curvedDripNavbar {
     pointer-events: none;
     visibility: hidden;
-    z-index: 2; 
+    z-index: 2;
     width: 100vw;
     fill: var(--primaryColor);
     position: fixed !important;
@@ -101,19 +101,50 @@
 }
 
 @keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
-  }
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 @keyframes drop {
-    0% {transform: translateY(0); visibility: hidden;}
-    6% {visibility: hidden;}
-    10% {transform: translateY(120vh); visibility: visible;}
-    100% {transform: translateY(120vh); visibility: hidden;}
-  }
+    0% {
+        transform: translateY(0);
+        visibility: hidden;
+    }
+    6% {
+        visibility: hidden;
+    }
+    10% {
+        transform: translateY(120vh);
+        visibility: visible;
+    }
+    100% {
+        transform: translateY(120vh);
+        visibility: hidden;
+    }
+}
 
 @keyframes dropbody {
-    0% {transform: translateY(0px) rotateY(180deg); visibility: visible;}
-    10% {transform: translateY(60px) rotateY(180deg); animation-delay: 3s; visibility: hidden;}
-    100%{transform:translate(60px) rotate(180deg);}
-  }
+    0% {
+        transform: translateY(0px) rotateY(180deg);
+        visibility: visible;
+    }
+    10% {
+        transform: translateY(60px) rotateY(180deg);
+        animation-delay: 3s;
+        visibility: hidden;
+    }
+    100% {
+        transform: translate(60px) rotate(180deg);
+    }
+}
+
+.textColor {
+    color: var(--textPrimary) !important;
+    a {
+        color: var(--textPrimary) !important;
+    }
+}

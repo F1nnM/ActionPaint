@@ -29,3 +29,11 @@
   object-fit: cover;
   clip-path: url(#svgPath);
 }
+
+.textColorPrimary {
+  color: var(--textPrimary)
+}
+
+.textColorAccent {
+  color: var(--textAccent)
+}

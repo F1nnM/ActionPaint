@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import { debounce } from "@material-ui/core";
 
 function WhatWeDo({ data }) {
-  const [ width, setWidth ] = useState(window.innerWidth);
+  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,33 +33,24 @@ function WhatWeDo({ data }) {
       {whatwedo.map((description, idx) => (
 
         // Iterate over whatwedo.json and create a Timeline Item based on the content 
-        <TimelineItem key={"TimelineItem" + idx}>
-          <TimelineOppositeContent className={styles.oppositecontent} />
-          <TimelineSeparator>
-            <TimelineDot
-              className={
-                idx % 2 === 0
-                  ? styles.bgAccent + " text-primary"
-                  : styles.textAccent + " bg-primary"
-              }
-            >
-              <CheckIcon />
-            </TimelineDot>
-            {whatwedo.length===(idx+1) || <TimelineConnector />}
-          </TimelineSeparator>
+        <TimelineItem className={styles.timelineItem} key={"TimelineItem" + idx}>
           <TimelineContent>
             <Paper
               elevation={2}
-              className={
-                idx % 2 === 0
-                  ? styles.primarytimeline
-                  : styles.secondarytimeline
-              }
+              className={styles.timelineContent}
             >
               <Typography variant="h6" component="h1">{description.Title}</Typography>
               <Typography>{description.Description}</Typography>
             </Paper>
           </TimelineContent>
+          <TimelineSeparator>
+            <TimelineDot className={styles.timelineDot}>
+              <CheckIcon />
+            </TimelineDot>
+            {whatwedo.length === (idx + 1) || <TimelineConnector />}
+          </TimelineSeparator>
+          <TimelineOppositeContent className={styles.oppositecontent} />
+
         </TimelineItem>
       ))}
     </Timeline>

@@ -51,10 +51,10 @@ function TopFlavors({ data }) {
               </Col>
               <Col md={{ order: index % 2 === 0 ? 1 : 2 }}>
                 <Card.Body className={styles.text}>
-                  <Card.Title>
+                  <Card.Title className={index % 2 === 0 ? styles.textColorPrimary :  styles.textColorAccent}>
                     {artist.firstName} {artist.lastName}
                   </Card.Title>
-                  <Card.Text>{artist.desc}</Card.Text>
+                  <Card.Text  className={index % 2 === 0 ? styles.textColorPrimary :  styles.textColorAccent}>{artist.desc}</Card.Text>
                   <a href={"https://www.instagram.com/" + artist.instagram +"/"} target="_blank" rel="noreferrer">
                   <Button
                     className={

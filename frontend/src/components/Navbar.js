@@ -36,16 +36,16 @@ function NavbarFunc({ hideNavbar, data }) {
             <img src={`${process.env.REACT_APP_BACKEND}images/logo_static.svg`} alt="Logo"/>
           </object>
           {' '}
-          {data.brand.title}
+          <span className={styles.textColor}>{data.brand.title}</span>
         </Navbar.Brand>
         </Link>
 
         {/* Enable toggle and style the hamburger menu and the link elements while being collapsed (including mobile)*/}
 
-        <Navbar.Toggle className={styles.hamburger} />
+        <Navbar.Toggle className={styles.hamburger+ " " + styles.textColor} />
         <Navbar.Collapse className={hideNavbar ? styles.collapseabletext: styles.smallCollapse}>
           <Nav>
-            <NavDropdown title={data.sections["Our Artists"]}>
+            <NavDropdown title={data.sections["Our Artists"]}  className={styles.textColor}>
 
               {/* Iterate over all artists and create a corresponding dropdown item with a link to its component */}
 
@@ -79,7 +79,7 @@ function NavbarFunc({ hideNavbar, data }) {
               duration={Scrollspeed}
               className={styles.navitem}
             >
-              <Container className={styles.navitem} bsPrefix={'nav-link'}>{data.sections["About Us"]}</Container>
+              <Container className={styles.navitem+ " " + styles.textColor} bsPrefix={'nav-link'}>{data.sections["About Us"]}</Container>
             </Link>
             <Link
               activeClass="active"
@@ -89,7 +89,7 @@ function NavbarFunc({ hideNavbar, data }) {
               duration={Scrollspeed}
               className={styles.navitem}
             >
-              <Container className={styles.navitem} bsPrefix={'nav-link'}>{data.sections["What We Do"]}</Container>
+              <Container className={styles.navitem+ " " + styles.textColor} bsPrefix={'nav-link'}>{data.sections["What We Do"]}</Container>
             </Link>
             <Link
               activeClass="active"
@@ -99,7 +99,7 @@ function NavbarFunc({ hideNavbar, data }) {
               duration={Scrollspeed}
               className={styles.navitem}
             >
-              <Container className={styles.navitem} bsPrefix={'nav-link'}>{data.sections["FAQ"]}</Container>
+              <Container className={styles.navitem+ " " + styles.textColor} bsPrefix={'nav-link'}>{data.sections["FAQ"]}</Container>
             </Link>
             <Link
               activeClass="active"
@@ -109,7 +109,7 @@ function NavbarFunc({ hideNavbar, data }) {
               duration={Scrollspeed}
               className={styles.navitem}
             >
-              <Container className={styles.navitem} bsPrefix={'nav-link'}>{data.sections["Contact Us"]}</Container>
+              <Container className={styles.navitem+ " " + styles.textColor} bsPrefix={'nav-link'}>{data.sections["Contact Us"]}</Container>
             </Link>
           </Nav>
         </Navbar.Collapse>

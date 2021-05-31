@@ -34,7 +34,7 @@ function Footer({ showPrivacyPolicyPopup, switchToAdmin, data}) {
       <Container fluid className={styles.footerContainer + " py-3"}>
         <Row className="py-2">
           <Col md lg={1} xl={2} />
-          <Col md className="text-lg-start">
+          <Col md className={`text-lg-start ${styles.textColor}`}>
             <div className="text-center">
               <span className="text-uppercase">Impressum - Legal Notice</span>
             </div>
