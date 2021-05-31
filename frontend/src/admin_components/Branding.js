@@ -3,10 +3,10 @@ import { useState } from "react";
 import { toPascalCaseWithWhiteSpace } from "../frontendUtils";
 
 function Branding({ data, creds, discardChanges }) {
-  const [brand] = useState(data.brand);
+  const [branding, setBranding] = useState(data.brand);
 
   function handleUpdateValue(value, entry) {
-    brand[entry] = value;
+    setBranding({...branding, [value]: entry})
   }
 
   function handleUpdateSubmit() {
@@ -22,14 +22,11 @@ function Branding({ data, creds, discardChanges }) {
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify(brand),
+      body: JSON.stringify(branding),
     };
     fetch(url, options)
-      .then((data) => {
-        console.log(data);
-      })
       .catch((err) => {
-        console.warn(err);
+        alert(`An error occured: ${err}`)
       });
   }
 
@@ -47,7 +44,7 @@ function Branding({ data, creds, discardChanges }) {
           </tr>
         </thead>
         <tbody>
-          {Object.keys(brand).map((entry) => (
+          {Object.keys(branding).map((entry) => (
             <tr key={entry}>
               <td width="20%">
                 <Form.Control
@@ -58,8 +55,8 @@ function Branding({ data, creds, discardChanges }) {
               <td>
                 <Form.Control
                   id={entry}
-                  defaultValue={brand[entry]}
-                  key={brand[entry]}
+                  defaultValue={branding[entry]}
+                  key={branding[entry]}
                   onChange={(e) => handleUpdateValue(e.target.value, entry)}
                 />
               </td>
