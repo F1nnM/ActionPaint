@@ -6,19 +6,6 @@ import { ChromePicker } from "react-color";
 function Coloring({ data, creds }) {
   const [style, setStyle] = useState(data.style);
 
-  function handleUpdateValue(value, entry) {
-    style[entry] = value;
-    setStyle({ ...style });
-  }
-
-  function colorDragComplete(value, entry) {
-    // will be triggered each time picker has been set
-    console.log(value);
-
-    value.rgb.a = "1"; // sets alpha to 1, user should not be able to set an rgba value, as hex cannot represent it
-    handleUpdateValue(value.hex, entry);
-  }
-
   function handleUpdateSubmit() {
     const url = process.env.REACT_APP_BACKEND + "admin/update/style";
     let headers = new Headers();
@@ -35,11 +22,8 @@ function Coloring({ data, creds }) {
       body: JSON.stringify(style),
     };
     fetch(url, options)
-      .then((data) => {
-        console.log(data);
-      })
       .catch((err) => {
-        console.warn(err);
+        alert(`An error occured: ${err}`)
       });
   }
 
@@ -52,9 +36,9 @@ function Coloring({ data, creds }) {
               <Card.Header>{toPascalCaseWithWhiteSpace(entry)}</Card.Header>
               <Card.Body>
                 <ChromePicker
+                  disableAlpha
                   color={style[entry]}
-                  onChangeComplete={(color) => colorDragComplete(color, entry)}
-                  onChange={(color) => handleUpdateValue(color.hex, entry)}
+                  onChange={(color) => setStyle({ ...style, [entry]: color.hex })}
                 />
               </Card.Body>
             </Card>
