@@ -60,24 +60,29 @@ function AboutUs({ data, creds, reloadInterface }) {
       return strippedMember;
     })
 
+    submitAboutUs({ ...aboutUs, members: strippedMembers });
+
+    toBeDeleted.forEach((element) => {
+      handleDeleteImage(element);
+    });
+    setToBeDeleted([]);
+  }
+
+  function submitAboutUs(dataToSubmit) {
     const url = `${process.env.REACT_APP_BACKEND}admin/update/about`;
     const options = {
       method: "POST",
       headers,
-      body: JSON.stringify({ ...aboutUs, members: strippedMembers }),
+      body: JSON.stringify(dataToSubmit),
     };
     fetch(url, options)
       .then(() => {
-        setAboutUs({ ...aboutUs, members: strippedMembers })
+        setAboutUs(dataToSubmit)
         alert("Saved successfully.")
       })
       .catch((err) => {
         alert(`An error occured: ${err}`);
       });
-    toBeDeleted.forEach((element) => {
-      handleDeleteImage(element);
-    });
-    setToBeDeleted([]);
   }
 
   function handleDeleteImage(src) {
@@ -112,7 +117,10 @@ function AboutUs({ data, creds, reloadInterface }) {
       .catch(err => alert(`An error occured: ${err}`));
   }
 
-  function handleMemberImageUpload(e) {
+  function handleMemberImageUpload(e, index) {
+
+    handleDeleteImage(aboutUs.members[index].imageUrl);
+
     let url = `${process.env.REACT_APP_BACKEND}admin/upload_image/team`;
 
     let fileName = Date.now().toString() + e.target.files[0].name;
@@ -129,6 +137,11 @@ function AboutUs({ data, creds, reloadInterface }) {
         if (!res.ok)
           throw await res.text();
         e.target.value = "";
+
+        let newMembers = [...aboutUs.members];
+        newMembers[index].imageUrl = fileName;
+
+        submitAboutUs({...aboutUs, members: newMembers})
       })
       .catch(err => alert(`An error occured: ${err}`));
   }
@@ -199,7 +212,7 @@ function AboutUs({ data, creds, reloadInterface }) {
                                     alt="Member preview"
                                     className={`${styles.teamImage} mr-3`}
                                     src={`${process.env.REACT_APP_BACKEND}images/team/${member[prop]}`} />
-                                  <UploadButton handleUpload={handleMemberImageUpload} fileType=".JPG" name={`member${index}`}/>
+                                  <UploadButton handleUpload={(e) => handleMemberImageUpload(e, index)} fileType=".JPG" name={`member${index}`}/>
                                 </div>
                               )}
                           </td>
