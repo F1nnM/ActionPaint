@@ -19,18 +19,6 @@ import React, { useEffect, useState } from "react";
 
 // array of the sections and their components to be rendered
 const sections = [
-  /* {
-    title: "Example Section",
-    component: <ExampleSection />,
-  },*/
-  /*{
-    title: "Playground",
-    component: (
-      <Playground name="Lorem">
-        <PlaygroundComponent />
-      </Playground>
-    ),
-  },*/
   {
     id: "Our Artists",
     component: <TopFlavors />,
