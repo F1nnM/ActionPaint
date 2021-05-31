@@ -1,10 +1,10 @@
 import styles from "./EmailConfig.module.scss";
 import { Table, Button, Form } from "react-bootstrap";
+import { useState } from "react";
 
 function EmailConfig({ creds, discardChanges, emailData }) {
-  function handleUpdateValue(value, entry) {
-    emailData[entry] = value;
-  }
+
+  const [email, setEmail] = useState(emailData);
 
   function handleUpdateSubmit() {
     const url = process.env.REACT_APP_BACKEND + "admin/update/mail";
@@ -23,11 +23,10 @@ function EmailConfig({ creds, discardChanges, emailData }) {
     };
     fetch(url, options)
       .then((data) => {
-        console.log(data);
         document.querySelector("#mailPass").value = "****";
       })
       .catch((err) => {
-        console.warn(err);
+        alert(`An error occured: ${err}`)
       });
   }
 
@@ -57,7 +56,7 @@ function EmailConfig({ creds, discardChanges, emailData }) {
                   autocomplete={entry === "mailPass" ? "off" : "on"}
                   defaultValue={emailData[entry]}
                   key={emailData[entry]}
-                  onChange={(e) => handleUpdateValue(e.target.value, entry)}
+                  onChange={(e) => setEmail({...email, [entry]: e.target.value})}
                 />
               </td>
             </tr>
