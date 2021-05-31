@@ -1,10 +1,16 @@
 # ActionPaint
 
-Repository for an highschool project
+A website for a fictional artist agency called ActionPaint. It's been realized as a react page with a node + express backend.
+
+Going beyond the initial requirements the page was made fully configurable via a password protected admin interface, hence expanding the scope of use to being a template for a website with any content. While it's currently configured to display some example data from the fictional company, it can be adapted to several scenarios.
+
+Despite this being "only" a student project, a great deal of attention was paid to create clean and good code, following the standards and conventions for React / NodeJS applications. This should alllow you to understand the code without great effort and enable you to make your own modifications, should you be interested in using this template.
+
+While this repository is not being actively developed anymore and mainly serves the purpose of code preservation, contributions are welcome.
 
 # Deployment
 
-There's a docker image available which serves both front and backend.
+There's a docker image available which runs a server hosting both front- and backend.
 
 Pull from docker hub
 
@@ -20,7 +26,7 @@ docker pull ghcr.io/f1nnm/actionpaint
 
 Server is exposed at port 4000.
 
-A simple command to run it for tests:
+A simple command to quickly try it out: 
 
 ```
 docker run -p80:4000 -it f1nnm/actionpaint:latest
@@ -32,6 +38,8 @@ or
 docker run -p80:4000 -it ghcr.io/f1nnm/actionpaint:latest
 ```
 
+For production a bit more configuration is needed:
+
 ## Configuration
 The admin panel needs to be configured over environment variables:
 
@@ -42,91 +50,32 @@ ADMIN_USER='admin'
 ADMIN_PASS='secretpassword'
 ```
 
-The variable `ALLOW_CORS` has to be set to true, when the backend runs on a different domain.
+Should backend and frontend run on different ports/(sub)domains, the variable `ALLOW_CORS` has to be set to true.
 
 The content and the settings for the contact from then can be set via the admin GUI, accessible with the above defined username/password.
 
-# Useful dev links
+# Architecture
 
-## Icons
+As mentioned above, the website comes with its own server for the backend, packed into a Docker container.
+![Simple architecture](./readme_images/architecture.png)
 
-[How to use](https://material-ui.com/api/svg-icon/)  
-[List of all icons](https://material-ui.com/components/material-icons/)
+At build time the compiled frontend is placed into a folder accessible by the backend, which allows it to function as a basic webserver for those files.
 
-## Bootstrap
+## Backend / Frontend communication
 
-[React components](https://react-bootstrap.github.io/components/alerts/)  
-[React components for layout](https://react-bootstrap.github.io/layout/grid/)
+Once the frontend has been loaded by the client, it will request the actual content and styling. Loading the content like this, and not compiling it in allows for very rapid changes to the settings, as they don't require the entire website to be recompiled.
 
-[Special classes](https://getbootstrap.com/docs/4.1/utilities/spacing/)
+The admin interface simply talks to a REST API in the backend to update image files or .JSON files containing content and styling. All available endpoints are listed here:
 
-# Getting Started with Create React App
+![Overview over the endpoints](./readme_images/endpoints.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Authentication is, for convenience sake, done via simple HTTP-Auth, checked against a username / password provided to the server via environment variables.
+While this is not the most secure option out there, it offers sufficient protection for a simple website like this, not handling any critical data, provided it's being served over HTTPS.
 
-## Available Scripts
+## Frontend
 
-In the project directory, you can run:
+The basic "layout" of the React components is as follows:
 
-### `npm start`
+![Basic react component architecture](./readme_images/react_basics.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The all-encompasing app contains a state to switch between rendering the actual website or the admin panel. Each of those components loads the current settings and the content from the backend. Additinally to the public content loaded by the website component, the adminpanel also loads more secret configurations, as the access data to the mail server, used for the contact form.
