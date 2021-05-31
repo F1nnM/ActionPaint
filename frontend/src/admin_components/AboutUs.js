@@ -7,6 +7,11 @@ import { UploadButton } from "./FileButton";
 function AboutUs({ data, creds }) {
   const [aboutUs, setAboutUs] = useState(JSON.parse(JSON.stringify(data.about)));
   const [toBeDeleted, setToBeDeleted] = useState([]);
+  const [imageCache, setImageCache] = useState(Date.now());
+
+  function rerenderImages() {
+    setImageCache(Date.now());
+  }
 
   const allProps = Object.keys(aboutUs.members[0]);
 
@@ -85,6 +90,7 @@ function AboutUs({ data, creds }) {
     fetch(url, options)
       .then(() => {
         setAboutUs(dataToSubmit);
+        rerenderImages();
         alert("Saved successfully.")
       })
       .catch((err) => {
@@ -122,6 +128,7 @@ function AboutUs({ data, creds }) {
         if (!res.ok)
           throw await res.text();
         e.target.value = "";
+        rerenderImages();
       })
       .catch(err => alert(`An error occured: ${err}`));
   }
@@ -184,7 +191,7 @@ function AboutUs({ data, creds }) {
               Banner image
             </Card.Header>
             <Card.Body className="d-flex justify-content-around align-items-center">
-              <img alt="Team banner preview" className={styles.bannerImage} src={`${process.env.REACT_APP_BACKEND}images/team/${aboutUs.imageUrl}?${Date.now()}`} />
+              <img alt="Team banner preview" className={styles.bannerImage} src={`${process.env.REACT_APP_BACKEND}images/team/${aboutUs.imageUrl}?${imageCache}`} />
               <UploadButton fileType=".PNG" handleUpload={handleBannerUpload} name="teamBanner" />
             </Card.Body>
           </Card>
@@ -220,7 +227,7 @@ function AboutUs({ data, creds }) {
                                   <img
                                     alt="Member preview"
                                     className={`${styles.teamImage} mr-3`}
-                                    src={`${process.env.REACT_APP_BACKEND}images/team/${member[prop]}?${Date.now()}`} />
+                                    src={`${process.env.REACT_APP_BACKEND}images/team/${member[prop]}?${imageCache}`} />
                                   <UploadButton handleUpload={(e) => handleMemberImageUpload(e, index)} fileType=".JPG" name={`member${index}`} />
                                 </div>
                               )}
